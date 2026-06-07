@@ -1,0 +1,41 @@
+---
+import { services } from '../data/services';
+---
+
+<section
+	class='services'
+	id='services'
+>
+	<div class='wrap'>
+		<div class='sec-head reveal'>
+			<h2>What I can help with.</h2>
+			<p>New builds, automation, upgrades to older systems, ongoing upkeep, and the occasional second opinion.</p>
+		</div>
+		<div class='svc-grid'>
+			{
+				services.map((s, i) => (
+					<div
+						class='svc reveal'
+						data-delay={i % 3}
+					>
+						<h3>{s.name}</h3>
+						<p>{s.description}</p>
+						<div class='tech'>{s.tech}</div>
+					</div>
+				))
+			}
+			<div
+				class='svc svc-cta reveal'
+				data-delay='2'
+			>
+				<div class='tagline'>Have a project in mind?</div>
+				<p>Tell me roughly what you're after and I'll tell you how I'd build it, and whether I'm the right fit.</p>
+				<a
+					href='https://cal.com/aron-hawkins/15min'
+					class='btn btn-ghost'
+					>Book a 15-minute call <span class='btn-arrow'>→</span></a
+				>
+			</div>
+		</div>
+	</div>
+</section>

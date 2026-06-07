@@ -1,0 +1,124 @@
+---
+const EMAIL = 'howdy@aronhawkins.com';
+---
+
+<section
+	class='contact'
+	id='contact'
+>
+	<div class='wrap contact-grid'>
+		<div class='reveal'>
+			<h2>Get in touch.</h2>
+			<p class='sub'>
+				I usually reply within a day or two. The fastest way to get a project started is to <a href='https://cal.com/aron-hawkins/15min'>book a 15-minute call</a>.
+			</p>
+			<div class='detail'>
+				<p class='k'>Email</p>
+				<p style='margin-top:0.375rem;'><a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
+			</div>
+		</div>
+
+		<form id='contactForm'>
+			<div class='field'>
+				<label for='name'>Name</label>
+				<input
+					id='name'
+					name='name'
+					type='text'
+					placeholder='Your name'
+					required
+				/>
+			</div>
+			<div class='field'>
+				<label for='email'>Email</label>
+				<input
+					id='email'
+					name='email'
+					type='email'
+					placeholder='you@example.com'
+					required
+				/>
+			</div>
+			<!-- <div class='field'>
+				<label for='budget'>Budget</label>
+				<select
+					id='budget'
+					name='budget'
+					required
+				>
+				<option value='' disabled selected>Select a budget range</option>
+
+				<option value='5k-10k'>$5k - $10k</option>
+				<option value='10k-20k'>$10k - $25k</option>
+				<option value='20k-50k'>$25k - $50k</option>
+				<option value='50k-100k'>$50k - $100k</option>
+				<option value='over-100k'>Over $100k</option>
+				</select>
+			</div> -->
+			<div class='field'>
+				<label for='msg'>What are you looking to build?</label>
+				<textarea
+					id='msg'
+					name='message'
+					rows='4'
+					placeholder='Tell me a bit about the project.'
+					required
+				></textarea>
+			</div>
+			<button
+				type='submit'
+				class='btn btn-primary'
+				>Send message <span class='btn-arrow'>→</span></button
+			>
+			<div
+				class='form-ok'
+				id='formOk'
+			>
+				Thanks for reaching out! I typically respond within 24-48 hours.
+			</div>
+			<div
+				class='form-err'
+				id='formErr'
+			>
+				Something went wrong sending your message. Please try again, or email me directly at <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
+			</div>
+		</form>
+	</div>
+</section>
+
+<script>
+	// Contact form: POST to /api/contact, which sends the email via Resend.
+	const form = document.getElementById('contactForm') as HTMLFormElement | null;
+	form?.addEventListener('submit', async (e) => {
+		e.preventDefault();
+		const btn = form.querySelector('button') as HTMLButtonElement | null;
+		const ok = document.getElementById('formOk');
+		const err = document.getElementById('formErr');
+		if (err) err.style.display = 'none';
+		if (btn) {
+			btn.disabled = true;
+			btn.textContent = 'Sending…';
+		}
+		try {
+			const data = new FormData(form);
+			const res = await fetch('/api/contact', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					name: data.get('name'),
+					email: data.get('email'),
+					message: data.get('message'),
+				}),
+			});
+			if (!res.ok) throw new Error(`Request failed (${res.status})`);
+			if (btn) btn.style.display = 'none';
+			if (ok) ok.style.display = 'block';
+		} catch {
+			if (btn) {
+				btn.disabled = false;
+				btn.innerHTML = 'Send message <span class="btn-arrow">→</span>';
+			}
+			if (err) err.style.display = 'block';
+		}
+	});
+</script>

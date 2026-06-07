@@ -1,0 +1,45 @@
+---
+const links = [
+	{ label: 'Services', href: '#services' },
+	{ label: 'Work', href: '#work' },
+	{ label: 'About', href: '#about' },
+];
+---
+
+<header id='header'>
+	<div class='wrap nav'>
+		<a
+			href='#top'
+			class='logo'
+			>Aron Hawkins</a
+		>
+		<nav
+			class='nav-links'
+			id='navlinks'
+		>
+			{
+				links.map((l) => (
+					<a
+						class='link'
+						href={l.href}
+					>
+						{l.label}
+					</a>
+				))
+			}
+			<a
+				class='btn btn-primary'
+				href='https://cal.com/aron-hawkins/15min'
+				style='padding:0.6875rem 1.25rem;font-size:0.875rem;'
+				>Book a 15-minute call</a
+			>
+		</nav>
+		<button
+			class='nav-toggle'
+			id='navtoggle'
+			aria-label='Menu'
+		>
+			<span></span><span></span><span></span>
+		</button>
+	</div>
+</header>

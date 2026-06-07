@@ -1,0 +1,67 @@
+---
+const connect = [
+	{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/aron-hawkins' },
+	{ label: 'GitHub', href: 'https://github.com/aronhawkins-4' },
+	{ label: 'Substack', href: 'https://substack.com/@nextstepdev' },
+	{ label: 'Instagram', href: 'https://www.instagram.com/aronhawkins/' },
+];
+const music = [
+	{ label: 'Aron Hawkins', href: 'https://open.spotify.com/artist/6QOUEkT1qalWwaqE9CBg3D' },
+	{ label: 'The Shortlist', href: 'https://open.spotify.com/artist/0NiMWVvlGbPh3sa0QRlPfJ' },
+];
+const explore = [
+	{ label: 'Services', href: '#services' },
+	{ label: 'Work', href: '#work' },
+	{ label: 'About', href: '#about' },
+	{ label: 'Book a 15-minute call', href: 'https://cal.com/aron-hawkins/15min' },
+];
+const year = new Date().getFullYear();
+---
+
+<footer>
+	<div class='wrap'>
+		<div class='foot-top'>
+			<div class='foot-brand'>
+				Aron Hawkins
+				<span>Full-stack developer in Texas, building custom web and mobile apps.</span>
+			</div>
+			<div class='foot-cols'>
+				<div class='foot-col'>
+					<h5>Elsewhere</h5>
+					{
+						connect.map((l) => (
+							<a
+								href={l.href}
+								target='_blank'
+								rel='noopener'
+							>
+								{l.label}
+							</a>
+						))
+					}
+				</div>
+				<div class='foot-col'>
+					<h5>Music</h5>
+					{
+						music.map((l) => (
+							<a
+								href={l.href}
+								target='_blank'
+								rel='noopener'
+							>
+								{l.label}
+							</a>
+						))
+					}
+				</div>
+				<div class='foot-col'>
+					<h5>Site</h5>
+					{explore.map((l) => <a href={l.href}>{l.label}</a>)}
+				</div>
+			</div>
+		</div>
+		<div class='foot-bottom'>
+			<span>© {year} Aron Hawkins. All rights reserved.</span>
+		</div>
+	</div>
+</footer>

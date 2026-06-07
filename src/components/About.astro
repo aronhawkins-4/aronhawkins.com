@@ -1,0 +1,57 @@
+---
+const stack = ['TypeScript', 'React', 'Node.js', 'Postgres', 'Next.js', 'React Native', 'TanStack', 'Docker', 'Cloudflare'];
+
+const howIWork = ['Clear communication with business owners', 'Translating requirements into technical specs', 'Leading and managing other developers', 'Setting clear, dependable expectations'];
+---
+
+<section
+	class='about'
+	id='about'
+>
+	<div class='wrap about-grid'>
+		<img
+			src='/images/HAWKINS-98.avif'
+			alt='Portrait of Aron Hawkins'
+			class='about-portrait portrait reveal'
+		/>
+		<div>
+			<h2
+				class='reveal'
+				data-delay='1'
+			>
+				A bit about me.
+			</h2>
+			<p
+				class='reveal'
+				data-delay='1'
+			>
+				I'm Aron Hawkins, a full-stack developer based in Texas, with five years building applications for web and mobile. I've worked as a freelancer, led a team at an agency, and built
+				products alongside seed-stage startups, so I'm comfortable both writing the code and running the project around it.
+			</p>
+			<p
+				class='reveal'
+				data-delay='2'
+			>
+				<strong>The part of the job I'm best at is turning a high-level goal into technical requirements</strong>, then keeping you in the loop while I build it. Outside of work, most of my
+				time goes to my family, picking around on the guitar, and my espresso machine.
+			</p>
+			<div
+				class='skills reveal'
+				data-delay='2'
+			>
+				<div>
+					<h4>Tech I use</h4>
+					<div class='chips'>
+						{stack.map((s) => <span class='chip'>{s}</span>)}
+					</div>
+				</div>
+				<div>
+					<h4>How I work</h4>
+					<ul class='soft'>
+						{howIWork.map((item) => <li>{item}</li>)}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

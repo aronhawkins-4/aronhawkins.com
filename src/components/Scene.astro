@@ -1,0 +1,10 @@
+---
+interface Props {
+	name?: string;
+}
+const { name = '' } = Astro.props;
+---
+
+<div class="scene">
+  <span class="scene-label">{name}</span>
+</div>

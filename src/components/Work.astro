@@ -1,0 +1,48 @@
+---
+import { projects } from '../data/projects';
+import Scene from './Scene.astro';
+---
+
+<section id='work'>
+	<div class='wrap'>
+		<div class='sec-head reveal'>
+			<h2>A few things I've built.</h2>
+			<p>Recent projects, from full products to behind-the-scenes automation.</p>
+		</div>
+		<div class='work-grid'>
+			{
+				projects.map((p, i) => (
+					<div
+						class={`proj reveal${p.wide ? ' wide' : ''}`}
+						data-delay={i % 2}
+					>
+						{p.image ?
+							<img
+								src={p.image}
+								alt={`${p.name} screenshot`}
+								class='proj-image'
+							/>
+						:	<Scene name={p.name} />}
+						<div class='head'>
+							<h3>{p.name}</h3>
+							{p.url && (
+								<a
+									href={p.url}
+									target='_blank'
+									rel='noopener'
+									class='visit'
+								>
+									Visit →
+								</a>
+							)}
+						</div>
+						<p>{p.description}</p>
+						<div class='tech'>
+							<b>Built with:</b> {p.tech}
+						</div>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>
