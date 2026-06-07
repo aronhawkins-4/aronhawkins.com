@@ -7,7 +7,7 @@ import { Resend } from 'resend';
 import { ContactFormEmail } from '../../emails/contact-form-email';
 
 const TO = 'howdy@aronhawkins.com';
-const FROM = 'Contact Form <onboarding@resend.dev>';
+const FROM = 'Contact Form <howdy@aronhawkins.com>';
 
 export const POST: APIRoute = async ({ request }) => {
 	const apiKey = env.RESEND_API_KEY ?? import.meta.env.RESEND_API_KEY;
