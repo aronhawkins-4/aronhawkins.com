@@ -18,6 +18,29 @@ export const projects: Project[] = [
 		image: '/images/image-optimize_screenshot.avif',
 	},
 	{
+		name: 'Ritz-Carlton, Las Colinas',
+		description:
+			"Multiple web projects for a world-class hospitality brand. Projects include an internal asset management system for the Ritz-Carlton, Las Colinas marketing team and a custom website for Knife Italian Steak, a premium steakhouse within the Ritz-Carlton, Las Colinas. Features of the asset management system include user authentication, search and filtering, and multiple size options for downloading assets, allowing the marketing team to easily find and use assets for various outlets and marketing platforms.",
+		tech: 'JavaScript · Webflow',
+		image: '/images/ritz-carlton_screenshot.webp',
+	},
+	{
+		name: 'Sendero Provisions Co.',
+		description:
+			"Custom e-commerce site for a national retail brand. The site features a custom Shopify theme with with Liquid and JavaScript, including advanced theme-builder customizations to allow the client to easily create and update content across the site without needing to touch any code.",
+		tech: 'Shopify · Liquid · JavaScript',
+		image: '/images/sendero_screenshot.webp',
+		url: 'https://senderopc.com/',
+	},
+	{
+		name: 'Centurion American',
+		description:
+			"A custom website for a national real estate development company. The site features a custom CMS and advanced search and filtering for easy browsing of the company's residential and commercial portfolio.",
+		tech: 'PHP · Wordpress · JavaScript',
+		image: '/images/centurion_screenshot.webp',
+		url: 'https://centurionamerican.com/',
+	},
+	{
 		name: 'Higgins.AI',
 		description:
 			"An AI chatbot built to embed directly on business websites, with a companion mobile app. It connected to each business's own data to answer questions specific to that company, reading the direction of each conversation to suggest relevant follow-up prompts as the chat went on.",
@@ -32,6 +55,14 @@ export const projects: Project[] = [
 		tech: 'Next.js · PayloadCMS · Supabase · Resend · NTREIS',
 		image: '/images/onward_screenshot.avif',
 		url: 'https://www.onwardrealestateteam.com/',
+	},
+	{
+		name: 'Cromwell Commercial Group',
+		description:
+			'A website and custom MLS integration for a commercial real estate brokerage. The MLS integration automatically imports and updates listings from the company\'s MLS, and the site includes advanced map search and filtering features.',
+		tech: 'Node.js · Webflow',
+		image: '/images/cromwell_screenshot.webp',
+		url: 'https://www.cromwellcommercialgroup.com/',
 	},
 	{
 		name: 'Bellfit',
