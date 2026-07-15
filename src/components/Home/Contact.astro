@@ -1,0 +1,59 @@
+---
+import ContactForm from "../ContactForm.astro";
+---
+
+<section class="section" id="contact">
+	<div class="container contact-grid">
+		<div class="">
+			<h2>Reach Out</h2>
+			<p class="sub">
+				I usually reply within a day or two. The fastest way to get a
+				project started is to fill out this form or <a
+					href="https://cal.com/aron-hawkins/15min"
+					>book a 15-minute call</a
+				>.
+			</p>
+		</div>
+
+		<ContactForm />
+	</div>
+</section>
+
+<style>
+	/* CONTACT */
+	.section {
+		background: var(--brown);
+	}
+
+	.contact-grid {
+		display: grid;
+		grid-template-columns: 0.9fr 1.1fr;
+		gap: 4rem;
+		align-items: start;
+	}
+
+	h2 {
+		margin-bottom: 1rem;
+	}
+
+	p {
+		color: rgb(from var(--cream) r g b / 0.75);
+	}
+
+	.contact .detail {
+		margin-top: 1.875rem;
+	}
+
+	.contact .detail .k {
+		font-size: 0.9375rem;
+		color: var(--muted);
+		font-weight: 600;
+	}
+
+	p a,
+	.contact .detail a {
+		color: var(--gold);
+		font-weight: 600;
+		border-bottom: 0.0625rem solid var(--gold);
+	}
+</style>

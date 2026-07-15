@@ -1,0 +1,124 @@
+---
+import { Image } from "astro:assets";
+import HeroImage from "../../../public/images/HAWKINS-248.avif";
+import { ClientCarousel } from "./ClientCarousel";
+---
+
+<section class="section hero">
+	<div class="hero-grid container">
+		<div class="hero-content">
+			<h1 class="" data-delay="1">
+				Bespoke solutions for your business.
+			</h1>
+			<p class="" data-delay="2">
+				I'm Aron Hawkins, a software developer in Texas. I build custom
+				web and mobile applications, beautiful websites, and reliable
+				automation workflows that help businesses, startups, and
+				agencies turn their ideas into real products.
+			</p>
+			<div class="hero-cta" data-delay="3">
+				<a
+					href="https://cal.com/aron-hawkins/15min"
+					class="btn btn-primary">Contact me</a
+				>
+				<a href="#work" class="btn btn-outline">See my work</a>
+			</div>
+			<ClientCarousel client:load />
+		</div>
+		<div class="image-wrapper" data-delay="2">
+			<Image
+				src={HeroImage}
+				alt="Portrait of Aron Hawkins"
+				class="hero-portrait"
+			/>
+		</div>
+	</div>
+</section>
+
+<style>
+	/* HERO */
+	.hero {
+		position: relative;
+		background-color: var(--brown);
+	}
+
+	.hero .container {
+		padding-block: 10.5rem 5.75rem;
+	}
+
+	.hero-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 5rem;
+		align-items: center;
+		position: relative;
+	}
+
+	.hero-content {
+		/* flex: 1.1; */
+	}
+	.hero h1 {
+		font-size: 3rem;
+		color: var(--cream);
+		margin-bottom: 1rem;
+	}
+
+	.hero p {
+		font-size: 1rem;
+		color: var(--cream);
+		opacity: 0.75;
+		max-width: 30em;
+		margin-bottom: 2.5rem;
+	}
+
+	.hero-cta {
+		display: flex;
+		gap: 0.875rem;
+		flex-wrap: wrap;
+		align-items: center;
+		margin-bottom: 4rem;
+	}
+
+	.image-wrapper {
+		position: relative;
+		width: 100%;
+		height: auto;
+		aspect-ratio: 4/5;
+		overflow: hidden;
+		border-radius: 0.5rem;
+		flex: 1;
+	}
+
+	.image-wrapper img {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: bottom;
+	}
+
+	@media screen and (max-width: 1024px) {
+		.hero-grid {
+			gap: 4rem;
+		}
+	}
+	@media screen and (max-width: 767px) {
+		.hero-grid {
+			grid-template-columns: 1fr;
+			/* gap: 2.5rem; */
+		}
+
+		.hero h1 {
+			font-size: 2.5rem;
+		}
+
+		.hero p {
+			max-width: 100%;
+		}
+
+		.image-wrapper {
+			/* order: -1; */
+		}
+	}
+</style>

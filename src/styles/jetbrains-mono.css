@@ -1,0 +1,23 @@
+/**
+* @license
+*
+* Copyright 2020 The JetBrains Mono Project Authors (https: //github.com/JetBrains/JetBrainsMono)
+*
+* Variable font setup: one family ("Jetbrains Mono"), all weights via the
+* `wght` axis (200–700). Use `font-weight` normally to select a weight.
+*/
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/jetbrains-mono/JetBrainsMono-VariableFont_wght.ttf') format('truetype');
+  font-weight: 200 700;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/jetbrains-mono/JetBrainsMono-Italic-VariableFont_wght.ttf') format('truetype');
+  font-weight: 200 700;
+  font-display: swap;
+  font-style: italic;
+}

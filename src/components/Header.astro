@@ -1,45 +1,219 @@
 ---
+import DarkLogo from "../../public/images/brand/Lockup_3-02.svg";
+import LightLogo from "../../public/images/brand/Lockup_3-01.svg";
+
 const links = [
-	{ label: 'Services', href: '#services' },
-	{ label: 'Work', href: '#work' },
-	{ label: 'About', href: '#about' },
+	{ label: "Services", href: "#services" },
+	{ label: "Work", href: "#work" },
+	{ label: "About", href: "#about" },
 ];
+
+interface Props {
+	theme?: "light" | "dark"; // Optional prop
+}
+
+// 2. Destructure from Astro.props with a fallback for greeting
+const { theme = "dark" } = Astro.props;
 ---
 
-<header id='header'>
-	<div class='wrap nav'>
-		<a
-			href='#top'
-			class='logo'
-			>Aron Hawkins</a
+<header id="header" class={theme === "dark" ? "dark" : "light"}>
+	<div class="nav">
+		<a href="/" class="logo">
+			{
+				theme === "dark" ? (
+					<DarkLogo width="144" height="auto" />
+				) : (
+					<LightLogo width="144" height="auto" />
+				)
+			}</a
 		>
-		<nav
-			class='nav-links'
-			id='navlinks'
-		>
+
+		<nav class="nav-links" id="navlinks">
 			{
 				links.map((l) => (
-					<a
-						class='link'
-						href={l.href}
-					>
+					<a class="link" href={l.href}>
 						{l.label}
 					</a>
 				))
 			}
-			<a
-				class='btn btn-primary'
-				href='https://cal.com/aron-hawkins/15min'
-				style='padding:0.6875rem 1.25rem;font-size:0.875rem;'
-				>Book a 15-minute call</a
-			>
 		</nav>
-		<button
-			class='nav-toggle'
-			id='navtoggle'
-			aria-label='Menu'
-		>
+		<div class="nav-cta">
+			<a class="btn" href="/contact">Contact</a>
+		</div>
+		<button class="nav-toggle" id="navtoggle" aria-label="Menu">
 			<span></span><span></span><span></span>
 		</button>
 	</div>
 </header>
+
+<style>
+	header {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 50;
+		transition:
+			background 0.4s var(--ease),
+			border-color 0.4s var(--ease);
+		border-bottom: 0.0625rem solid transparent;
+		padding: 1.25rem 2.5rem;
+	}
+
+	header.dark.scrolled {
+		background: var(--brown);
+		border-bottom: 0.0625rem solid rgb(from var(--cream) r g b / 0.25);
+	}
+
+	header.light.scrolled {
+		background: var(--cream);
+		border-bottom: 0.0625rem solid rgb(from var(--brown) r g b / 0.25);
+	}
+	.nav {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		align-items: center;
+		justify-content: space-between;
+		max-width: var(--maxw);
+		margin: auto;
+	}
+
+	.nav-links {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 2.125rem;
+	}
+
+	.nav-links a.link {
+		font-size: 1rem;
+		font-weight: 500;
+		transition: color 0.25s;
+		font-family: var(--jetbrains-mono);
+	}
+
+	header.dark .nav-links a.link {
+		color: var(--cream);
+	}
+
+	header.light .nav-links a.link {
+		color: var(--brown);
+	}
+
+	.nav-links a.link:hover {
+		text-decoration: underline;
+	}
+
+	.nav-cta {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+	}
+
+	/* .nav-cta a.btn {
+		padding: 0.75rem 1.5rem;
+	} */
+
+	header.dark .nav-cta a.btn {
+		background: var(--gold);
+		color: var(--cream);
+	}
+	header.light .nav-cta a.btn {
+		background: var(--red);
+		color: var(--cream);
+	}
+
+	header.dark .nav-cta a.btn:hover {
+		background: var(--cream);
+		color: var(--brown);
+	}
+
+	header.light .nav-cta a.btn:hover {
+		background: var(--brown);
+	}
+
+	.nav-toggle {
+		display: none;
+		background: none;
+		border: none;
+		cursor: pointer;
+		flex-direction: column;
+		gap: 0.25rem;
+	}
+
+	.nav-toggle span {
+		width: 1.5rem;
+		height: 0.125rem;
+		background: var(--sand-100);
+		display: block;
+		transition:
+			transform 0.25s,
+			opacity 0.25s;
+	}
+
+	.nav-toggle.open span:nth-child(1) {
+		transform: translateY(0.375rem) rotate(45deg);
+	}
+
+	.nav-toggle.open span:nth-child(2) {
+		opacity: 0;
+	}
+
+	.nav-toggle.open span:nth-child(3) {
+		transform: translateY(-0.375rem) rotate(-45deg);
+	}
+
+	@media screen and (max-width: 1024px) {
+		.nav {
+			grid-template-columns: auto 1fr auto;
+		}
+	}
+	@media screen and (max-width: 767px) {
+		header {
+			padding: 1.25rem;
+		}
+		.nav {
+			display: flex;
+			justify-content: space-between;
+		}
+		.nav-cta {
+			display: none;
+		}
+		.nav-toggle {
+			display: flex;
+		}
+		.nav-links {
+			position: fixed;
+			inset: 0 0 0 auto;
+			width: 78%;
+			height: 100vh;
+			overflow: scroll;
+			max-width: 20rem;
+			background: var(--bg-800);
+			flex-direction: column;
+			align-items: flex-start;
+			justify-content: flex-start;
+			gap: 1.625rem;
+			padding: 7.5rem 2.5rem 2.5rem;
+			transform: translateX(100%);
+			transition:
+				transform 0.4s var(--ease),
+				visibility 0.4s var(--ease);
+			border-left: 0.0625rem solid var(--line);
+			visibility: hidden;
+		}
+
+		.nav-links.open {
+			transform: none;
+			visibility: visible;
+			transition:
+				transform 0.4s var(--ease),
+				visibility 0s var(--ease);
+		}
+
+		.nav-toggle {
+			display: flex;
+			z-index: 60;
+		}
+	}
+</style>

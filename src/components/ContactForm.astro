@@ -1,0 +1,302 @@
+---
+const EMAIL = "howdy@aronhawkins.com";
+import ChevronDown from "../icons/chevron-down.svg";
+
+interface Props {
+    theme?: "light" | "dark"; // Optional prop
+}
+
+// 2. Destructure from Astro.props with a fallback for greeting
+const { theme = "dark" } = Astro.props;
+---
+
+<form id="contactForm" class={theme === "dark" ? "dark" : "light"}>
+    <div class="row">
+        <div class="field">
+            <label for="name">Name</label>
+            <input
+                id="name"
+                name="name"
+                type="text"
+                placeholder="Your name"
+                required
+            />
+        </div>
+        <div class="field">
+            <label for="email">Email</label>
+            <input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="you@example.com"
+                required
+            />
+        </div>
+    </div>
+    <div class="row">
+        <div class="field">
+            <label for="budget">Project Budget</label>
+            <div class="select-wrapper">
+                <select id="budget" name="budget" required>
+                    <option value="" disabled selected
+                        >Select a budget range</option
+                    >
+                    <option value="<5k">&lt;$5k</option>
+                    <option value="5k-10k">$5k - $10k</option>
+                    <option value="10k-25k">$10k - $25k</option>
+                    <option value="25k-50k">$25k - $50k</option>
+                    <option value="50k-100k">$50k - $100k</option>
+                    <option value="over-100k">Over $100k</option>
+                </select>
+                <ChevronDown width="20" height="20" class="select-icon" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="field">
+            <label for="timeline">Project Timeline</label>
+            <div class="select-wrapper">
+                <select id="timeline" name="timeline" required>
+                    <option value="" disabled selected>Select a timeline</option
+                    >
+
+                    <option value="<1month">&lt;1 month</option>
+                    <option value="1-3months">1-3 months</option>
+                    <option value="3-6months">3-6 months</option>
+                    <option value="6-12months">6-12 months</option>
+                    <option value="12months+">12+ months</option>
+                </select>
+                <ChevronDown width="20" height="20" class="select-icon" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="field">
+            <label for="message">More Information</label>
+            <textarea
+                id="message"
+                name="message"
+                rows="4"
+                placeholder="Tell me about your project."
+                required></textarea>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-tertiary">Send message </button>
+    <div class="form-ok" id="formOk">
+        Thanks for reaching out! I typically respond within 24-48 hours.
+    </div>
+    <div class="form-err" id="formErr">
+        Something went wrong sending your message. Please try again, or email me
+        directly at <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
+    </div>
+</form>
+
+<style>
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+    }
+
+    .row {
+        width: 100%;
+        display: flex;
+        gap: 1rem;
+    }
+
+    .field {
+        flex: 1;
+    }
+
+    .field label {
+        display: block;
+        font-size: 1rem;
+        font-weight: 300;
+        margin-bottom: 0.5rem;
+    }
+
+    form.dark .field label {
+        color: var(--cream);
+    }
+
+    form.light .field label {
+        color: var(--brown);
+    }
+
+    .field input,
+    .field textarea {
+        width: 100%;
+        font-family: var(--jetbrains-mono);
+        font-size: 1rem;
+
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+        border: 0.0625rem solid rgb(from var(--gold) r g b / 0.15);
+        background: rgb(from var(--cream) r g b / 0.1);
+        transition:
+            border-color 0.25s,
+            box-shadow 0.25s;
+        resize: vertical;
+    }
+
+    form.dark .field input,
+    form.dark .field textarea {
+        color: var(--cream);
+        background: rgb(from var(--cream) r g b / 0.1);
+        border-color: rgb(from var(--gold) r g b / 0.15);
+    }
+
+    form.light .field input,
+    form.light .field textarea {
+        color: var(--brown);
+        background: transparent;
+        border-color: rgb(from var(--brown) r g b / 0.75);
+    }
+
+    form.dark .field input::placeholder,
+    form.dark .field textarea::placeholder {
+        color: rgb(from var(--cream) r g b / 0.5);
+    }
+
+    form.light .field input::placeholder,
+    form.light .field textarea::placeholder {
+        color: rgb(from var(--brown) r g b / 0.5);
+    }
+
+    form.dark .field input:focus,
+    form.dark .field textarea:focus,
+    form.dark .field select:focus {
+        outline: none;
+        border-color: var(--gold);
+        box-shadow: 0 0 0 0.1875rem rgb(from var(--gold) r g b / 0.18);
+    }
+
+    form.light .field input:focus,
+    form.light .field textarea:focus,
+    form.light .field select:focus {
+        outline: none;
+        border-color: var(--gold);
+        box-shadow: 0 0 0 0.1875rem rgb(from var(--gold) r g b / 0.18);
+    }
+
+    .select-wrapper {
+        position: relative;
+    }
+
+    .field select {
+        width: 100%;
+        font-family: var(--jetbrains-mono);
+        font-size: 1rem;
+        color: var(--cream);
+        padding: 0.75rem 3rem 0.75rem 1rem;
+        min-height: 3rem;
+        border-radius: 0.5rem;
+        border-width: 0.0625rem;
+        border-style: solid;
+        background: rgb(from var(--cream) r g b / 0.1);
+        transition:
+            border-color 0.25s,
+            box-shadow 0.25s;
+        appearance: none;
+    }
+
+    form.dark .field select {
+        color: var(--cream);
+        background: rgb(from var(--cream) r g b / 0.1);
+        border-color: rgb(from var(--gold) r g b / 0.15);
+    }
+
+    form.light .field select {
+        color: var(--brown);
+        background: transparent;
+        border-color: rgb(from var(--brown) r g b / 0.75);
+    }
+
+    .field .select-icon {
+        position: absolute;
+        top: 50%;
+        right: 1.5rem;
+        transform: translateY(-50%);
+        pointer-events: none;
+    }
+
+    form.dark .field .select-icon {
+        color: var(--cream);
+    }
+
+    form.light .field .select-icon {
+        color: var(--brown);
+    }
+
+    form.light .btn-tertiary:hover {
+        background: var(--brown);
+        color: var(--cream);
+    }
+
+    .form-note {
+        font-size: 0.78125rem;
+        color: var(--muted);
+        text-align: center;
+    }
+
+    .form-ok {
+        display: none;
+        background: var(--gold);
+        color: var(--white);
+        padding: 0.875rem;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    .form-err {
+        display: none;
+        background: var(--red);
+        color: var(--cream);
+        border: 1px solid var(--red);
+        padding: 0.875rem;
+        border-radius: 0.625rem;
+        font-size: 1rem;
+        text-align: center;
+    }
+</style>
+
+<script>
+    // Contact form: POST to /api/contact, which sends the email via Resend.
+    const form = document.getElementById(
+        "contactForm",
+    ) as HTMLFormElement | null;
+    form?.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const btn = form.querySelector("button") as HTMLButtonElement | null;
+        const ok = document.getElementById("formOk");
+        const err = document.getElementById("formErr");
+        if (err) err.style.display = "none";
+        if (btn) {
+            btn.disabled = true;
+            btn.textContent = "Sending…";
+        }
+        try {
+            const data = new FormData(form);
+            const res = await fetch("/api/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    name: data.get("name"),
+                    email: data.get("email"),
+                    message: data.get("message"),
+                }),
+            });
+            if (!res.ok) throw new Error(`Request failed (${res.status})`);
+            if (btn) btn.style.display = "none";
+            if (ok) ok.style.display = "block";
+        } catch {
+            if (btn) {
+                btn.disabled = false;
+                btn.innerHTML = 'Send message <span class="btn-arrow">→</span>';
+            }
+            if (err) err.style.display = "block";
+        }
+    });
+</script>

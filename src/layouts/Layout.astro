@@ -1,46 +1,73 @@
 ---
-import '../styles/global.css';
+import "../styles/global.css";
 
 interface Props {
 	title?: string;
 	description?: string;
 }
-const { title = 'Aron Hawkins — Software Developer', description = 'Full-stack developer in Texas, building custom web and mobile apps for businesses, startups, and agencies.' } = Astro.props;
+const {
+	title = "Aron Hawkins | Apps • Sites • Automation",
+	description = "Full-stack developer in Texas, building custom web and mobile apps for businesses, startups, and agencies.",
+} = Astro.props;
 ---
 
 <!doctype html>
-<html lang='en'>
+<html lang="en">
 	<head>
-		<meta charset='UTF-8' />
-		<meta
-			name='viewport'
-			content='width=device-width, initial-scale=1.0'
-		/>
-		<meta
-			name='description'
-			content={description}
-		/>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content={description} />
 		<link
-			rel='icon'
-			type='image/svg+xml'
-			href='/favicon.svg'
+			rel="icon"
+			type="image/svg+xml"
+			href="/images/brand/Brand_Icon-02.svg"
 		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
-			rel='preconnect'
-			href='https://fonts.googleapis.com'
-		/>
-		<link
-			rel='preconnect'
-			href='https://fonts.gstatic.com'
-			crossorigin
-		/>
-		<link
-			href='https://fonts.googleapis.com/css2?family=Besley:wght@400;500&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap'
-			rel='stylesheet'
+			href="https://fonts.googleapis.com/css2?family=Besley:wght@400;500&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap"
+			rel="stylesheet"
 		/>
 		<title>{title}</title>
 	</head>
 	<body>
 		<slot />
+		<script>
+			// Sticky header
+			const header = document.getElementById("header");
+			const onScroll = () =>
+				header?.classList.toggle("scrolled", window.scrollY > 24);
+			onScroll();
+			window.addEventListener("scroll", onScroll, { passive: true });
+
+			// Mobile nav
+			const toggle = document.getElementById("navtoggle");
+			const links = document.getElementById("navlinks");
+			toggle?.addEventListener("click", () => {
+				const open = links?.classList.toggle("open");
+				toggle.classList.toggle("open", open);
+			});
+			const closeMenu = () => {
+				links?.classList.remove("open");
+				toggle?.classList.remove("open");
+			};
+			links
+				?.querySelectorAll("a")
+				.forEach((a) => a.addEventListener("click", closeMenu));
+			document.addEventListener("keydown", (e) => {
+				if (!links?.classList.contains("open")) return;
+				if (e.key === "Escape") {
+					closeMenu();
+					toggle?.focus();
+				} else if (
+					e.key === "Tab" &&
+					!e.shiftKey &&
+					document.activeElement === toggle
+				) {
+					e.preventDefault();
+					links.querySelector("a")?.focus();
+				}
+			});
+		</script>
 	</body>
 </html>

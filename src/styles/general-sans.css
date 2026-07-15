@@ -1,0 +1,29 @@
+/**
+* @license
+*
+* Font Family: General Sans
+* Designed by: Frode Helland
+* URL: https://www.fontshare.com/fonts/general-sans
+* © 2026 Indian Type Foundry
+*
+* Variable font setup: one family ("General Sans"), all weights via the
+* `wght` axis (200–700). Use `font-weight` normally to select a weight.
+*/
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/general-sans/GeneralSans-Variable.woff2') format('woff2'),
+       url('/fonts/general-sans/GeneralSans-Variable.woff') format('woff'),
+       url('/fonts/general-sans/GeneralSans-Variable.ttf') format('truetype');
+  font-weight: 200 700;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/general-sans/GeneralSans-VariableItalic.woff2') format('woff2'),
+       url('/fonts/general-sans/GeneralSans-VariableItalic.woff') format('woff'),
+       url('/fonts/general-sans/GeneralSans-VariableItalic.ttf') format('truetype');
+  font-weight: 200 700;
+  font-display: swap;
+  font-style: italic;
+}
