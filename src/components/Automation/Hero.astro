@@ -1,0 +1,138 @@
+<section class="section hero">
+	<div class="container">
+		<div class="hero-grid">
+			<div class="top">
+				<h1>Automation</h1>
+			</div>
+			<div>
+				<p>
+					I architect and develop <span>automation workflows</span> that
+					take the repetitive, manual work off your team's plate. Data entry,
+					handoffs between tools, follow-up emails, reporting, onboarding
+					— the tasks that quietly eat hours every week get handled in the
+					background, reliably, without anyone thinking about them. I map
+					how your business actually runs, connect the systems you already
+					use, and build the logic that ties them together. The result is
+					fewer dropped balls, fewer mistakes, and a team that{" "}
+					<span>spends its time on work that matters.</span>
+				</p>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	/* HERO */
+	.hero {
+		position: relative;
+		background-color: var(--cream);
+	}
+
+	.hero .container {
+		padding-block: 10.5rem 5.75rem;
+		max-width: 64rem;
+	}
+
+	.hero-grid {
+		position: relative;
+	}
+
+	.hero-grid .top {
+		/* display: flex;
+		align-items: flex-end;
+		justify-content: flex-start;
+		gap: 15rem; */
+	}
+
+	.hero h1 {
+		font-size: 4rem;
+		color: var(--red);
+		margin-bottom: 1rem;
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		flex-wrap: wrap;
+	}
+
+	.hero p {
+		font-size: 1rem;
+		color: rgb(from var(--brown) r g b / 0.75);
+		margin-top: 2.5rem;
+		text-wrap: pretty;
+	}
+
+	.hero p span {
+		opacity: 1;
+		background: var(--red);
+		color: var(--cream);
+	}
+
+	.image-column {
+		position: relative;
+	}
+	.image-wrapper {
+		position: relative;
+		width: 100%;
+		/* max-width: 25rem; */
+		margin: auto;
+		height: auto;
+		aspect-ratio: 4/5;
+		overflow: hidden;
+		border-radius: 0.5rem;
+		flex: 1;
+	}
+
+	.image-wrapper img {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center;
+	}
+	@media screen and (max-width: 1024px) {
+		.hero-grid {
+			gap: 4rem;
+			row-gap: 2.5rem;
+			grid-template-columns: 1fr 1fr;
+			grid-template-rows: auto 1fr;
+		}
+
+		.image-column {
+			grid-column: 1 / span 1;
+			grid-row: 1 / -1;
+		}
+
+		.hero-right {
+			align-self: start;
+		}
+
+		.hero h2 {
+			font-size: 1.5rem;
+		}
+	}
+	@media screen and (max-width: 767px) {
+		.hero-grid {
+			grid-template-columns: 1fr;
+			grid-template-rows: auto;
+			/* gap: 2.5rem; */
+		}
+
+		.hero h1 {
+			font-size: 2.5rem;
+		}
+
+		.image-column {
+			grid-column: auto;
+			grid-row: auto;
+		}
+
+		.hero p {
+			max-width: 100%;
+		}
+
+		.image-wrapper {
+			/* order: -1; */
+		}
+	}
+</style>

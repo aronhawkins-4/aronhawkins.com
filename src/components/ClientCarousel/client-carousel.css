@@ -1,6 +1,6 @@
 .client-carousel_embla {
     position: relative;
-    max-width: 30rem;
+    /* max-width: 30rem; */
 }
 
 .client-carousel_embla .embla__viewport {
@@ -23,6 +23,10 @@
 .client-carousel_embla .embla__slide img {
     width: 8rem;
     height: auto;
+}
+
+.client-carousel_embla.light .embla__slide img {
+    filter: brightness(0) invert(0);
 }
 
 .client-carousel_embla .embla__overlay {

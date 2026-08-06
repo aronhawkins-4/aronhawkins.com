@@ -1,0 +1,26 @@
+---
+import { ClientCarousel } from "../ClientCarousel/ClientCarousel";
+---
+
+<div class="section">
+    <div class="container">
+        <h2>Who I have worked with</h2>
+        <ClientCarousel client:load />
+    </div>
+</div>
+
+<style>
+    .section {
+        background: var(--brown);
+    }
+
+    .container {
+        padding-block: 4rem;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 2rem;
+        font-size: 2rem;
+    }
+</style>

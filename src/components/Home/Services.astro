@@ -1,9 +1,5 @@
 ---
 import { services } from "../../data/services";
-import RightArrow from "../../icons/arrow-right-regular-full.svg";
-import PhoneMockup from "../../icons/phone-mockup.svg";
-import LaptopMockup from "../../icons/laptop-mockup.svg";
-import AutomationMockup from "../../icons/automation-mockup.svg";
 ---
 
 <section class="section services" id="services">
@@ -18,40 +14,13 @@ import AutomationMockup from "../../icons/automation-mockup.svg";
 		<div class="svc-list">
 			{
 				services.map((s, i) => (
-					<a href="#" class="svc " data-delay={i % 3}>
+					<div class="svc">
 						<h3>{s.name}</h3>
-						{() => {
-							switch (s.name) {
-								case "Apps":
-									return (
-										<PhoneMockup
-											width={80}
-											class="mockup"
-										/>
-									);
-								case "Sites":
-									return (
-										<LaptopMockup
-											width={160}
-											class="mockup"
-										/>
-									);
-								case "Automation":
-									return (
-										<AutomationMockup
-											width={176}
-											class="mockup"
-										/>
-									);
-							}
-						}}
-						<div class="svc-right">
-							<p>{s.description}</p>
-							<div class="svc-button">
-								<RightArrow width={18} />
-							</div>
-						</div>
-					</a>
+						<p>{s.description}</p>
+						<a href={`/${s.slug}`} class="svc-button btn">
+							Learn More
+						</a>
+					</div>
 				))
 			}
 		</div>
@@ -83,68 +52,82 @@ import AutomationMockup from "../../icons/automation-mockup.svg";
 		font-weight: 500;
 	}
 
-	.svc {
-		border-top: 0.0625rem solid rgb(from var(--brown) r g b / 0.25);
-		padding: 2.5rem 1.5rem;
-		display: flex;
-		gap: 2.5rem;
-		justify-content: space-between;
+	.svc-list {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		gap: 1rem;
 	}
-	.svc:last-child {
-		border-bottom: 0.0625rem solid rgb(from var(--brown) r g b / 0.25);
+
+	.svc {
+		padding: 2.5rem;
+		background: var(--red);
+		border-radius: 0.5rem;
+		box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+		display: flex;
+		flex-direction: column;
+		position: relative;
 	}
 
 	.svc h3 {
 		font-family: var(--general-sans);
 		font-size: 2.5rem;
 		font-weight: 500;
-		color: var(--red);
-	}
-
-	.mockup {
-		min-width: 6rem;
-	}
-
-	.svc-right {
-		max-width: 25rem;
-		display: flex;
-		flex-direction: column;
-		align-items: flex-end;
+		color: var(--cream);
+		margin-bottom: 1rem;
 	}
 
 	.svc p {
 		font-size: 1rem;
-		color: rgb(from var(--brown) r g b / 0.75);
-		margin-bottom: 1rem;
+		color: rgb(from var(--cream) r g b / 1);
+		margin-bottom: 2rem;
 	}
 
 	.svc-button {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 2.5rem;
-		height: 2.5rem;
-		border-radius: 50%;
-		border: 0.0625rem solid rgb(from var(--brown) r g b / 0.25);
-		transition: border-color 0.25s var(--ease);
+		color: var(--brown);
+		background-color: var(--cream);
+		margin-top: auto;
+		width: fit-content;
 	}
 
-	.svc:hover .svc-button {
-		border-color: var(--brown) !important;
+	.svc-button:hover {
+		background: var(--brown);
+		color: var(--cream);
+	}
+
+	@media screen and (max-width: 1024px) {
+		.svc-list {
+			grid-template-columns: 1fr 1fr;
+		}
 	}
 
 	@media screen and (max-width: 767px) {
+		.svc-list {
+			grid-template-columns: 1fr;
+		}
+
 		.svc {
+			/* display: grid; */
 			flex-direction: column;
+			/* grid-template-columns: 1fr 1fr; */
+			/* grid-template-rows: auto auto; */
 			align-items: flex-start;
 			gap: 1rem;
+			/* align-items: end; */
 		}
 		.svc-right {
 			align-items: flex-start;
 			max-width: 100%;
+			grid-column: 1 / span 2;
 		}
 		.svc h3 {
 			font-size: 2rem;
+		}
+
+		.mockup {
+			/* order: -1; */
+			/* margin-left: auto; */
+			max-width: 10rem;
+			display: none;
 		}
 	}
 </style>

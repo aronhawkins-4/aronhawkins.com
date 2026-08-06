@@ -1,0 +1,19 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Apps/Hero.astro";
+import ServiceColumns from "../components/Apps/ServiceColumns.astro";
+import Clients from "../components/Apps/Clients.astro";
+import Testimonials from "../components/Apps/Testimonials.astro";
+---
+
+<Layout>
+    <Header theme="light" />
+    <a id="top"></a>
+    <main>
+        <Hero />
+        <Clients />
+        <ServiceColumns />
+        <Testimonials />
+    </main>
+</Layout>

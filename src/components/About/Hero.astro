@@ -1,0 +1,346 @@
+---
+import { Image } from "astro:assets";
+import HeroImage from "../../../public/images/HAWKINS-248.avif";
+import AboutFamily from "../../../public/images/about_family.webp";
+import AboutJane from "../../../public/images/about_jane.webp";
+import AboutAnnaKate from "../../../public/images/about_annakate.webp";
+import Hourglass from "../../../public/icons/hourglass-thumbprint-light-full.svg";
+import LocationDot from "../../../public/icons/location-dot-thumbprint-light-full.svg";
+import Music from "../../../public/icons/music-thumbprint-light-full.svg";
+import Diploma from "../../../public/icons/diploma-duotone-solid-full.svg";
+---
+
+<section class="section hero">
+	<div class="container">
+		<div class="hero-grid">
+			<div class="image-column">
+				<div class="image-wrapper" data-delay="2">
+					<Image
+						src={AboutFamily}
+						alt="Portrait of Aron Hawkins"
+						class="hero-portrait"
+					/>
+				</div>
+			</div>
+			<div class="hero-content">
+				<h1>Hi, I'm Aron</h1>
+				<p>
+					I am a fullstack software developer currently living in
+					Texas. My goal is to build software that people enjoy using
+					and that makes their lives easier. I am passionate not only
+					about building, but also teaching. When I work with a
+					client, I ensure that they feel equipped to implement the
+					solution I create.
+				</p>
+				<p>
+					Reach out today and let's talk about how we can solve your
+					technical challenges!
+				</p>
+				<h2>About Me</h2>
+				<ul>
+					<li>
+						<Hourglass width="20" /> 5+ years of web & software development
+					</li>
+					<li><LocationDot width="20" /> Living in Waco, Texas</li>
+					<li>
+						<Diploma width="20" /> Bachelor's degree in Computer Science
+					</li>
+					<li><Music width="20" /> Former touring musician</li>
+				</ul>
+
+				<a href="/contact" class="btn btn-primary hover-alt"
+					>Contact Me</a
+				>
+			</div>
+		</div>
+		<div class="why">
+			<h2>Why I do it</h2>
+			<p>
+				Everything I do is driven by a love for my family. I decided to
+				leave the typical 9-5 and work for myself so that I can code
+				while holding my daughter on the couch, or build at night so I
+				can go on a coffee date in the afternoon with my wife.
+			</p>
+		</div>
+		<div class="image-grid">
+			<Image src={AboutJane} alt="" class="" />
+			<Image src={AboutAnnaKate} alt="" class="" />
+			<Image src={AboutJane} alt="" class="" />
+			<Image src={AboutAnnaKate} alt="" class="" />
+		</div>
+	</div>
+</section>
+
+<style>
+	/* HERO */
+	.hero {
+		position: relative;
+		background-color: var(--cream);
+	}
+
+	.hero .container {
+		padding-block: 10.5rem 5.75rem;
+	}
+
+	.hero-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 7.5rem;
+		align-items: center;
+		position: relative;
+		margin-bottom: 5rem;
+	}
+
+	.hero h1 {
+		font-size: 2.5rem;
+		color: var(--red);
+		margin-bottom: 1rem;
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		flex-wrap: wrap;
+	}
+
+	.hero-content {
+		/* align-self: start; */
+	}
+
+	.hero-right {
+		align-self: end;
+	}
+
+	.hero h2 {
+		color: var(--red);
+	}
+
+	.hero-content h2 {
+		font-size: 1.5rem;
+		margin-bottom: 1rem;
+	}
+
+	.hero p {
+		font-size: 1rem;
+		color: rgb(from var(--brown) r g b / 0.75);
+	}
+
+	.hero p:first-of-type {
+		margin-bottom: 1rem;
+	}
+
+	.hero p:last-of-type {
+		margin-bottom: 2.5rem;
+	}
+
+	/* .hero p span {
+		opacity: 1;
+		background: var(--red);
+		color: var(--cream);
+	} */
+
+	.hero ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		margin-bottom: 2.5rem;
+	}
+
+	.hero li {
+		color: rgb(from var(--brown) r g b / 0.75);
+		display: flex;
+		align-items: start;
+		gap: 0.5rem;
+	}
+
+	.hero li svg {
+		color: var(--red);
+		margin-top: 0.075rem;
+	}
+
+	.image-column {
+		position: relative;
+	}
+	.image-wrapper {
+		position: relative;
+		width: 100%;
+		/* max-width: 25rem; */
+		margin: auto;
+		height: auto;
+		aspect-ratio: 1;
+		overflow: hidden;
+		border-radius: 0.5rem;
+		flex: 1;
+	}
+
+	.image-wrapper img {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center;
+	}
+
+	.why {
+		/* display: grid; */
+		/* grid-template-columns: auto auto; */
+		/* gap: 2.5rem; */
+		max-width: 50rem;
+	}
+
+	.hero .why h2 {
+		font-size: 2.5rem;
+		margin-bottom: 1rem;
+	}
+
+	.image-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		/* grid-template-rows: repeat(4, minmax(0, 1fr)); */
+		/* Fixed overall height — rows share it rather than growing to
+		   the images' intrinsic size. Caps out at 36rem (576px). */
+		height: clamp(20rem, 60vw, 40rem);
+		gap: 1rem;
+		margin-top: 2.5rem;
+	}
+
+	.image-grid img {
+		width: 100%;
+		height: 100%;
+		min-height: 0;
+		border-radius: 0.5rem;
+		object-fit: cover;
+		object-position: center;
+	}
+
+	/* Bento layout: 4 columns x 4 rows, fully tiled */
+	.image-grid img:nth-child(1) {
+		grid-column: 1 / span 2;
+		grid-row: 1 / span 2;
+	}
+
+	.image-grid img:nth-child(2) {
+		grid-column: 3 / span 2;
+		grid-row: 1 / span 1;
+	}
+
+	.image-grid img:nth-child(3) {
+		grid-column: 3 / span 1;
+		grid-row: 2 / span 1;
+	}
+
+	.image-grid img:nth-child(4) {
+		grid-column: 4 / span 1;
+		grid-row: 2 / span 1;
+	}
+	/* 
+	.image-grid img:nth-child(5) {
+		grid-column: 1 / span 1;
+		grid-row: 3 / span 2;
+	}
+
+	.image-grid img:nth-child(6) {
+		grid-column: 2 / span 2;
+		grid-row: 3 / span 2;
+	}
+
+	.image-grid img:nth-child(7) {
+		grid-column: 4 / span 1;
+		grid-row: 3 / span 2;
+	} */
+
+	@media screen and (max-width: 1024px) {
+		.hero-grid {
+			gap: 4rem;
+			row-gap: 2.5rem;
+			grid-template-columns: 1fr 1fr;
+			/* grid-template-rows: auto 1fr; */
+		}
+
+		.image-column {
+			grid-column: 1 / span 1;
+			grid-row: 1 / -1;
+		}
+
+		.hero-right {
+			align-self: start;
+		}
+
+		.hero h2 {
+			font-size: 1.5rem;
+		}
+
+		.image-grid {
+			height: clamp(18rem, 50vw, 30rem);
+		}
+	}
+	@media screen and (max-width: 767px) {
+		.hero-grid {
+			grid-template-columns: 1fr;
+			grid-template-rows: auto;
+			/* gap: 2.5rem; */
+		}
+
+		.hero h1 {
+			font-size: 2.5rem;
+		}
+
+		.image-column {
+			grid-column: auto;
+			grid-row: auto;
+		}
+
+		.hero p {
+			max-width: 100%;
+		}
+
+		.image-wrapper {
+			/* order: -1; */
+		}
+
+		/* Bento collapses to 2 columns */
+		.image-grid {
+			grid-template-columns: repeat(2, 1fr);
+			grid-template-rows: repeat(5, minmax(0, 1fr));
+			height: clamp(22rem, 110vw, 34rem);
+			gap: 0.75rem;
+		}
+
+		.image-grid img:nth-child(1) {
+			grid-column: 1 / span 2;
+			grid-row: 1 / span 1;
+		}
+
+		.image-grid img:nth-child(2) {
+			grid-column: 1 / span 1;
+			grid-row: 2 / span 2;
+		}
+
+		.image-grid img:nth-child(3) {
+			grid-column: 2 / span 1;
+			grid-row: 2 / span 1;
+		}
+
+		.image-grid img:nth-child(4) {
+			grid-column: 2 / span 1;
+			grid-row: 3 / span 1;
+		}
+
+		.image-grid img:nth-child(5) {
+			grid-column: 1 / span 1;
+			grid-row: 4 / span 1;
+		}
+
+		.image-grid img:nth-child(6) {
+			grid-column: 2 / span 1;
+			grid-row: 4 / span 1;
+		}
+
+		.image-grid img:nth-child(7) {
+			grid-column: 1 / span 2;
+			grid-row: 5 / span 1;
+		}
+	}
+</style>

@@ -1,0 +1,195 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+
+import { projects } from "../../data/projects";
+export function getStaticPaths() {
+    return projects
+        .filter((p) => p.slug)
+        .map((project) => ({
+            params: {
+                slug: project.slug,
+            },
+        }));
+}
+
+const project = projects.find((p) => p.slug === Astro.params.slug);
+if (!project) {
+    throw new Error(`Project not found for slug: ${Astro.params.slug}`);
+}
+---
+
+<Layout>
+    <Header theme="light" />
+    <main>
+        <div class="project">
+            <div class="project-content">
+                <div class="project-content_intro">
+                    <h1>{project.name}</h1>
+                    <div set:html={project.description} />
+                </div>
+                <div class="project-details">
+                    <div class="project-type">
+                        <h2>Project Type</h2>
+                        <p>{project.projectTypeDisplay}</p>
+                    </div>
+                    <div class="deliverables">
+                        <h2>Deliverables</h2>
+                        {
+                            project.deliverables?.length &&
+                                project.deliverables.map((deliverable) => {
+                                    return <p>{deliverable}</p>;
+                                })
+                        }
+                    </div>
+                    <div class="problem">
+                        <h2>Problem</h2>
+                        <div set:html={project.problem} />
+                    </div>
+                    <div class="solution">
+                        <h2>Solution</h2>
+                        <div set:html={project.solution} />
+                    </div>
+                </div>
+            </div>
+            <div class="project-gallery_wrapper">
+                <div class="project-gallery">
+                    {
+                        project.imageGallery?.length &&
+                            project.imageGallery.map((image) => {
+                                return <img src={image.path} alt={image.alt} />;
+                            })
+                    }
+                </div>
+            </div>
+        </div>
+    </main>
+</Layout>
+
+<style>
+    :global(header) {
+        position: relative !important;
+        background: var(--cream) !important;
+    }
+    .project {
+        width: 100%;
+        background: var(--cream);
+        border-top: 1px solid rgb(from var(--brown) r g b / 0.25);
+        display: grid;
+        grid-template-columns: 0.9fr 1.1fr;
+    }
+    .project-content {
+        padding: 2.5rem;
+        border-right: 1px solid rgb(from var(--brown) r g b / 0.25);
+        position: sticky;
+        top: 6.125rem;
+        max-height: calc(100vh - 6.125rem);
+        overflow: scroll;
+    }
+
+    .project-content_intro {
+        margin-bottom: 1.5rem;
+    }
+
+    h1 {
+        color: var(--red);
+        font-weight: 500;
+        margin-bottom: 1rem;
+    }
+    h2 {
+        color: var(--brown);
+        font-size: 1rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 100%;
+        margin-bottom: 0.5rem;
+    }
+    .project :global(p) {
+        color: rgb(from var(--brown) r g b / 0.75);
+        font-size: 1rem;
+    }
+
+    .project :global(p:not(:last-child)) {
+        margin-bottom: 1rem;
+    }
+
+    .project-details {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+    }
+
+    .deliverables {
+        width: max-content;
+        margin-left: auto;
+    }
+
+    .deliverables p {
+        margin-bottom: 0;
+    }
+
+    .problem,
+    .solution {
+        grid-column: 1 / -1;
+    }
+
+    .project-gallery_wrapper {
+        padding: 1.5rem;
+        max-height: calc(100vh - 6.125rem);
+        overflow: scroll;
+    }
+    .project-gallery {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        height: max-content;
+    }
+    .project-gallery img {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 5/4;
+        border-radius: 0.5rem;
+        overflow: hidden;
+        object-fit: cover;
+    }
+    .project-gallery img:last-child {
+        margin-bottom: 0;
+    }
+
+    @media screen and (max-width: 1024px) {
+        .project-details {
+            grid-template-columns: 1fr;
+        }
+        .deliverables {
+            width: 100%;
+            margin-left: 0;
+        }
+        h1 {
+            font-size: 2.5rem;
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+        :global(header) {
+            position: fixed !important;
+        }
+        .project {
+            grid-template-columns: 1fr;
+        }
+        .project-content {
+            position: relative;
+            top: 0;
+
+            border-bottom: 1px solid rgb(from var(--brown) r g b / 0.25);
+            border-right: none;
+            max-height: none;
+        }
+        .project-gallery_wrapper {
+            max-height: none;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+        }
+    }
+</style>

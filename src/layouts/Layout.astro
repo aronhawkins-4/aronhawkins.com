@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import Footer from "../components/Footer.astro";
 
 interface Props {
 	title?: string;
@@ -32,6 +33,7 @@ const {
 	</head>
 	<body>
 		<slot />
+		<Footer />
 		<script>
 			// Sticky header
 			const header = document.getElementById("header");
@@ -46,14 +48,24 @@ const {
 			toggle?.addEventListener("click", () => {
 				const open = links?.classList.toggle("open");
 				toggle.classList.toggle("open", open);
+				toggle.setAttribute("aria-expanded", open ? "true" : "false");
+				if (open) links?.querySelector("a")?.focus();
 			});
 			const closeMenu = () => {
 				links?.classList.remove("open");
 				toggle?.classList.remove("open");
+				toggle?.setAttribute("aria-expanded", "false");
 			};
 			links
 				?.querySelectorAll("a")
 				.forEach((a) => a.addEventListener("click", closeMenu));
+			document.addEventListener("click", (e) => {
+				if (!links?.classList.contains("open")) return;
+				const target = e.target as Node;
+				if (!links.contains(target) && !toggle?.contains(target)) {
+					closeMenu();
+				}
+			});
 			document.addEventListener("keydown", (e) => {
 				if (!links?.classList.contains("open")) return;
 				if (e.key === "Escape") {

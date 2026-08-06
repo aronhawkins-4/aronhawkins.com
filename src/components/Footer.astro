@@ -1,67 +1,159 @@
 ---
-const connect = [
-	{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/aron-hawkins' },
-	{ label: 'GitHub', href: 'https://github.com/aronhawkins-4' },
-	{ label: 'Substack', href: 'https://substack.com/@nextstepdev' },
-	{ label: 'Instagram', href: 'https://www.instagram.com/aronhawkins/' },
-];
-const music = [
-	{ label: 'Aron Hawkins', href: 'https://open.spotify.com/artist/6QOUEkT1qalWwaqE9CBg3D' },
-	{ label: 'The Shortlist', href: 'https://open.spotify.com/artist/0NiMWVvlGbPh3sa0QRlPfJ' },
-];
-const explore = [
-	{ label: 'Services', href: '#services' },
-	{ label: 'Work', href: '#work' },
-	{ label: 'About', href: '#about' },
-	{ label: 'Book a 15-minute call', href: 'https://cal.com/aron-hawkins/15min' },
-];
+import FooterLogo from "../../public/images/brand/Brand_Icon-02.svg";
 const year = new Date().getFullYear();
 ---
 
-<footer>
-	<div class='wrap'>
-		<div class='foot-top'>
-			<div class='foot-brand'>
-				Aron Hawkins
-				<span>Full-stack developer in Texas, building custom web and mobile apps.</span>
+<footer class="section">
+	<div class="container">
+		<h2 class="sr-only">Website Footer</h2>
+		<div class="footer-top">
+			<div class="footer-top_left">
+				<a href="/" class="footer-logo" aria-label="Home">
+					<FooterLogo width="128" aria-hidden="true" />
+				</a>
+				<p>
+					Full-stack developer in Texas, building apps that make life
+					easier, websites that convert, and automations that save
+					time.
+				</p>
 			</div>
-			<div class='foot-cols'>
-				<div class='foot-col'>
-					<h5>Elsewhere</h5>
-					{
-						connect.map((l) => (
+			<nav class="footer-cols" aria-label="Footer navigation">
+				<div class="footer-col">
+					<h3 class="footer-col_heading">Site</h3>
+					<ul>
+						<li><a href="/">Home</a></li>
+						<li><a href="/#services">Services</a></li>
+						<li><a href="/#work">Work</a></li>
+						<li><a href="/about">About</a></li>
+						<li><a href="/contact">Contact</a></li>
+					</ul>
+				</div>
+				<div class="footer-col">
+					<h3>Socials</h3>
+					<ul>
+						<li>
 							<a
-								href={l.href}
-								target='_blank'
-								rel='noopener'
+								href="https://instagram.com/aronhawkins"
+								target="_blank"
+								rel="noopener noreferrer">Instagram</a
 							>
-								{l.label}
-							</a>
-						))
-					}
-				</div>
-				<div class='foot-col'>
-					<h5>Music</h5>
-					{
-						music.map((l) => (
+						</li>
+						<li>
 							<a
-								href={l.href}
-								target='_blank'
-								rel='noopener'
+								href="https://linkedin.com/in/aronhawkins"
+								target="_blank"
+								rel="noopener noreferrer">LinkedIn</a
 							>
-								{l.label}
-							</a>
-						))
-					}
+						</li>
+						<li>
+							<a
+								href="https://substack.com/aronhawkins"
+								target="_blank"
+								rel="noopener noreferrer">Substack</a
+							>
+						</li>
+					</ul>
 				</div>
-				<div class='foot-col'>
-					<h5>Site</h5>
-					{explore.map((l) => <a href={l.href}>{l.label}</a>)}
-				</div>
-			</div>
+			</nav>
 		</div>
-		<div class='foot-bottom'>
+		<div class="footer-bottom">
 			<span>© {year} Aron Hawkins. All rights reserved.</span>
 		</div>
 	</div>
 </footer>
+
+<style>
+	/* FOOTER */
+	footer {
+		background: var(--brown);
+		color: var(--cream);
+		border-top: 0.0625rem solid rgb(from var(--cream) r g b / 0.25);
+	}
+
+	.container {
+		padding-block: 2.5rem 1.5rem;
+	}
+
+	.footer-top {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		flex-wrap: wrap;
+		gap: 2rem;
+		padding-bottom: 1.5rem;
+		margin-bottom: 1.5rem;
+		border-bottom: 0.0625rem solid rgb(from var(--cream) r g b / 0.25);
+	}
+
+	.footer-top_left {
+		max-width: 24rem;
+	}
+
+	.footer-logo {
+		width: 5rem;
+		height: 5rem;
+		display: block;
+		margin-bottom: 1rem;
+	}
+
+	.footer-logo svg {
+		width: 100%;
+		height: 100%;
+	}
+
+	.footer-top_left p {
+		font-size: 0.875rem;
+		color: rgb(from var(--cream) r g b / 0.75);
+	}
+
+	.footer-cols {
+		display: flex;
+		gap: 3.5rem;
+		flex-wrap: wrap;
+	}
+
+	.footer-col h3 {
+		font-family: var(--general-sans);
+		font-weight: 500;
+		letter-spacing: 0.1rem;
+		text-transform: uppercase;
+		font-size: 1rem;
+		color: var(--gold);
+		margin-bottom: 0.875rem;
+	}
+
+	.footer-col ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.footer-col li {
+		margin-bottom: 0.5rem;
+	}
+
+	.footer-col a {
+		display: block;
+		font-size: 1rem;
+		transition: color 0.15s var(--ease);
+	}
+
+	.footer-col a:hover {
+		text-decoration: underline;
+	}
+
+	.footer-bottom {
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+		font-size: 0.875rem;
+		color: rgb(from var(--cream) r g b / 0.75);
+	}
+
+	@media screen and (max-width: 767px) {
+		.footer-top_left {
+			max-width: 100%;
+		}
+	}
+</style>

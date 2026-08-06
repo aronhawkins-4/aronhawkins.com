@@ -10,7 +10,7 @@ import ContactForm from "../ContactForm.astro";
 				I usually reply within a day or two. The fastest way to get a
 				project started is to fill out this form or <a
 					href="https://cal.com/aron-hawkins/15min"
-					>book a 15-minute call</a
+					><span>book a 15-minute call</span></a
 				>.
 			</p>
 		</div>
@@ -52,8 +52,22 @@ import ContactForm from "../ContactForm.astro";
 
 	p a,
 	.contact .detail a {
-		color: var(--gold);
-		font-weight: 600;
 		border-bottom: 0.0625rem solid var(--gold);
+		color: var(--gold);
+		transition:
+			color 0.15s var(--ease),
+			border-color 0.15s var(--ease);
+	}
+
+	p a:hover {
+		color: var(--red);
+		border-color: var(--red);
+	}
+
+	@media screen and (max-width: 767px) {
+		.contact-grid {
+			grid-template-columns: 1fr;
+			gap: 2.5rem;
+		}
 	}
 </style>

@@ -1,6 +1,7 @@
 ---
 import { projects } from "../../data/projects";
-import RightArrow from "../../icons/arrow-right-regular-full.svg";
+import RightArrow from "../../../public/icons/arrow-right-regular-full.svg";
+import { ProjectsCarousel } from "../ProjectsCarousel/ProjectsCarousel";
 ---
 
 <section id="work" class="section">
@@ -13,28 +14,7 @@ import RightArrow from "../../icons/arrow-right-regular-full.svg";
 				automation workflows.
 			</p>
 		</div>
-		<div class="work-grid">
-			{
-				projects.map((p, i) => (
-					<a href={p.url} class={"proj"} data-delay={i % 2}>
-						<img
-							src={p.image}
-							alt={`${p.name} screenshot`}
-							class="proj-image"
-						/>
-						<div class="proj-content">
-							<div class="proj-text">
-								<div class="proj-type">{p.projectType}</div>
-								<h3>{p.name}</h3>
-							</div>
-							<div class="proj-button">
-								<RightArrow width={18} />
-							</div>
-						</div>
-					</a>
-				))
-			}
-		</div>
+		<ProjectsCarousel client:load />
 	</div>
 </section>
 
@@ -52,64 +32,8 @@ import RightArrow from "../../icons/arrow-right-regular-full.svg";
 	}
 	.work-grid {
 		display: grid;
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: 1fr 1fr 1fr;
 		gap: 2.5rem;
-	}
-
-	.proj-image {
-		width: 100%;
-		aspect-ratio: 5/4;
-		border-radius: 0.5rem;
-		overflow: hidden;
-		object-fit: cover;
-		margin-bottom: 1rem;
-	}
-
-	.proj-content {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
-
-	.proj-type {
-		display: flex;
-		padding: 0.5rem 1rem;
-		justify-content: center;
-		align-items: center;
-		border-radius: 2.5rem;
-		border: 0.0625rem solid rgb(from var(--gold) r g b / 0.25);
-		line-height: 100%;
-		text-transform: uppercase;
-		width: fit-content;
-		font-size: 0.75rem;
-		margin-bottom: 0.5rem;
-		color: var(--gold);
-		letter-spacing: 0.075rem;
-		font-weight: 500;
-		transition: border-color 0.25s var(--ease);
-		font-family: var(--general-sans);
-	}
-
-	.proj-text h3 {
-		font-size: 1.5rem;
-	}
-
-	.proj-button {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 2.5rem;
-		min-width: 2.5rem;
-		height: 2.5rem;
-		border-radius: 50%;
-		border: 0.0625rem solid rgb(from var(--gold) r g b / 0.25);
-		transition: border-color 0.25s var(--ease);
-		fill: var(--cream);
-	}
-
-	.proj:hover .proj-button,
-	.proj:hover .proj-type {
-		border-color: var(--gold) !important;
 	}
 
 	@media screen and (max-width: 767px) {
