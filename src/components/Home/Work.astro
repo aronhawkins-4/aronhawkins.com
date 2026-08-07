@@ -14,14 +14,23 @@ import { ProjectsCarousel } from "../ProjectsCarousel/ProjectsCarousel";
 				automation workflows.
 			</p>
 		</div>
-		<ProjectsCarousel client:load />
 	</div>
+	<ProjectsCarousel client:load />
 </section>
 
 <style>
 	section {
 		background-color: var(--brown);
+		padding-inline: 0;
+		padding-bottom: 7.5rem;
 	}
+
+	.container {
+		padding-bottom: 0;
+		padding-inline: 2.5rem;
+		max-width: calc(var(--maxw) + 5rem);
+	}
+
 	.sec-head {
 		max-width: 40rem;
 		margin-bottom: 4rem;
@@ -37,6 +46,12 @@ import { ProjectsCarousel } from "../ProjectsCarousel/ProjectsCarousel";
 	}
 
 	@media screen and (max-width: 767px) {
+		section {
+			padding-inline: 1.25rem;
+		}
+		.container {
+			padding-inline: 0;
+		}
 		.work-grid {
 			grid-template-columns: 1fr;
 		}

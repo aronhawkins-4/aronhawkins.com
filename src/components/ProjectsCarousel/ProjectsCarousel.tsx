@@ -6,7 +6,7 @@ import { projects } from '../../data/projects'
 import RightArrow from "../../../public/icons/arrow-right-regular-full.svg?react";
 
 export const ProjectsCarousel = () => {
-    const [emblaRef] = useEmblaCarousel({ loop: true }, [AutoScroll({ speed: .75, stopOnInteraction: false })])
+    const [emblaRef] = useEmblaCarousel({ loop: true, startIndex: 2 }, [AutoScroll({ speed: .75, stopOnInteraction: false })])
 
     return (
         <div className="projects-carousel_embla">

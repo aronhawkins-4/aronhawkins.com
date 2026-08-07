@@ -22,46 +22,70 @@ if (!project) {
 <Layout>
     <Header theme="light" />
     <main>
-        <div class="project">
+        <div
+            class={`project ${project.imageGallery?.length ? "" : "no-gallery"}`}
+        >
             <div class="project-content">
                 <div class="project-content_intro">
                     <h1>{project.name}</h1>
-                    <div set:html={project.description} />
+                    {
+                        project.description && (
+                            <div set:html={project.description} />
+                        )
+                    }
                 </div>
                 <div class="project-details">
-                    <div class="project-type">
-                        <h2>Project Type</h2>
-                        <p>{project.projectTypeDisplay}</p>
-                    </div>
-                    <div class="deliverables">
-                        <h2>Deliverables</h2>
-                        {
-                            project.deliverables?.length &&
-                                project.deliverables.map((deliverable) => {
-                                    return <p>{deliverable}</p>;
-                                })
-                        }
-                    </div>
-                    <div class="problem">
-                        <h2>Problem</h2>
-                        <div set:html={project.problem} />
-                    </div>
-                    <div class="solution">
-                        <h2>Solution</h2>
-                        <div set:html={project.solution} />
-                    </div>
-                </div>
-            </div>
-            <div class="project-gallery_wrapper">
-                <div class="project-gallery">
                     {
-                        project.imageGallery?.length &&
-                            project.imageGallery.map((image) => {
-                                return <img src={image.path} alt={image.alt} />;
-                            })
+                        project.projectType && (
+                            <div class="project-type">
+                                <h2>Project Type</h2>
+                                <p>{project.projectTypeDisplay}</p>
+                            </div>
+                        )
+                    }
+                    {
+                        project.deliverables && (
+                            <div class="deliverables">
+                                <h2>Deliverables</h2>
+                                {project.deliverables?.length &&
+                                    project.deliverables.map((deliverable) => {
+                                        return <p>{deliverable}</p>;
+                                    })}
+                            </div>
+                        )
+                    }
+                    {
+                        project.problem && (
+                            <div class="problem">
+                                <h2>Problem</h2>
+                                <div set:html={project.problem} />
+                            </div>
+                        )
+                    }
+                    {
+                        project.solution && (
+                            <div class="solution">
+                                <h2>Solution</h2>
+                                <div set:html={project.solution} />
+                            </div>
+                        )
                     }
                 </div>
             </div>
+            {
+                project.imageGallery?.length && (
+                    <div class="project-gallery_wrapper">
+                        <div class="project-gallery">
+                            {project.imageGallery?.length &&
+                                project.imageGallery.map((image) => {
+                                    return (
+                                        <img src={image.path} alt={image.alt} />
+                                    );
+                                })}
+                        </div>
+                    </div>
+                )
+            }
         </div>
     </main>
 </Layout>
@@ -71,6 +95,7 @@ if (!project) {
         position: relative !important;
         background: var(--cream) !important;
     }
+
     .project {
         width: 100%;
         background: var(--cream);
@@ -78,6 +103,12 @@ if (!project) {
         display: grid;
         grid-template-columns: 0.9fr 1.1fr;
     }
+
+    .project.no-gallery {
+        grid-template-columns: 1fr;
+        padding: 2.5rem;
+    }
+
     .project-content {
         padding: 2.5rem;
         border-right: 1px solid rgb(from var(--brown) r g b / 0.25);
@@ -85,6 +116,18 @@ if (!project) {
         top: 6.125rem;
         max-height: calc(100vh - 6.125rem);
         overflow: scroll;
+    }
+
+    .project.no-gallery .project-content {
+        border-right: none;
+        max-height: none;
+        max-width: calc(var(--maxw) * 0.75);
+        margin: auto;
+        padding: 0;
+    }
+
+    .project-content :global(a) {
+        text-decoration: underline;
     }
 
     .project-content_intro {
@@ -119,9 +162,18 @@ if (!project) {
         gap: 1.5rem;
     }
 
+    /* .project.no-gallery .project-details {
+        grid-template-columns: auto 1fr;
+        column-gap: 5rem;
+    } */
+
     .deliverables {
         width: max-content;
         margin-left: auto;
+    }
+
+    .project.no-gallery .deliverables {
+        margin-left: 0;
     }
 
     .deliverables p {
@@ -176,13 +228,20 @@ if (!project) {
         .project {
             grid-template-columns: 1fr;
         }
+
+        .project.no-gallery {
+            padding: 8rem 1.25rem 2.5rem;
+        }
         .project-content {
             position: relative;
             top: 0;
-
             border-bottom: 1px solid rgb(from var(--brown) r g b / 0.25);
             border-right: none;
             max-height: none;
+        }
+
+        .project.no-gallery .project-content {
+            border-bottom: none;
         }
         .project-gallery_wrapper {
             max-height: none;

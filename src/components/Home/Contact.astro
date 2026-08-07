@@ -15,14 +15,14 @@ import ContactForm from "../ContactForm.astro";
 			</p>
 		</div>
 
-		<ContactForm />
+		<ContactForm theme="light" />
 	</div>
 </section>
 
 <style>
 	/* CONTACT */
 	.section {
-		background: var(--brown);
+		background: var(--cream);
 	}
 
 	.contact-grid {
@@ -34,34 +34,29 @@ import ContactForm from "../ContactForm.astro";
 
 	h2 {
 		margin-bottom: 1rem;
+		color: var(--red);
 	}
 
 	p {
-		color: rgb(from var(--cream) r g b / 0.75);
+		color: rgb(from var(--brown) r g b / 0.75);
 	}
 
 	.contact .detail {
 		margin-top: 1.875rem;
 	}
 
-	.contact .detail .k {
-		font-size: 0.9375rem;
-		color: var(--muted);
-		font-weight: 600;
-	}
-
 	p a,
 	.contact .detail a {
-		border-bottom: 0.0625rem solid var(--gold);
-		color: var(--gold);
+		border-bottom: 0.0625rem solid var(--red);
+		color: var(--red);
 		transition:
 			color 0.15s var(--ease),
 			border-color 0.15s var(--ease);
 	}
 
 	p a:hover {
-		color: var(--red);
-		border-color: var(--red);
+		color: var(--brown);
+		border-color: var(--brown);
 	}
 
 	@media screen and (max-width: 767px) {

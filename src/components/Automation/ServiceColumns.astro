@@ -1,70 +1,81 @@
 ---
 import { Image } from "astro:assets";
-import MobileImage from "../../../public/images/apps-stock-image.webp";
-import WebAppMockup from "../../../public/images/web_app_mockup.webp";
+import AutomationMockup from "../../../public/images/automation__mockup.webp";
+import PeopleIcon from "@public/icons/people-group-duotone-solid-full.svg";
+import UserIcon from "@public/icons/circle-user-thumbprint-light-full.svg";
+import BriefcaseIcon from "@public/icons/briefcase-duotone-solid-full.svg";
+import BuildingIcon from "@public/icons/building-thumbprint-light-full.svg";
 ---
 
 <div class="section">
     <div class="container">
         <div class="grid">
             <div class="content-column">
-                <h2>Automations</h2>
+                <h2>Automation</h2>
                 <p>
-                    I build automations that connect the tools you already use
-                    and quietly handle the busywork in the background. I stay
-                    hands-on through every step.
+                    Websites I build are designed to align to the brand and
+                    engage users, developed to exceed speed, SEO, and
+                    accessibility standards, and architected to make future
+                    updates for the client easy and intuitive. Examples of types
+                    of websites I have built are:
                 </p>
-                <div class="steps">
-                    <div class="step">
-                        <h3>System Integrations</h3>
-                        <p>
-                            Custom connections between the apps that don't talk
-                            to each other out of the box, so your data stays in
-                            sync and no one is copying it by hand.
-                        </p>
+                <div class="types">
+                    <div class="type">
+                        <BuildingIcon width="24" />
+                        <div class="type_content">
+                            <h3>Real Estate Websites</h3>
+                            <p>
+                                Large, data-heavy websites with complex search,
+                                filter, and mapping functionality. Integrated
+                                with the local MLS to ensure listings are always
+                                up-to-date.
+                            </p>
+                        </div>
                     </div>
-                    <div class="step">
-                        <h3>AI-Powered Workflows</h3>
-                        <p>
-                            Summarizing documents, drafting replies, tagging and
-                            triaging requests — AI applied where it saves real
-                            hours, securely wired into your own business data.
-                        </p>
+                    <div class="type">
+                        <BriefcaseIcon width="24" />
+                        <div class="type_content">
+                            <h3>Business Websites</h3>
+                            <p>
+                                Medium to large websites that serve as a
+                                business's primary online presence. These sites
+                                often utilize a Content Management System to
+                                allow for dynamic content such as events, blog
+                                posts, and job listings.
+                            </p>
+                        </div>
                     </div>
-                    <div class="step">
-                        <h3>Lead &amp; CRM Automation</h3>
-                        <p>
-                            New leads captured, enriched, routed to the right
-                            person, and followed up with automatically — so
-                            nothing sits in an inbox going cold.
-                        </p>
+                    <div class="type">
+                        <PeopleIcon width="24" />
+                        <div class="type_content">
+                            <h3>Agency Websites</h3>
+                            <p>
+                                Medium sites that showcase an agency's services
+                                and recent client work. These sites are
+                                optimized for SEO and designed to set the agency
+                                apart from its competitors.
+                            </p>
+                        </div>
                     </div>
-                    <div class="step">
-                        <h3>Regular Reporting</h3>
-                        <p>
-                            Reports generated automatically from your data,
-                            dashboards updated in real-time, and insights
-                            delivered without manual effort. Consistent
-                            visibility into your business performance.
-                        </p>
+
+                    <div class="type">
+                        <UserIcon width="24" />
+                        <div class="type_content">
+                            <h3>Portfolio Websites</h3>
+                            <p>
+                                Small Sites for individuals and smaller teams
+                                that highlight their work. Designed to reflect
+                                their style, making use of tasteful animations
+                                to engage users and draw their attention to what
+                                sets the client apart.
+                            </p>
+                        </div>
                     </div>
-                    <div class="step">
-                        <h3>Invoicing &amp; Payments</h3>
-                        <p>
-                            Invoices generated and sent on schedule, payments
-                            reconciled, and reminders chasing overdue accounts
-                            so you don't have to.
-                        </p>
-                    </div>
-                </div>
-                <div class="cta">
-                    <a href="/contact" class="btn btn-primary">Contact me</a>
-                    <a href="/#work" class="btn btn-outline">See my work</a>
                 </div>
             </div>
             <div class="image-column">
                 <div class="image-wrapper">
-                    <Image src={MobileImage} alt="Mobile App" />
+                    <Image src={AutomationMockup} alt="Website mockup" />
                 </div>
             </div>
         </div>
@@ -80,7 +91,7 @@ import WebAppMockup from "../../../public/images/web_app_mockup.webp";
     }
 
     .grid:first-child {
-        /* margin-bottom: 7.5rem; */
+        margin-bottom: 7.5rem;
     }
 
     .image-wrapper {
@@ -106,18 +117,32 @@ import WebAppMockup from "../../../public/images/web_app_mockup.webp";
         color: rgb(var(--cream) r g b / 0.75);
     }
 
-    .steps {
+    .types {
         display: grid;
         gap: 1.75rem;
         margin-bottom: 2.5rem;
     }
 
-    .step h3 {
-        color: var(--gold);
-        margin-bottom: 0.375rem;
+    .type {
+        display: flex;
+        gap: 1rem;
+        align-items: flex-start;
     }
 
-    .step p {
+    .type svg {
+        color: var(--gold);
+        min-width: 2rem;
+    }
+
+    .type h3 {
+        color: var(--gold);
+        margin-bottom: 0.375rem;
+        font-family: var(--jetbrains-mono);
+        text-transform: none;
+        margin-top: 0.25rem;
+    }
+
+    .type p {
         color: rgb(var(--cream) r g b / 0.75);
     }
 
@@ -126,10 +151,28 @@ import WebAppMockup from "../../../public/images/web_app_mockup.webp";
         background: var(--red);
     }
 
-    .cta {
-        display: flex;
-        gap: 0.875rem;
-        flex-wrap: wrap;
-        align-items: center;
+    /* @media screen and (min-width: 768px) and (max-width: 1024px) {
+        .type {
+            flex-direction: column;
+        }
+    } */
+
+    @media screen and (max-width: 1024px) {
+        .grid {
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+        }
+
+        .grid:first-child {
+            margin-bottom: 4rem;
+        }
+
+        .grid:first-child .image-column {
+            order: -1;
+        }
+
+        .image-wrapper {
+            aspect-ratio: 3/2;
+        }
     }
 </style>

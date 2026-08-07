@@ -30,15 +30,16 @@
     margin-bottom: 1rem;
 }
 
-.testimonial-carousel_embla .embla__slide .testimonial-name, .testimonial-carousel_embla .embla__slide .testimonial-title {
+.testimonial-carousel_embla .embla__slide .testimonial-name,
+.testimonial-carousel_embla .embla__slide .testimonial-title {
     text-align: center;
-    
+
 }
 
 .testimonial-carousel_embla .embla__slide .testimonial-name {
     font-size: 1.25rem;
-     font-family: var(--general-sans);
-    
+    font-family: var(--general-sans);
+
     text-transform: uppercase;
     font-weight: 500;
 
