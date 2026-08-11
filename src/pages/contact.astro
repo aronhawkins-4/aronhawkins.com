@@ -1,9 +1,8 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Header from "../components/Header.astro";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@components/Header.astro";
 import { Image } from "astro:assets";
-import ContactForm from "../components/ContactForm.astro";
-import HeroImage from "../../public/images/HAWKINS-248.avif";
+import ContactForm from "@components/ContactForm.astro";
 import AronJumping from "@public/images/aron_jumping.webp";
 ---
 
@@ -13,7 +12,7 @@ import AronJumping from "@public/images/aron_jumping.webp";
         <div class="section">
             <div class="container">
                 <div class="content-grid">
-                    <div class="image-wrapper" data-delay="2">
+                    <div class="image-wrapper reveal">
                         <Image
                             src={AronJumping}
                             alt="Portrait of Aron Hawkins"
@@ -21,13 +20,16 @@ import AronJumping from "@public/images/aron_jumping.webp";
                         />
                     </div>
                     <div class="contact-content">
-                        <h1>Reach Out</h1>
-                        <p>
+                        <h1 class="reveal reveal-on-load">Reach Out</h1>
+                        <p class="reveal reveal-on-load">
                             Fill out the contact form below to tell me about
                             your project. I would love to connect to see how I
                             can help turn your idea into a reality!
                         </p>
-                        <ContactForm theme="light" />
+                        <ContactForm
+                            theme="light"
+                            class="reveal reveal-on-load"
+                        />
                     </div>
                 </div>
             </div>

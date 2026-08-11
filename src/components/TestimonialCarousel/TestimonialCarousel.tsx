@@ -36,9 +36,9 @@ export const TestimonialCarousel = () => {
                     {testimonials.map((testimonial, index) => (
                         <div className="embla__slide" key={testimonial.name}>
                             <div className="testimonial">
-                                <p className="testimonial-quote">"{testimonial.quote}"</p>
-                                <p className="testimonial-name">{testimonial.name}</p>
-                                <p className="testimonial-title">{testimonial.title}</p>
+                                <p className="testimonial-quote reveal">"{testimonial.quote}"</p>
+                                <p className="testimonial-name reveal">{testimonial.name}</p>
+                                <p className="testimonial-title reveal">{testimonial.title}</p>
                             </div>
                         </div>
                     ))}

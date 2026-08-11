@@ -1,8 +1,7 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import Header from "../../components/Header.astro";
-
-import { projects } from "../../data/projects";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@components/Header.astro";
+import { projects } from "@/data/projects";
 export function getStaticPaths() {
     return projects
         .filter((p) => p.slug)
@@ -27,10 +26,13 @@ if (!project) {
         >
             <div class="project-content">
                 <div class="project-content_intro">
-                    <h1>{project.name}</h1>
+                    <h1 class="reveal reveal-on-load">{project.name}</h1>
                     {
                         project.description && (
-                            <div set:html={project.description} />
+                            <div
+                                set:html={project.description}
+                                class="reveal reveal-on-load"
+                            />
                         )
                     }
                 </div>
@@ -38,35 +40,51 @@ if (!project) {
                     {
                         project.projectType && (
                             <div class="project-type">
-                                <h2>Project Type</h2>
-                                <p>{project.projectTypeDisplay}</p>
+                                <h2 class="reveal reveal-on-load">
+                                    Project Type
+                                </h2>
+                                <p class="reveal reveal-on-load">
+                                    {project.projectTypeDisplay}
+                                </p>
                             </div>
                         )
                     }
                     {
                         project.deliverables && (
                             <div class="deliverables">
-                                <h2>Deliverables</h2>
-                                {project.deliverables?.length &&
-                                    project.deliverables.map((deliverable) => {
-                                        return <p>{deliverable}</p>;
-                                    })}
+                                <h2 class="reveal reveal-on-load">
+                                    Deliverables
+                                </h2>
+                                <ul class="reveal reveal-on-load">
+                                    {project.deliverables?.length &&
+                                        project.deliverables.map(
+                                            (deliverable) => {
+                                                return <li>{deliverable}</li>;
+                                            },
+                                        )}
+                                </ul>
                             </div>
                         )
                     }
                     {
                         project.problem && (
                             <div class="problem">
-                                <h2>Problem</h2>
-                                <div set:html={project.problem} />
+                                <h2 class="reveal reveal-on-load">Problem</h2>
+                                <div
+                                    set:html={project.problem}
+                                    class="reveal reveal-on-load"
+                                />
                             </div>
                         )
                     }
                     {
                         project.solution && (
                             <div class="solution">
-                                <h2>Solution</h2>
-                                <div set:html={project.solution} />
+                                <h2 class="reveal reveal-on-load">Solution</h2>
+                                <div
+                                    set:html={project.solution}
+                                    class="reveal reveal-on-load"
+                                />
                             </div>
                         )
                     }
@@ -75,7 +93,7 @@ if (!project) {
             {
                 project.imageGallery?.length && (
                     <div class="project-gallery_wrapper">
-                        <div class="project-gallery">
+                        <div class="project-gallery reveal">
                             {project.imageGallery?.length &&
                                 project.imageGallery.map((image) => {
                                     return (
@@ -169,7 +187,16 @@ if (!project) {
 
     .deliverables {
         width: max-content;
-        margin-left: auto;
+        /* margin-left: auto; */
+    }
+
+    .deliverables ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .deliverables li {
+        color: rgb(from var(--brown) r g b / 0.75);
     }
 
     .project.no-gallery .deliverables {

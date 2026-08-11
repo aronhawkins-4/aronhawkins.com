@@ -1,6 +1,6 @@
 ---
-import "../styles/global.css";
-import Footer from "../components/Footer.astro";
+import "@/styles/global.css";
+import Footer from "@components/Footer.astro";
 
 interface Props {
 	title?: string;
@@ -35,50 +35,113 @@ const {
 		<slot />
 		<Footer />
 		<script>
-			// Sticky header
-			const header = document.getElementById("header");
-			const onScroll = () =>
-				header?.classList.toggle("scrolled", window.scrollY > 24);
-			onScroll();
-			window.addEventListener("scroll", onScroll, { passive: true });
+			import { animate, inView, stagger } from "motion";
+			document.addEventListener("DOMContentLoaded", () => {
+				(function () {
+					// Sticky header
+					const header = document.getElementById("header");
+					const onScroll = () =>
+						header?.classList.toggle(
+							"scrolled",
+							window.scrollY > 24,
+						);
+					onScroll();
+					window.addEventListener("scroll", onScroll, {
+						passive: true,
+					});
+				})();
 
-			// Mobile nav
-			const toggle = document.getElementById("navtoggle");
-			const links = document.getElementById("navlinks");
-			toggle?.addEventListener("click", () => {
-				const open = links?.classList.toggle("open");
-				toggle.classList.toggle("open", open);
-				toggle.setAttribute("aria-expanded", open ? "true" : "false");
-				if (open) links?.querySelector("a")?.focus();
-			});
-			const closeMenu = () => {
-				links?.classList.remove("open");
-				toggle?.classList.remove("open");
-				toggle?.setAttribute("aria-expanded", "false");
-			};
-			links
-				?.querySelectorAll("a")
-				.forEach((a) => a.addEventListener("click", closeMenu));
-			document.addEventListener("click", (e) => {
-				if (!links?.classList.contains("open")) return;
-				const target = e.target as Node;
-				if (!links.contains(target) && !toggle?.contains(target)) {
-					closeMenu();
-				}
-			});
-			document.addEventListener("keydown", (e) => {
-				if (!links?.classList.contains("open")) return;
-				if (e.key === "Escape") {
-					closeMenu();
-					toggle?.focus();
-				} else if (
-					e.key === "Tab" &&
-					!e.shiftKey &&
-					document.activeElement === toggle
-				) {
-					e.preventDefault();
-					links.querySelector("a")?.focus();
-				}
+				(function () {
+					// Mobile nav
+					const toggle = document.getElementById("navtoggle");
+					const links = document.getElementById("navlinks");
+					toggle?.addEventListener("click", () => {
+						const open = links?.classList.toggle("open");
+						toggle.classList.toggle("open", open);
+						toggle.setAttribute(
+							"aria-expanded",
+							open ? "true" : "false",
+						);
+						if (open) links?.querySelector("a")?.focus();
+					});
+					const closeMenu = () => {
+						links?.classList.remove("open");
+						toggle?.classList.remove("open");
+						toggle?.setAttribute("aria-expanded", "false");
+					};
+					links
+						?.querySelectorAll("a")
+						.forEach((a) => a.addEventListener("click", closeMenu));
+					document.addEventListener("click", (e) => {
+						if (!links?.classList.contains("open")) return;
+						const target = e.target as Node;
+						if (
+							!links.contains(target) &&
+							!toggle?.contains(target)
+						) {
+							closeMenu();
+						}
+					});
+					document.addEventListener("keydown", (e) => {
+						if (!links?.classList.contains("open")) return;
+						if (e.key === "Escape") {
+							closeMenu();
+							toggle?.focus();
+						} else if (
+							e.key === "Tab" &&
+							!e.shiftKey &&
+							document.activeElement === toggle
+						) {
+							e.preventDefault();
+							links.querySelector("a")?.focus();
+						}
+					});
+				})();
+
+				// Entrance Animations
+				(function () {
+					animate(
+						".reveal.reveal-on-load",
+						{ opacity: [0, 1], y: [20, 0] },
+						{
+							duration: 0.7,
+							type: "spring",
+							bounce: 0.3,
+							delay: stagger(0.1),
+						},
+					);
+					inView(
+						".reveal:not(.reveal-on-load)",
+						(element) => {
+							animate(
+								element,
+								{ opacity: [0, 1], y: [20, 0] },
+								{ duration: 0.7, type: "spring", bounce: 0.3 },
+							);
+						},
+						{
+							margin: "0px 0px -100px 0px",
+						},
+					);
+					inView(
+						".reveal-stagger",
+						(element) => {
+							animate(
+								element.querySelectorAll(".stagger-target"),
+								{ opacity: [0, 1], y: [20, 0] },
+								{
+									duration: 0.7,
+									type: "spring",
+									bounce: 0.3,
+									delay: stagger(0.1),
+								},
+							);
+						},
+						{
+							margin: "0px 0px -100px 0px",
+						},
+					);
+				})();
 			});
 		</script>
 	</body>

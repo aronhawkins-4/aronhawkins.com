@@ -12,12 +12,12 @@ export const services: Service[] = [
 	},
 	{
 		name: 'Sites',
-		description: 'Connecting the tools you already use and automating the repetitive tasks your team does by hand every week.',
+		description: 'Websites that are fast, mobile-responsive, optimized for SEO, and designed to convert, getting you found by users and gaining valuable leads.',
 		slug: 'sites',
 	},
 	{
 		name: 'Automation',
-		description: 'Bringing aging systems up to date: turning spreadsheets into secure applications, fixing security vulnerabilities, and migrating data without losing any of it.',
+		description: 'Automation workflows that handle the busywork and let you focus on what you\'re best at, giving you time back to solve the problems that matter.',
 		slug: 'automation',
 	}
 ];

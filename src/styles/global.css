@@ -2,7 +2,6 @@
 @import url('jetbrains-mono.css');
 
 :root {
-
 	--white: white;
 	--black: black;
 	--transparent: transparent;
@@ -167,17 +166,37 @@ h3 {
 
 
 /* reveal */
-.reveal {
+.reveal,
+.stagger-target {
 	opacity: 0;
-	transform: translateY(1.625rem);
-	transition:
+	/* transform: translateY(1.625rem); */
+	/* transition:
 		opacity 0.9s var(--ease),
-		transform 0.9s var(--ease);
+		transform 0.9s var(--ease); */
 }
 
+/*
 .reveal.in {
 	opacity: 1;
 	transform: none;
+} */
+
+/* line-by-line stagger — .line wrappers are injected by the splitter in Layout.astro */
+.stagger {
+	opacity: 0;
+}
+
+.stagger .line {
+	display: block;
+	overflow: hidden;
+	/* keep descenders from being clipped by the overflow mask */
+	padding-bottom: 0.12em;
+	margin-bottom: -0.12em;
+}
+
+.stagger .line-inner {
+	display: block;
+	will-change: transform;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -185,21 +204,11 @@ h3 {
 		scroll-behavior: auto;
 	}
 
-	.reveal {
+	/* .reveal {
 		opacity: 1;
 		transform: none;
 		transition: none;
-	}
-
-	.btn,
-	.btn-arrow {
-		transition: none;
-	}
-
-	.btn:hover,
-	.btn:hover .btn-arrow {
-		transform: none;
-	}
+	} */
 }
 
 @media (max-width: 1024px) {

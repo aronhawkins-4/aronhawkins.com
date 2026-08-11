@@ -1,6 +1,6 @@
 ---
-import DarkLogo from "../../public/images/brand/Lockup_3-02.svg";
-import LightLogo from "../../public/images/brand/Lockup_3-01.svg";
+import DarkLogo from "@public/images/brand/Lockup_3-02.svg";
+import LightLogo from "@public/images/brand/Lockup_3-01.svg";
 
 const links = [
 	{ label: "Services", href: "/#services" },
@@ -236,7 +236,8 @@ const { theme = "dark" } = Astro.props;
 			justify-content: flex-start;
 			gap: 0.25rem;
 			padding: 0.5rem;
-			border: 0.0625rem solid rgb(from var(--brown) r g b / 0.25);
+			border-width: 0.0625rem;
+			border-style: solid;
 			border-radius: 0.75rem;
 			box-shadow: 0 1rem 2.5rem rgb(0 0 0 / 0.35);
 			transform-origin: top;
@@ -251,10 +252,12 @@ const { theme = "dark" } = Astro.props;
 
 		header.dark .nav-links {
 			background: var(--brown);
+			border-color: rgb(from var(--cream) r g b / 0.25);
 		}
 
 		header.light .nav-links {
 			background: var(--cream);
+			border-color: rgb(from var(--brown) r g b / 0.25);
 		}
 
 		.nav-links a.link {

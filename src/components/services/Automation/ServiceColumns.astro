@@ -1,0 +1,173 @@
+---
+import { Image } from "astro:assets";
+import AutomationMockup from "@public/images/automation__mockup.webp";
+import MoneyIcon from "@public/icons/money-check-dollar-duotone-regular-full.svg";
+import ChartIcon from "@public/icons/display-chart-up-duotone-regular-full.svg";
+import TableIcon from "@public/icons/table-columns-add-after-duotone-regular-full.svg";
+import LightbulbIcon from "@public/icons/lightbulb-on-duotone-regular-full.svg";
+import InfinityIcon from "@public/icons/infinity-duotone-regular-full.svg";
+---
+
+<div class="section">
+    <div class="container">
+        <div class="grid">
+            <div class="content-column">
+                <h2>Automation</h2>
+                <p>
+                    I give you time back by making your repeated, mundane tasks
+                    automatic. Examples of automations I have deployed are:
+                </p>
+                <div class="types">
+                    <div class="type">
+                        <MoneyIcon width="24" />
+                        <div class="type_content">
+                            <h3>Invoice Management</h3>
+                            <p>
+                                Create invoices, send reminder emails to
+                                clients, and update necessesary systems when
+                                payment is received.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="type">
+                        <ChartIcon width="24" />
+                        <div class="type_content">
+                            <h3>Weekly Reports</h3>
+                            <p>
+                                Pull data from your project management software
+                                and send progress reports to clients.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="type">
+                        <TableIcon width="24" />
+                        <div class="type_content">
+                            <h3>CRM Data Entry</h3>
+                            <p>
+                                Connect a spreadsheet with meeting information
+                                to your CRM, automatically uploading the meeting
+                                information and scheduling follow-ups.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="type">
+                        <LightbulbIcon width="24" />
+                        <div class="type_content">
+                            <h3>Social Media Content Ideation</h3>
+                            <p>
+                                Scrape social media accounts of creators in your
+                                field. Find current trends and how to apply them
+                                to your niche.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="type">
+                        <InfinityIcon width="24" />
+                        <div class="type_content">
+                            <h3>Anything Else</h3>
+                            <p>
+                                There is virtually no limit to the tasks and
+                                processes that can be automated. If there is a
+                                repeatable task that needs to be done but
+                                doesn't feel worth your time, let's automate it!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="image-column">
+                <div class="image-wrapper">
+                    <Image src={AutomationMockup} alt="Website mockup" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 7.5rem;
+        align-items: center;
+    }
+
+    .image-wrapper {
+        width: 100%;
+        aspect-ratio: 4/5;
+        overflow: hidden;
+        border-radius: 0.5rem;
+        position: relative;
+    }
+    .image-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .content-column h2 {
+        margin-bottom: 1rem;
+    }
+
+    .content-column > p {
+        margin-bottom: 2.5rem;
+        color: rgb(var(--cream) r g b / 0.75);
+    }
+
+    .types {
+        display: grid;
+        gap: 1.75rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .type {
+        display: flex;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+
+    .type svg {
+        color: var(--gold);
+        min-width: 2rem;
+    }
+
+    .type h3 {
+        color: var(--gold);
+        margin-bottom: 0.375rem;
+        font-family: var(--jetbrains-mono);
+        text-transform: none;
+        margin-top: 0.25rem;
+    }
+
+    .type p {
+        color: rgb(var(--cream) r g b / 0.75);
+    }
+
+    .content-column p span {
+        opacity: 1;
+        background: var(--red);
+    }
+
+    /* @media screen and (min-width: 768px) and (max-width: 1024px) {
+        .type {
+            flex-direction: column;
+        }
+    } */
+
+    @media screen and (max-width: 1024px) {
+        .grid {
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+        }
+
+        .grid:first-child .image-column {
+            order: -1;
+        }
+
+        .image-wrapper {
+            aspect-ratio: 3/2;
+        }
+    }
+</style>

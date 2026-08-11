@@ -1,15 +1,19 @@
 ---
 const EMAIL = "howdy@aronhawkins.com";
-import ChevronDown from "../../public/icons/chevron-down.svg";
+import ChevronDown from "@public/icons/chevron-down.svg";
 interface Props {
     theme?: "light" | "dark"; // Optional prop
+    class?: string;
 }
 
 // 2. Destructure from Astro.props with a fallback for greeting
-const { theme = "dark" } = Astro.props;
+const { theme = "dark", class: classFromProps } = Astro.props;
 ---
 
-<form id="contactForm" class={theme === "dark" ? "dark" : "light"}>
+<form
+    id="contactForm"
+    class={`${theme === "dark" ? "dark" : "light"} ${classFromProps ? classFromProps : ""}`}
+>
     <div class="row">
         <div class="field">
             <label for="name">Name</label>
