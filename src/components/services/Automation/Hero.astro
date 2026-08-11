@@ -2,10 +2,10 @@
 	<div class="container">
 		<div class="hero-grid">
 			<div class="top">
-				<h1>Automation</h1>
+				<h1 class="reveal reveal-on-load">Automation</h1>
 			</div>
 			<div>
-				<p>
+				<p class="reveal reveal-on-load">
 					I architect and develop automation workflows that{" "}
 					<span
 						>take the repetitive, manual work off your team's plate.</span
@@ -19,6 +19,13 @@
 					that can{" "}
 					<span>put their energy toward what they are best at.</span>
 				</p>
+				<a
+					href="/contact"
+					class="btn btn-primary hover-alt
+				reveal
+				reveal-on-load"
+					>Get Started</a
+				>
 			</div>
 		</div>
 	</div>
@@ -50,7 +57,7 @@
 	.hero h1 {
 		font-size: 4rem;
 		color: var(--red);
-		margin-bottom: 1rem;
+		margin-bottom: 1.5rem;
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
@@ -60,10 +67,9 @@
 	.hero p {
 		font-size: 1rem;
 		color: rgb(from var(--brown) r g b / 0.75);
-		margin-top: 2.5rem;
 		text-wrap: pretty;
+		margin-bottom: 2.5rem;
 	}
-
 	.hero p span {
 		opacity: 1;
 		background: var(--red);

@@ -250,7 +250,7 @@ const { theme = "dark", class: classFromProps } = Astro.props;
         padding: 0.875rem;
         border-radius: 0.5rem;
         font-size: 1rem;
-        text-align: center;
+        text-align: left;
     }
 
     .form-err {
@@ -261,7 +261,7 @@ const { theme = "dark", class: classFromProps } = Astro.props;
         padding: 0.875rem;
         border-radius: 0.625rem;
         font-size: 1rem;
-        text-align: center;
+        text-align: left;
     }
 </style>
 
@@ -288,6 +288,8 @@ const { theme = "dark", class: classFromProps } = Astro.props;
                 body: JSON.stringify({
                     name: data.get("name"),
                     email: data.get("email"),
+                    budget: data.get("budget"),
+                    timeline: data.get("timeline"),
                     message: data.get("message"),
                 }),
             });
