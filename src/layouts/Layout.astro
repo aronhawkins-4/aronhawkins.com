@@ -1,46 +1,168 @@
 ---
-import '../styles/global.css';
+import "@/styles/global.css";
+import Footer from "@components/Footer.astro";
+import PostHog from "@components/posthog.astro";
 
 interface Props {
 	title?: string;
 	description?: string;
+	imageSrc?: string;
 }
-const { title = 'Aron Hawkins — Software Developer', description = 'Full-stack developer in Texas, building custom web and mobile apps for businesses, startups, and agencies.' } = Astro.props;
+const {
+	title = "Aron Hawkins | Apps • Sites • Automation",
+	description = "Full-stack developer in Texas, building apps that make life easier, websites that convert, and automations that save time.",
+	imageSrc,
+} = Astro.props;
+
+// Open Graph requires absolute URLs — `imageSrc` comes in as a root-relative
+// asset path, so resolve it against the configured `site`.
+const ogImage = imageSrc ? new URL(imageSrc, Astro.site).href : undefined;
+const ogUrl = new URL(Astro.url.pathname, Astro.site).href;
 ---
 
 <!doctype html>
-<html lang='en'>
+<html lang="en">
 	<head>
-		<meta charset='UTF-8' />
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content={description} />
+
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="Aron Hawkins" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={ogUrl} />
+		<link rel="canonical" href={ogUrl} />
+		{ogImage && <meta property="og:image" content={ogImage} />}
+
 		<meta
-			name='viewport'
-			content='width=device-width, initial-scale=1.0'
+			name="twitter:card"
+			content={ogImage ? "summary_large_image" : "summary"}
 		/>
-		<meta
-			name='description'
-			content={description}
-		/>
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		{ogImage && <meta name="twitter:image" content={ogImage} />}
+
 		<link
-			rel='icon'
-			type='image/svg+xml'
-			href='/favicon.svg'
-		/>
-		<link
-			rel='preconnect'
-			href='https://fonts.googleapis.com'
-		/>
-		<link
-			rel='preconnect'
-			href='https://fonts.gstatic.com'
-			crossorigin
-		/>
-		<link
-			href='https://fonts.googleapis.com/css2?family=Besley:wght@400;500&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap'
-			rel='stylesheet'
+			rel="icon"
+			type="image/svg+xml"
+			href="/images/brand/Brand_Icon-02.svg"
 		/>
 		<title>{title}</title>
+		<PostHog />
 	</head>
 	<body>
 		<slot />
+		<Footer />
+		<script>
+			import { animate, inView, stagger } from "motion";
+			document.addEventListener("DOMContentLoaded", () => {
+				(function () {
+					// Sticky header
+					const header = document.getElementById("header");
+					const onScroll = () =>
+						header?.classList.toggle(
+							"scrolled",
+							window.scrollY > 24,
+						);
+					onScroll();
+					window.addEventListener("scroll", onScroll, {
+						passive: true,
+					});
+				})();
+
+				(function () {
+					// Mobile nav
+					const toggle = document.getElementById("navtoggle");
+					const links = document.getElementById("navlinks");
+					toggle?.addEventListener("click", () => {
+						const open = links?.classList.toggle("open");
+						toggle.classList.toggle("open", open);
+						toggle.setAttribute(
+							"aria-expanded",
+							open ? "true" : "false",
+						);
+						if (open) links?.querySelector("a")?.focus();
+					});
+					const closeMenu = () => {
+						links?.classList.remove("open");
+						toggle?.classList.remove("open");
+						toggle?.setAttribute("aria-expanded", "false");
+					};
+					links
+						?.querySelectorAll("a")
+						.forEach((a) => a.addEventListener("click", closeMenu));
+					document.addEventListener("click", (e) => {
+						if (!links?.classList.contains("open")) return;
+						const target = e.target as Node;
+						if (
+							!links.contains(target) &&
+							!toggle?.contains(target)
+						) {
+							closeMenu();
+						}
+					});
+					document.addEventListener("keydown", (e) => {
+						if (!links?.classList.contains("open")) return;
+						if (e.key === "Escape") {
+							closeMenu();
+							toggle?.focus();
+						} else if (
+							e.key === "Tab" &&
+							!e.shiftKey &&
+							document.activeElement === toggle
+						) {
+							e.preventDefault();
+							links.querySelector("a")?.focus();
+						}
+					});
+				})();
+
+				// Entrance Animations
+				(function () {
+					animate(
+						".reveal.reveal-on-load",
+						{ opacity: [0, 1], y: [20, 0] },
+						{
+							duration: 0.7,
+							type: "spring",
+							bounce: 0.3,
+							delay: stagger(0.1),
+						},
+					);
+					inView(
+						".reveal:not(.reveal-on-load)",
+						(element) => {
+							animate(
+								element,
+								{ opacity: [0, 1], y: [20, 0] },
+								{ duration: 0.7, type: "spring", bounce: 0.3 },
+							);
+						},
+						{
+							margin: "0px 0px -100px 0px",
+						},
+					);
+					inView(
+						".reveal-stagger",
+						(element) => {
+							animate(
+								element.querySelectorAll(".stagger-target"),
+								{ opacity: [0, 1], y: [20, 0] },
+								{
+									duration: 0.7,
+									type: "spring",
+									bounce: 0.3,
+									delay: stagger(0.1),
+								},
+							);
+						},
+						{
+							margin: "0px 0px -100px 0px",
+						},
+					);
+				})();
+			});
+		</script>
 	</body>
 </html>

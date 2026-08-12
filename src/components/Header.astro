@@ -1,45 +1,290 @@
 ---
+import DarkLogo from "@/assets/images/brand/Lockup_3-02.svg";
+import LightLogo from "@/assets/images/brand/Lockup_3-01.svg";
+
 const links = [
-	{ label: 'Services', href: '#services' },
-	{ label: 'Work', href: '#work' },
-	{ label: 'About', href: '#about' },
+	{ label: "Services", href: "/#services" },
+	{ label: "Work", href: "/#work" },
+	{ label: "About", href: "/about" },
 ];
+
+interface Props {
+	theme?: "light" | "dark"; // Optional prop
+}
+
+// 2. Destructure from Astro.props with a fallback for greeting
+const { theme = "dark" } = Astro.props;
 ---
 
-<header id='header'>
-	<div class='wrap nav'>
-		<a
-			href='#top'
-			class='logo'
-			>Aron Hawkins</a
+<header id="header" class={theme === "dark" ? "dark" : "light"}>
+	<div class="nav">
+		<a href="/" class="logo">
+			{
+				theme === "dark" ? (
+					<DarkLogo width="144" height="auto" />
+				) : (
+					<LightLogo width="144" height="auto" />
+				)
+			}</a
 		>
-		<nav
-			class='nav-links'
-			id='navlinks'
-		>
+
+		<nav class="nav-links" id="navlinks" aria-label="Main">
 			{
 				links.map((l) => (
-					<a
-						class='link'
-						href={l.href}
-					>
+					<a class="link" href={l.href}>
 						{l.label}
 					</a>
 				))
 			}
-			<a
-				class='btn btn-primary'
-				href='https://cal.com/aron-hawkins/15min'
-				style='padding:0.6875rem 1.25rem;font-size:0.875rem;'
-				>Book a 15-minute call</a
-			>
+			<a class="link mobile-only" href="/contact">Contact</a>
 		</nav>
+		<div class="nav-cta">
+			<a class="btn" href="/contact">Contact</a>
+		</div>
 		<button
-			class='nav-toggle'
-			id='navtoggle'
-			aria-label='Menu'
+			class="nav-toggle"
+			id="navtoggle"
+			aria-label="Menu"
+			aria-controls="navlinks"
+			aria-expanded="false"
 		>
-			<span></span><span></span><span></span>
+			<span aria-hidden="true"></span><span aria-hidden="true"
+			></span><span aria-hidden="true"></span>
 		</button>
 	</div>
 </header>
+
+<style>
+	header {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 50;
+		transition:
+			background 0.4s var(--ease),
+			border-color 0.4s var(--ease);
+		border-bottom: 0.0625rem solid transparent;
+		padding: 1.25rem 2.5rem;
+	}
+
+	header.dark.scrolled {
+		background: var(--brown);
+		border-bottom: 0.0625rem solid rgb(from var(--cream) r g b / 0.25);
+	}
+
+	header.light.scrolled {
+		background: var(--cream);
+		border-bottom: 0.0625rem solid rgb(from var(--brown) r g b / 0.25);
+	}
+	.nav {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		align-items: center;
+		justify-content: space-between;
+		max-width: var(--maxw);
+		margin: auto;
+	}
+
+	.logo {
+		display: flex;
+	}
+
+	.nav-links {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 2.125rem;
+	}
+
+	.nav-links a.link {
+		font-size: 1rem;
+		font-weight: 500;
+		transition: color 0.25s;
+		font-family: var(--jetbrains-mono);
+	}
+
+	header.dark .nav-links a.link {
+		color: var(--cream);
+	}
+
+	header.light .nav-links a.link {
+		color: var(--brown);
+	}
+
+	.nav-links a.link:hover {
+		text-decoration: underline;
+	}
+
+	/* Contact link only appears inside the mobile dropdown */
+	.nav-links a.link.mobile-only {
+		display: none;
+	}
+
+	.nav-cta {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+	}
+
+	header.dark .nav-cta a.btn {
+		background: var(--gold);
+		color: var(--cream);
+	}
+	header.light .nav-cta a.btn {
+		background: var(--red);
+		color: var(--cream);
+	}
+
+	header.dark .nav-cta a.btn:hover {
+		background: var(--cream);
+		color: var(--brown);
+	}
+
+	header.light .nav-cta a.btn:hover {
+		background: var(--brown);
+	}
+
+	.nav-toggle {
+		display: none;
+		background: none;
+		border: none;
+		cursor: pointer;
+		flex-direction: column;
+		gap: 0.35rem;
+		padding: 0.25rem;
+	}
+
+	.nav-links a.link:focus-visible,
+	.nav-cta a.btn:focus-visible,
+	.nav-toggle:focus-visible {
+		outline: 0.125rem solid var(--gold);
+		outline-offset: 0.25rem;
+		border-radius: 0.25rem;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.nav-links,
+		.nav-links.open {
+			transition: none;
+		}
+	}
+
+	.nav-toggle span {
+		width: 1.5rem;
+		height: 0.125rem;
+		display: block;
+		transition:
+			transform 0.15s var(--ease),
+			opacity 0.15s var(--ease);
+	}
+
+	header.dark .nav-toggle span {
+		background: var(--cream);
+	}
+
+	header.light .nav-toggle span {
+		background: var(--red);
+	}
+
+	.nav-toggle.open span:nth-child(1) {
+		transform: translateY(0.475rem) rotate(45deg);
+	}
+
+	.nav-toggle.open span:nth-child(2) {
+		opacity: 0;
+	}
+
+	.nav-toggle.open span:nth-child(3) {
+		transform: translateY(-0.475rem) rotate(-45deg);
+	}
+
+	@media screen and (max-width: 1024px) {
+		.nav {
+			grid-template-columns: auto 1fr auto;
+		}
+	}
+	@media screen and (max-width: 767px) {
+		header {
+			padding: 1rem 1.25rem;
+		}
+		.nav {
+			display: flex;
+			justify-content: space-between;
+		}
+		.nav-cta {
+			display: none;
+		}
+		.nav-toggle {
+			display: flex;
+			z-index: 60;
+		}
+
+		.nav-links a.link.mobile-only {
+			display: block;
+		}
+
+		.nav-links {
+			position: absolute;
+			top: calc(100% - 1rem);
+			right: 1.25rem;
+			right: 1.25rem;
+			width: fit-content;
+			min-width: 15rem;
+			flex-direction: column;
+			align-items: stretch;
+			justify-content: flex-start;
+			gap: 0.25rem;
+			padding: 0.5rem;
+			border-width: 0.0625rem;
+			border-style: solid;
+			border-radius: 0.75rem;
+			box-shadow: 0 1rem 2.5rem rgb(0 0 0 / 0.35);
+			transform-origin: top;
+			transform: scaleY(0.96) translateY(-0.5rem);
+			opacity: 0;
+			visibility: hidden;
+			transition:
+				opacity 0.2s var(--ease),
+				transform 0.2s var(--ease),
+				visibility 0.2s var(--ease);
+		}
+
+		header.dark .nav-links {
+			background: var(--brown);
+			border-color: rgb(from var(--cream) r g b / 0.25);
+		}
+
+		header.light .nav-links {
+			background: var(--cream);
+			border-color: rgb(from var(--brown) r g b / 0.25);
+		}
+
+		.nav-links a.link {
+			padding: 0.75rem 1rem;
+			border-radius: 0.5rem;
+		}
+
+		.nav-links a.link:hover {
+			text-decoration: none;
+		}
+
+		header.dark .nav-links a.link:hover {
+			background: rgb(from var(--cream) r g b / 0.08);
+		}
+
+		header.light .nav-links a.link:hover {
+			background: rgb(from var(--brown) r g b / 0.08);
+		}
+
+		.nav-links.open {
+			transform: scaleY(1) translateY(0);
+			opacity: 1;
+			visibility: visible;
+			transition:
+				opacity 0.2s var(--ease),
+				transform 0.2s var(--ease),
+				visibility 0s var(--ease);
+		}
+	}
+</style>

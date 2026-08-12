@@ -1,0 +1,22 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@components/Header.astro";
+import Testimonials from "@components/pages/About/Testimonials.astro";
+import Hero from "@components/pages/About/Hero.astro";
+import Clients from "@components/pages/About/Clients.astro";
+import OgImage from "@/assets/images/aronhawkins-23.webp";
+---
+
+<Layout
+  title="About Me | Aron Hawkins Software Development"
+  description="Aron Hawkins is a fullstack software developer in central Texas. His primary service offerings include web and mobile applications, website design and development, and automation workflows."
+  imageSrc={OgImage.src}
+>
+  <Header theme="light" />
+  <a id="top"></a>
+  <main>
+    <Hero />
+    <Clients />
+    <Testimonials />
+  </main>
+</Layout>

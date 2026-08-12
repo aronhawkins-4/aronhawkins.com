@@ -1,0 +1,81 @@
+---
+import { Image } from "astro:assets";
+import AboutImage from "@/assets/images/HAWKINS-98.avif";
+---
+
+<section id="about" class="section about">
+	<div class="about-grid container">
+		<div class="image-wrapper">
+			<Image
+				src={AboutImage}
+				alt="Portrait of Aron Hawkins"
+				class="hero-portrait reveal"
+			/>
+		</div>
+		<div>
+			<h2 class="reveal reveal-on-load">About Me</h2>
+			<p class="reveal reveal-on-load">
+				I'm Aron Hawkins, a software developer in Texas. I build custom
+				web and mobile applications, beautiful websites, and reliable
+				automation workflows that help businesses, startups, and
+				agencies turn their ideas into real products.
+			</p>
+			<a
+				href="https://cal.com/aron-hawkins/15min"
+				class="btn btn-primary hover-alt">Contact me</a
+			>
+		</div>
+	</div>
+</section>
+
+<style>
+	/* HERO */
+	.about {
+		position: relative;
+		background-color: var(--cream);
+	}
+
+	.about-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 5rem;
+		align-items: center;
+		position: relative;
+	}
+	.about h2 {
+		color: var(--red);
+		margin-bottom: 1rem;
+	}
+
+	.about p {
+		font-size: 1rem;
+		color: rgb(from var(--brown) r g b / 0.75);
+		opacity: 0.75;
+		margin-bottom: 2.5rem;
+	}
+
+	.image-wrapper {
+		position: relative;
+		width: 100%;
+		height: auto;
+		aspect-ratio: 5/4;
+		overflow: hidden;
+		border-radius: 0.5rem;
+	}
+
+	.image-wrapper img {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: bottom;
+	}
+
+	@media screen and (max-width: 767px) {
+		.about-grid {
+			grid-template-columns: 1fr;
+			gap: 2.5rem;
+		}
+	}
+</style>

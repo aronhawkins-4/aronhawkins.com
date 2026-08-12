@@ -15,14 +15,14 @@ export const POST: APIRoute = async ({ request }) => {
 		return Response.json({ error: 'Email service is not configured.' }, { status: 500 });
 	}
 
-	let name: string, email: string, message: string;
+	let name: string, email: string, budget: string, timeline: string, message: string;
 	try {
-		({ name, email, message } = await request.json());
+		({ name, email, budget, timeline, message } = await request.json());
 	} catch {
 		return Response.json({ error: 'Invalid request body.' }, { status: 400 });
 	}
-	if (typeof name !== 'string' || !name.trim() || typeof email !== 'string' || !email.includes('@') || typeof message !== 'string' || !message.trim()) {
-		return Response.json({ error: 'Name, email, and message are required.' }, { status: 400 });
+	if (typeof name !== 'string' || !name.trim() || typeof email !== 'string' || !email.includes('@') || typeof budget !== 'string' || !budget.trim() || typeof timeline !== 'string' || !timeline.trim() || typeof message !== 'string' || !message.trim()) {
+		return Response.json({ error: 'Name, email, budget, timeline, and message are required.' }, { status: 400 });
 	}
 
 	const resend = new Resend(apiKey);
@@ -31,7 +31,7 @@ export const POST: APIRoute = async ({ request }) => {
 		to: [TO],
 		replyTo: email,
 		subject: `New contact form submission from ${name}`,
-		react: ContactFormEmail({ name, email, message }),
+		react: ContactFormEmail({ name, email, budget, timeline, message }),
 	});
 
 	if (error) {

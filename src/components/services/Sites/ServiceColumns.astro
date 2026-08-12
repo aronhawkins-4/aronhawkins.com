@@ -1,0 +1,175 @@
+---
+import { Image } from "astro:assets";
+import SiteImage from "@/assets/images/web-portfolio-mockup_11.webp";
+import PeopleIcon from "@/assets/icons/people-group-duotone-regular-full.svg";
+import UserIcon from "@/assets/icons/circle-user-duotone-regular-full.svg";
+import BriefcaseIcon from "@/assets/icons/briefcase-duotone-regular-full.svg";
+import BuildingIcon from "@/assets/icons/building-duotone-regular-full.svg";
+---
+
+<div class="section">
+    <div class="container">
+        <div class="grid">
+            <div class="content-column">
+                <h2 class="reveal">Websites</h2>
+                <p class="reveal">
+                    Websites I build are designed to align to the brand and
+                    engage users, developed to exceed speed, SEO, and
+                    accessibility standards, and architected to make future
+                    updates for the client easy and intuitive. Examples of types
+                    of websites I have built are:
+                </p>
+                <div class="types">
+                    <div class="type">
+                        <BuildingIcon width="24" class="reveal" />
+                        <div class="type_content">
+                            <h3 class="reveal">Real Estate Websites</h3>
+                            <p class="reveal">
+                                Large, data-heavy websites with complex search,
+                                filter, and mapping functionality. Integrated
+                                with the local MLS to ensure listings are always
+                                up-to-date.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="type">
+                        <BriefcaseIcon width="24" class="reveal" />
+                        <div class="type_content">
+                            <h3 class="reveal">Business Websites</h3>
+                            <p class="reveal">
+                                Medium to large websites that serve as a
+                                business's primary online presence. These sites
+                                often utilize a Content Management System to
+                                allow for dynamic content such as events, blog
+                                posts, and job listings.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="type">
+                        <PeopleIcon width="24" class="reveal" />
+                        <div class="type_content">
+                            <h3 class="reveal">Agency Websites</h3>
+                            <p class="reveal">
+                                Medium sites that showcase an agency's services
+                                and recent client work. These sites are
+                                optimized for SEO and designed to set the agency
+                                apart from its competitors.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="type">
+                        <UserIcon width="24" class="reveal" />
+                        <div class="type_content">
+                            <h3 class="reveal">Portfolio Websites</h3>
+                            <p class="reveal">
+                                Small Sites for individuals and smaller teams
+                                that highlight their work. Designed to reflect
+                                their style, making use of tasteful animations
+                                to engage users and draw their attention to what
+                                sets the client apart.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="image-column">
+                <div class="image-wrapper reveal">
+                    <Image
+                        src={SiteImage}
+                        alt="Website mockup"
+                        widths={[480, 960, 1440]}
+                        sizes="(max-width: 800px) 100vw, 800px"
+                    />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 7.5rem;
+        align-items: center;
+    }
+
+    .image-wrapper {
+        width: 100%;
+        aspect-ratio: 4/5;
+        overflow: hidden;
+        border-radius: 0.5rem;
+        position: relative;
+    }
+    .image-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .content-column h2 {
+        margin-bottom: 1rem;
+    }
+
+    .content-column > p {
+        margin-bottom: 2.5rem;
+        color: rgb(var(--cream) r g b / 0.75);
+    }
+
+    .types {
+        display: grid;
+        gap: 1.75rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .type {
+        display: flex;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+
+    .type svg {
+        color: var(--gold);
+        min-width: 2rem;
+    }
+
+    .type h3 {
+        color: var(--gold);
+        margin-bottom: 0.375rem;
+        font-family: var(--jetbrains-mono);
+        text-transform: none;
+        margin-top: 0.25rem;
+    }
+
+    .type p {
+        color: rgb(var(--cream) r g b / 0.75);
+    }
+
+    .content-column p span {
+        opacity: 1;
+        background: var(--red);
+    }
+
+    /* @media screen and (min-width: 768px) and (max-width: 1024px) {
+        .type {
+            flex-direction: column;
+        }
+    } */
+
+    @media screen and (max-width: 1024px) {
+        .grid {
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+        }
+
+        .grid:first-child .image-column {
+            order: -1;
+        }
+
+        .image-wrapper {
+            aspect-ratio: 3/2;
+        }
+    }
+</style>

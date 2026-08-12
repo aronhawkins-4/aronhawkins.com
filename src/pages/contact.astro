@@ -1,0 +1,103 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@components/Header.astro";
+import { Image } from "astro:assets";
+import ContactForm from "@components/ContactForm.astro";
+import AronImage from "@/assets/images/aronhawkins-3.webp";
+---
+
+<Layout
+    title="Contact Me | Aron Hawkins Software Development"
+    description="Fill out the contact form to see how we can turn your idea into a reality."
+    imageSrc={AronImage.src}
+>
+    <Header theme="light" />
+    <main>
+        <div class="section">
+            <div class="container">
+                <div class="content-grid">
+                    <div class="image-wrapper reveal">
+                        <Image
+                            src={AronImage}
+                            alt="Portrait of Aron Hawkins"
+                            class="hero-portrait"
+                        />
+                    </div>
+                    <div class="contact-content">
+                        <h1 class="reveal reveal-on-load">Reach Out</h1>
+                        <p class="reveal reveal-on-load">
+                            Fill out the contact form below to tell me about
+                            your project. I would love to connect to see how I
+                            can help turn your idea into a reality!
+                        </p>
+                        <ContactForm
+                            theme="light"
+                            class="reveal reveal-on-load"
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</Layout>
+
+<style>
+    .section {
+        background-color: var(--cream);
+    }
+
+    .content-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5rem;
+        align-items: center;
+        position: relative;
+    }
+
+    .image-wrapper {
+        position: relative;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 4/5;
+        overflow: hidden;
+        border-radius: 0.5rem;
+        flex: 1;
+    }
+
+    .image-wrapper img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 50% 75%;
+    }
+
+    h1 {
+        font-size: 3rem;
+        font-weight: 500;
+        color: var(--red);
+        margin-bottom: 1rem;
+    }
+
+    p {
+        color: rgb(from var(--brown) r g b / 0.75);
+        margin-bottom: 2.5rem;
+    }
+
+    @media screen and (max-width: 767px) {
+        .container {
+            padding-block: 10.5rem 5.75rem;
+        }
+        .content-grid {
+            grid-template-columns: 1fr;
+            /* gap: 2.5rem; */
+        }
+        .image-wrapper {
+            display: none;
+        }
+        /* .contact-content {
+            order: -1;
+        } */
+    }
+</style>

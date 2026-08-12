@@ -6,6 +6,13 @@
   ],
   "compilerOptions": {
     "jsx": "react-jsx",
-    "jsxImportSource": "react"
+    "jsxImportSource": "react",
+    "ignoreDeprecations": "6.0",
+    "baseUrl": ".",
+    "paths": {
+      "@public/*": ["public/*"],
+      "@components/*": ["src/components/*"],
+      "@/*": ["src/*"]
+    }
   }
 }

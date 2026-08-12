@@ -1,0 +1,273 @@
+---
+import { Image } from "astro:assets";
+import WebAppsImage from "@/assets/images/aronhawkins-86.webp";
+import MobileAppsImage from "@/assets/images/aronhawkins-97.webp";
+import UsersIcon from "@/assets/icons/user-group-duotone-regular-full.svg";
+import BookIcon from "@/assets/icons/book-sparkles-duotone-regular-full.svg";
+import ChurchIcon from "@/assets/icons/church-duotone-regular-full.svg";
+import CartIcon from "@/assets/icons/cart-shopping-duotone-regular-full.svg";
+import CodeIcon from "@/assets/icons/code-duotone-regular-full.svg";
+import ChartIcon from "@/assets/icons/chart-column-duotone-regular-full.svg";
+import LockIcon from "@/assets/icons/unlock-duotone-regular-full.svg";
+import SliderIcon from "@/assets/icons/sliders-simple-duotone-regular-full.svg";
+import AiIcon from "@/assets/icons/microchip-ai-duotone-regular-full.svg";
+---
+
+<div class="section">
+    <div class="container">
+        <div class="grid">
+            <div class="content-column">
+                <h2 class="reveal">Web Apps</h2>
+                <p class="reveal">
+                    I build fast, secure, and reliable web apps that run in the
+                    browser. Web applications can be build for anything, from
+                    internal tools and dashboards, to full-featured experiences
+                    with user authentication and real-time collaboration. Some
+                    examples of web apps I have built are:
+                </p>
+                <div class="types">
+                    <div class="type">
+                        <CartIcon width="24" class="reveal" />
+                        <div class="type_content">
+                            <h3 class="reveal">E-Commerce Stores</h3>
+                            <p class="reveal">
+                                Fast, secure online shops with smooth checkout,
+                                product management, and payment processing —
+                                designed to turn browsers into buyers.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="type">
+                        <CodeIcon width="24" class="reveal" />
+                        <div class="type_content">
+                            <h3 class="reveal">
+                                Software-As-A-Service Platforms
+                            </h3>
+                            <p class="reveal">
+                                Subscription-based products with user accounts,
+                                billing, and dashboards. From MVP to launch,
+                                I'll help bring your software idea to market.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="type">
+                        <LockIcon width="24" class="reveal" />
+                        <div class="type_content">
+                            <h3 class="reveal">
+                                Customer Portals & Member Areas
+                            </h3>
+                            <p class="reveal">
+                                Secure, login-protected spaces where your users
+                                can access accounts, documents, subscriptions,
+                                or exclusive content.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="type">
+                        <ChartIcon width="24" class="reveal" />
+                        <div class="type_content">
+                            <h3 class="reveal">
+                                Business Dashboards & Admin Panels
+                            </h3>
+                            <p class="reveal">
+                                Clean interfaces that turn your data into clear,
+                                actionable insights, so you can track
+                                performance and make decisions at a glance.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="type">
+                        <SliderIcon width="24" class="reveal" />
+                        <div class="type_content">
+                            <h3 class="reveal">Custom Web Applications</h3>
+                            <p class="reveal">
+                                Tailored tools built around your exact workflow.
+                                If off-the-shelf software almost works but never
+                                quite fits, I'll build something that does.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="image-column">
+                <div class="image-wrapper reveal">
+                    <Image
+                        src={WebAppsImage}
+                        widths={[480, 960, 1440]}
+                        sizes="(max-width: 800px) 100vw, 800px"
+                        alt="Web App"
+                    />
+                </div>
+            </div>
+        </div>
+        <div class="grid">
+            <div class="image-column">
+                <div class="image-wrapper reveal">
+                    <Image
+                        src={MobileAppsImage}
+                        widths={[480, 960, 1440]}
+                        sizes="(max-width: 800px) 100vw, 800px"
+                        alt="Mobile App"
+                    />
+                </div>
+            </div>
+            <div class="content-column">
+                <h2 class="reveal">Mobile Apps</h2>
+                <p class="reveal">
+                    I build native-quality mobile apps for iOS and Android. I
+                    handle the design, development, and deployment to app
+                    stores. Examples of types of apps I can build are:
+                </p>
+                <div class="types">
+                    <div class="type">
+                        <UsersIcon width="24" class="reveal" />
+                        <div class="type_content">
+                            <h3 class="reveal">Community Apps</h3>
+                            <p class="reveal">
+                                Member directories, group chat, events, and push
+                                notifications — a home base your people actually
+                                open every day.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="type">
+                        <BookIcon width="24" class="reveal" />
+                        <div class="type_content">
+                            <h3 class="reveal">Course &amp; Coaching Apps</h3>
+                            <p class="reveal">
+                                Video lessons, progress tracking, and gated
+                                content so your students can learn on the go and
+                                keep coming back.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="type">
+                        <ChurchIcon width="24" class="reveal" />
+                        <div class="type_content">
+                            <h3 class="reveal">
+                                Religious &amp; Non-Profit Apps
+                            </h3>
+                            <p class="reveal">
+                                Live video, event management, sermon archives,
+                                message boards, and blog posts to engage with
+                                your community and have a central point of
+                                contact for your congregation.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="type">
+                        <AiIcon width="24" class="reveal" />
+                        <div class="type_content">
+                            <h3 class="reveal">AI Native Apps</h3>
+                            <p class="reveal">
+                                AI-powered features, securely integrating
+                                artificial intelligence with your business data.
+                                Great for use cases like chatting with
+                                documents, enhanced search, and personalized
+                                recommendations.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 7.5rem;
+        align-items: center;
+    }
+
+    .grid:first-child {
+        margin-bottom: 7.5rem;
+    }
+
+    .grid:first-child .image-wrapper img {
+        object-position: 15% 50%;
+    }
+
+    .image-wrapper {
+        width: 100%;
+        aspect-ratio: 4/5;
+        overflow: hidden;
+        border-radius: 0.5rem;
+        position: relative;
+    }
+    .image-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .content-column h2 {
+        margin-bottom: 1rem;
+    }
+
+    .content-column > p {
+        margin-bottom: 2.5rem;
+        color: rgb(var(--cream) r g b / 0.75);
+    }
+
+    .types {
+        display: grid;
+        gap: 1.75rem;
+    }
+
+    .type {
+        display: flex;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+
+    .type svg {
+        color: var(--gold);
+        min-width: 2rem;
+    }
+
+    .type h3 {
+        color: var(--gold);
+        margin-bottom: 0.375rem;
+        font-family: var(--jetbrains-mono);
+        text-transform: none;
+        margin-top: 0.25rem;
+    }
+
+    .type p {
+        color: rgb(var(--cream) r g b / 0.75);
+    }
+
+    .content-column p span {
+        opacity: 1;
+        background: var(--red);
+    }
+
+    /* @media screen and (min-width: 768px) and (max-width: 1024px) {
+        .type {
+            flex-direction: column;
+        }
+    } */
+
+    @media screen and (max-width: 1024px) {
+        .grid {
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+        }
+
+        .grid:first-child {
+            margin-bottom: 4rem;
+        }
+
+        .grid:first-child .image-column {
+            order: -1;
+        }
+
+        .image-wrapper {
+            aspect-ratio: 3/2;
+        }
+    }
+</style>

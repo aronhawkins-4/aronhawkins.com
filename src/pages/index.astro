@@ -1,78 +1,22 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Header from "../components/Header.astro";
-import Hero from "../components/Hero.astro";
-import Services from "../components/Services.astro";
-import Work from "../components/Work.astro";
-import About from "../components/About.astro";
-import CtaBand from "../components/CtaBand.astro";
-import Contact from "../components/Contact.astro";
-import Footer from "../components/Footer.astro";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@components/Header.astro";
+import Hero from "@components/pages/Home/Hero.astro";
+import Services from "@components/pages/Home/Services.astro";
+import Work from "@components/pages/Home/Work.astro";
+import Contact from "@components/pages/Home/Contact.astro";
+import Testimonials from "@components/pages/Home/Testimonials.astro";
+import OgImage from "@/assets/images/aronhawkins-78.webp";
 ---
 
-<Layout>
+<Layout imageSrc={OgImage.src}>
   <Header />
   <a id="top"></a>
-  <Hero />
-  <Services />
-  <Work />
-  <About />
-  <CtaBand />
-  <Contact />
-  <Footer />
+  <main>
+    <Hero />
+    <Services />
+    <Work />
+    <Testimonials />
+    <Contact />
+  </main>
 </Layout>
-
-<script>
-  // Sticky header
-  const header = document.getElementById("header");
-  const onScroll = () => header?.classList.toggle("scrolled", window.scrollY > 24);
-  onScroll();
-  window.addEventListener("scroll", onScroll, { passive: true });
-
-  // Mobile nav
-  const toggle = document.getElementById("navtoggle");
-  const links = document.getElementById("navlinks");
-  toggle?.addEventListener("click", () => {
-    const open = links?.classList.toggle("open");
-    toggle.classList.toggle("open", open);
-  });
-  const closeMenu = () => {
-    links?.classList.remove("open");
-    toggle?.classList.remove("open");
-  };
-  links?.querySelectorAll("a").forEach((a) => a.addEventListener("click", closeMenu));
-  document.addEventListener("keydown", (e) => {
-    if (!links?.classList.contains("open")) return;
-    if (e.key === "Escape") {
-      closeMenu();
-      toggle?.focus();
-    } else if (e.key === "Tab" && !e.shiftKey && document.activeElement === toggle) {
-      e.preventDefault();
-      links.querySelector("a")?.focus();
-    }
-  });
-
-  // Scroll reveal
-  const io = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) {
-          e.target.classList.add("in");
-          io.unobserve(e.target);
-        }
-      });
-    },
-    { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
-  );
-  document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
-
-  // Booking button: until a real scheduling URL is set (href === "#"), show a hint.
-  document.querySelectorAll<HTMLAnchorElement>("[data-booking]").forEach((btn) => {
-    if (btn.getAttribute("href") === "#") {
-      btn.addEventListener("click", (e) => {
-        e.preventDefault();
-        alert("Set your Calendly or Cal.com booking URL in src/components/CtaBand.astro");
-      });
-    }
-  });
-</script>

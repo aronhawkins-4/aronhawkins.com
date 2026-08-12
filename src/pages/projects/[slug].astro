@@ -1,0 +1,292 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@components/Header.astro";
+import { Image } from "astro:assets";
+import { projects } from "@/data/projects";
+
+export function getStaticPaths() {
+    return projects
+        .filter((p) => p.slug)
+        .map((project) => ({
+            params: {
+                slug: project.slug,
+            },
+        }));
+}
+
+const project = projects.find((p) => p.slug === Astro.params.slug);
+if (!project) {
+    throw new Error(`Project not found for slug: ${Astro.params.slug}`);
+}
+---
+
+<Layout
+    title={`${project.name} | Projects | Aron Hawkins Software Development`}
+    description={project.metaDescription}
+    imageSrc={project.featuredImage.src}
+>
+    <Header theme="light" />
+    <main>
+        <div
+            class={`project ${project.imageGallery?.length ? "" : "no-gallery"}`}
+        >
+            <div class="project-content">
+                <div class="project-content_intro">
+                    <h1 class="reveal reveal-on-load">{project.name}</h1>
+                    {
+                        project.description && (
+                            <div
+                                set:html={project.description}
+                                class="reveal reveal-on-load"
+                            />
+                        )
+                    }
+                </div>
+                <div class="project-details">
+                    {
+                        project.projectType && (
+                            <div class="project-type">
+                                <h2 class="reveal reveal-on-load">
+                                    Project Type
+                                </h2>
+                                <p class="reveal reveal-on-load">
+                                    {project.projectTypeDisplay}
+                                </p>
+                            </div>
+                        )
+                    }
+                    {
+                        project.deliverables && (
+                            <div class="deliverables">
+                                <h2 class="reveal reveal-on-load">
+                                    Deliverables
+                                </h2>
+                                <ul class="reveal reveal-on-load">
+                                    {project.deliverables?.length &&
+                                        project.deliverables.map(
+                                            (deliverable) => {
+                                                return <li>{deliverable}</li>;
+                                            },
+                                        )}
+                                </ul>
+                            </div>
+                        )
+                    }
+                    {
+                        project.problem && (
+                            <div class="problem">
+                                <h2 class="reveal reveal-on-load">Problem</h2>
+                                <div
+                                    set:html={project.problem}
+                                    class="reveal reveal-on-load"
+                                />
+                            </div>
+                        )
+                    }
+                    {
+                        project.solution && (
+                            <div class="solution">
+                                <h2 class="reveal reveal-on-load">Solution</h2>
+                                <div
+                                    set:html={project.solution}
+                                    class="reveal reveal-on-load"
+                                />
+                            </div>
+                        )
+                    }
+                </div>
+            </div>
+            {
+                project.imageGallery?.length && (
+                    <div class="project-gallery_wrapper">
+                        <div class="project-gallery reveal">
+                            {project.imageGallery?.length &&
+                                project.imageGallery.map((image) => {
+                                    return (
+                                        <Image
+                                            src={image.src}
+                                            alt={image.alt ?? ""}
+                                            widths={[480, 960, 1440]}
+                                            sizes="(max-width: 800px) 100vw, 800px"
+                                        />
+                                    );
+                                })}
+                        </div>
+                    </div>
+                )
+            }
+        </div>
+    </main>
+</Layout>
+
+<style>
+    :global(header) {
+        position: relative !important;
+        background: var(--cream) !important;
+    }
+
+    .project {
+        width: 100%;
+        background: var(--cream);
+        border-top: 1px solid rgb(from var(--brown) r g b / 0.25);
+        display: grid;
+        grid-template-columns: 0.9fr 1.1fr;
+    }
+
+    .project.no-gallery {
+        grid-template-columns: 1fr;
+        padding: 2.5rem;
+    }
+
+    .project-content {
+        padding: 2.5rem;
+        border-right: 1px solid rgb(from var(--brown) r g b / 0.25);
+        position: sticky;
+        top: 6.125rem;
+        max-height: calc(100vh - 6.125rem);
+        overflow: scroll;
+    }
+
+    .project.no-gallery .project-content {
+        border-right: none;
+        max-height: none;
+        max-width: calc(var(--maxw) * 0.75);
+        margin: auto;
+        padding: 0;
+    }
+
+    .project-content :global(a) {
+        text-decoration: underline;
+    }
+
+    .project-content_intro {
+        margin-bottom: 1.5rem;
+    }
+
+    h1 {
+        color: var(--red);
+        font-weight: 500;
+        margin-bottom: 1rem;
+    }
+    h2 {
+        color: var(--brown);
+        font-size: 1rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 100%;
+        margin-bottom: 0.5rem;
+    }
+    .project :global(p) {
+        color: rgb(from var(--brown) r g b / 0.75);
+        font-size: 1rem;
+    }
+
+    .project :global(p:not(:last-child)) {
+        margin-bottom: 1rem;
+    }
+
+    .project-details {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+    }
+
+    /* .project.no-gallery .project-details {
+        grid-template-columns: auto 1fr;
+        column-gap: 5rem;
+    } */
+
+    .deliverables {
+        width: max-content;
+        /* margin-left: auto; */
+    }
+
+    .deliverables ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .deliverables li {
+        color: rgb(from var(--brown) r g b / 0.75);
+    }
+
+    .project.no-gallery .deliverables {
+        margin-left: 0;
+    }
+
+    .deliverables p {
+        margin-bottom: 0;
+    }
+
+    .problem,
+    .solution {
+        grid-column: 1 / -1;
+    }
+
+    .project-gallery_wrapper {
+        padding: 1.5rem;
+        max-height: calc(100vh - 6.125rem);
+        overflow: scroll;
+    }
+    .project-gallery {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        height: max-content;
+    }
+    .project-gallery img {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 5/4;
+        border-radius: 0.5rem;
+        overflow: hidden;
+        object-fit: cover;
+    }
+    .project-gallery img:last-child {
+        margin-bottom: 0;
+    }
+
+    @media screen and (max-width: 1024px) {
+        .project-details {
+            grid-template-columns: 1fr;
+        }
+        .deliverables {
+            width: 100%;
+            margin-left: 0;
+        }
+        h1 {
+            font-size: 2.5rem;
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+        :global(header) {
+            position: fixed !important;
+        }
+        .project {
+            grid-template-columns: 1fr;
+        }
+
+        .project.no-gallery {
+            padding: 8rem 1.25rem 2.5rem;
+        }
+        .project-content {
+            position: relative;
+            top: 0;
+            border-bottom: 1px solid rgb(from var(--brown) r g b / 0.25);
+            border-right: none;
+            max-height: none;
+        }
+
+        .project.no-gallery .project-content {
+            border-bottom: none;
+        }
+        .project-gallery_wrapper {
+            max-height: none;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+        }
+    }
+</style>

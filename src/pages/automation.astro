@@ -1,0 +1,24 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@components/Header.astro";
+import Hero from "@components/services/Automation/Hero.astro";
+import ServiceColumns from "@components/services/Automation/ServiceColumns.astro";
+import Clients from "@components/services/Automation/Clients.astro";
+import Testimonials from "@components/services/Automation/Testimonials.astro";
+import OgImage from "@/assets/images/automation__mockup.webp";
+---
+
+<Layout
+    title="Automation | Services | Aron Hawkins Software Development"
+    description="Aron Hawkins builds automation workflows that handle repeatable, business critical tasks, saving you time for what you actually want to do."
+    imageSrc={OgImage.src}
+>
+    <Header theme="light" />
+    <a id="top"></a>
+    <main>
+        <Hero />
+        <Clients />
+        <ServiceColumns />
+        <Testimonials />
+    </main>
+</Layout>
