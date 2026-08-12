@@ -1,15 +1,23 @@
 ---
 import "@/styles/global.css";
 import Footer from "@components/Footer.astro";
+import PostHog from "@components/posthog.astro";
 
 interface Props {
 	title?: string;
 	description?: string;
+	imageSrc?: string;
 }
 const {
 	title = "Aron Hawkins | Apps • Sites • Automation",
-	description = "Full-stack developer in Texas, building custom web and mobile apps for businesses, startups, and agencies.",
+	description = "Full-stack developer in Texas, building apps that make life easier, websites that convert, and automations that save time.",
+	imageSrc,
 } = Astro.props;
+
+// Open Graph requires absolute URLs — `imageSrc` comes in as a root-relative
+// asset path, so resolve it against the configured `site`.
+const ogImage = imageSrc ? new URL(imageSrc, Astro.site).href : undefined;
+const ogUrl = new URL(Astro.url.pathname, Astro.site).href;
 ---
 
 <!doctype html>
@@ -18,18 +26,30 @@ const {
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="description" content={description} />
+
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="Aron Hawkins" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={ogUrl} />
+		<link rel="canonical" href={ogUrl} />
+		{ogImage && <meta property="og:image" content={ogImage} />}
+
+		<meta
+			name="twitter:card"
+			content={ogImage ? "summary_large_image" : "summary"}
+		/>
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		{ogImage && <meta name="twitter:image" content={ogImage} />}
+
 		<link
 			rel="icon"
 			type="image/svg+xml"
 			href="/images/brand/Brand_Icon-02.svg"
 		/>
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Besley:wght@400;500&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap"
-			rel="stylesheet"
-		/>
 		<title>{title}</title>
+		<PostHog />
 	</head>
 	<body>
 		<slot />

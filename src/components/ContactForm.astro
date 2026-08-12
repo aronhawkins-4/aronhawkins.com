@@ -294,6 +294,10 @@ const { theme = "dark", class: classFromProps } = Astro.props;
                 }),
             });
             if (!res.ok) throw new Error(`Request failed (${res.status})`);
+            window.posthog?.capture("contact_form_submitted", {
+                budget: data.get("budget"),
+                timeline: data.get("timeline"),
+            });
             if (btn) btn.style.display = "none";
             if (ok) ok.style.display = "block";
         } catch {

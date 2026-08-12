@@ -3,6 +3,7 @@ import Layout from "@/layouts/Layout.astro";
 import Header from "@components/Header.astro";
 import { Image } from "astro:assets";
 import { projects } from "@/data/projects";
+
 export function getStaticPaths() {
     return projects
         .filter((p) => p.slug)
@@ -19,7 +20,11 @@ if (!project) {
 }
 ---
 
-<Layout>
+<Layout
+    title={`${project.name} | Projects | Aron Hawkins Software Development`}
+    description={project.metaDescription}
+    imageSrc={project.featuredImage.src}
+>
     <Header theme="light" />
     <main>
         <div

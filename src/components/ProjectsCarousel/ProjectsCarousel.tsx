@@ -18,6 +18,13 @@ export const ProjectsCarousel = () => {
                                 <a
                                     href={p.slug ? `/projects/${p.slug}` : "#"}
                                     className="proj"
+                                    onClick={() => {
+                                        if (p.slug) {
+                                            window.posthog?.capture("project_case_study_opened", {
+                                                project_slug: p.slug,
+                                            })
+                                        }
+                                    }}
                                 >
                                     <img
                                         src={p.featuredImage.src}

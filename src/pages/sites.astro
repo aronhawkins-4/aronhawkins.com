@@ -5,9 +5,14 @@ import Hero from "@components/services/Sites/Hero.astro";
 import ServiceColumns from "@components/services/Sites/ServiceColumns.astro";
 import Clients from "@components/services/Sites/Clients.astro";
 import Testimonials from "@components/services/Sites/Testimonials.astro";
+import OgImage from "@/assets/images/web-portfolio-mockup_11.webp";
 ---
 
-<Layout>
+<Layout
+    title="Sites | Services | Aron Hawkins Software Development"
+    description="Aron Hawkins designs and builds webistes that are fast, optimized for SEO, and convert visitors into customers."
+    imageSrc={OgImage.src}
+>
     <Header theme="light" />
     <a id="top"></a>
     <main>

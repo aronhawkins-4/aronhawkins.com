@@ -9,6 +9,9 @@ import svgr from 'vite-plugin-svgr';
 
 // https://astro.build/config
 export default defineConfig({
+  // Absolute base URL — required so Open Graph tags can emit absolute image and
+  // page URLs (crawlers don't resolve relative ones).
+  site: 'https://aronhawkins.com',
   adapter: cloudflare(),
   integrations: [react(), icon()],
   // svgr turns `*.svg?react` imports into React components so SVGs can be
