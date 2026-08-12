@@ -1,12 +1,14 @@
 ---
 import { Image } from "astro:assets";
-import AboutFamily from "@public/images/about_family.webp";
-import AboutJane from "@public/images/about_jane.webp";
-import AboutAnnaKate from "@public/images/about_annakate.webp";
-import Hourglass from "@public/icons/hourglass-half-regular-full.svg";
-import LocationDot from "@public/icons/location-dot-duotone-regular-full.svg";
-import UserMusic from "@public/icons/user-music-duotone-regular-full.svg";
-import Diploma from "@public/icons/diploma-duotone-regular-full.svg";
+import HeroImage from "@/assets/images/aronhawkins-23.webp";
+import GridImage1 from "@/assets/images/aronhawkins-62.webp";
+import GridImage2 from "@/assets/images/aronhawkins-49.webp";
+import GridImage3 from "@/assets/images/aronhawkins-92.webp";
+import GridImage4 from "@/assets/images/aronhawkins-43.webp";
+import Hourglass from "@/assets/icons/hourglass-half-regular-full.svg";
+import LocationDot from "@/assets/icons/location-dot-duotone-regular-full.svg";
+import UserMusic from "@/assets/icons/user-music-duotone-regular-full.svg";
+import Diploma from "@/assets/icons/diploma-duotone-regular-full.svg";
 ---
 
 <section class="section hero">
@@ -15,8 +17,10 @@ import Diploma from "@public/icons/diploma-duotone-regular-full.svg";
 			<div class="image-column">
 				<div class="image-wrapper reveal">
 					<Image
-						src={AboutFamily}
-						alt="Portrait of Aron Hawkins"
+						src={HeroImage}
+						alt="Aron Hawkins and his family"
+						widths={[480, 960, 1440]}
+						sizes="(max-width: 800px) 100vw, 800px"
 						class="hero-portrait"
 					/>
 				</div>
@@ -64,10 +68,10 @@ import Diploma from "@public/icons/diploma-duotone-regular-full.svg";
 			</p>
 		</div>
 		<div class="image-grid reveal-stagger">
-			<Image src={AboutJane} alt="" class="stagger-target" />
-			<Image src={AboutAnnaKate} alt="" class="stagger-target" />
-			<Image src={AboutJane} alt="" class="stagger-target" />
-			<Image src={AboutAnnaKate} alt="" class="stagger-target" />
+			<Image src={GridImage1} alt="" class="stagger-target" />
+			<Image src={GridImage2} alt="" class="stagger-target" />
+			<Image src={GridImage3} alt="" class="stagger-target" />
+			<Image src={GridImage4} alt="" class="stagger-target" />
 		</div>
 	</div>
 </section>
@@ -169,7 +173,7 @@ import Diploma from "@public/icons/diploma-duotone-regular-full.svg";
 		/* max-width: 25rem; */
 		margin: auto;
 		height: auto;
-		aspect-ratio: 1;
+		aspect-ratio: 4/5;
 		overflow: hidden;
 		border-radius: 0.5rem;
 		flex: 1;
@@ -220,6 +224,7 @@ import Diploma from "@public/icons/diploma-duotone-regular-full.svg";
 	.image-grid img:nth-child(1) {
 		grid-column: 1 / span 2;
 		grid-row: 1 / span 2;
+		object-position: 50% 25%;
 	}
 
 	.image-grid img:nth-child(2) {
@@ -230,11 +235,13 @@ import Diploma from "@public/icons/diploma-duotone-regular-full.svg";
 	.image-grid img:nth-child(3) {
 		grid-column: 3 / span 1;
 		grid-row: 2 / span 1;
+		object-position: left;
 	}
 
 	.image-grid img:nth-child(4) {
 		grid-column: 4 / span 1;
 		grid-row: 2 / span 1;
+		object-position: 50% 25%;
 	}
 	/* 
 	.image-grid img:nth-child(5) {
@@ -310,23 +317,23 @@ import Diploma from "@public/icons/diploma-duotone-regular-full.svg";
 		}
 
 		.image-grid img:nth-child(1) {
-			grid-column: 1 / span 2;
-			grid-row: 1 / span 4;
+			grid-column: 1 / span 1;
+			grid-row: 1 / span 5;
 		}
 
 		.image-grid img:nth-child(2) {
 			grid-column: 1 / span 1;
-			grid-row: 5 / span 4;
+			grid-row: 6 / span 3;
 		}
 
 		.image-grid img:nth-child(3) {
 			grid-column: 2 / span 1;
-			grid-row: 5 / span 2;
+			grid-row: 1 / span 3;
 		}
 
 		.image-grid img:nth-child(4) {
 			grid-column: 2 / span 1;
-			grid-row: 7 / span 2;
+			grid-row: 4 / span 5;
 		}
 
 		/* .image-grid img:nth-child(5) {

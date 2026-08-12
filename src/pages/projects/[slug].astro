@@ -1,6 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import Header from "@components/Header.astro";
+import { Image } from "astro:assets";
 import { projects } from "@/data/projects";
 export function getStaticPaths() {
     return projects
@@ -97,7 +98,12 @@ if (!project) {
                             {project.imageGallery?.length &&
                                 project.imageGallery.map((image) => {
                                     return (
-                                        <img src={image.path} alt={image.alt} />
+                                        <Image
+                                            src={image.src}
+                                            alt={image.alt ?? ""}
+                                            widths={[480, 960, 1440]}
+                                            sizes="(max-width: 800px) 100vw, 800px"
+                                        />
                                     );
                                 })}
                         </div>

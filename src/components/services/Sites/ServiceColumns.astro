@@ -1,10 +1,10 @@
 ---
 import { Image } from "astro:assets";
-import WebsiteMockup from "@public/images/website_mockup.webp";
-import PeopleIcon from "@public/icons/people-group-duotone-regular-full.svg";
-import UserIcon from "@public/icons/circle-user-duotone-regular-full.svg";
-import BriefcaseIcon from "@public/icons/briefcase-duotone-regular-full.svg";
-import BuildingIcon from "@public/icons/building-duotone-regular-full.svg";
+import SiteImage from "@/assets/images/web-portfolio-mockup_11.webp";
+import PeopleIcon from "@/assets/icons/people-group-duotone-regular-full.svg";
+import UserIcon from "@/assets/icons/circle-user-duotone-regular-full.svg";
+import BriefcaseIcon from "@/assets/icons/briefcase-duotone-regular-full.svg";
+import BuildingIcon from "@/assets/icons/building-duotone-regular-full.svg";
 ---
 
 <div class="section">
@@ -75,7 +75,12 @@ import BuildingIcon from "@public/icons/building-duotone-regular-full.svg";
             </div>
             <div class="image-column">
                 <div class="image-wrapper reveal">
-                    <Image src={WebsiteMockup} alt="Website mockup" />
+                    <Image
+                        src={SiteImage}
+                        alt="Website mockup"
+                        widths={[480, 960, 1440]}
+                        sizes="(max-width: 800px) 100vw, 800px"
+                    />
                 </div>
             </div>
         </div>

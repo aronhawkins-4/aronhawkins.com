@@ -1,16 +1,16 @@
 ---
 import { Image } from "astro:assets";
-import MobileImage from "@public/images/apps-stock-image.webp";
-import WebAppMockup from "@public/images/web_app_mockup.webp";
-import UsersIcon from "@public/icons/user-group-duotone-regular-full.svg";
-import BookIcon from "@public/icons/book-sparkles-duotone-regular-full.svg";
-import ChurchIcon from "@public/icons/church-duotone-regular-full.svg";
-import CartIcon from "@public/icons/cart-shopping-duotone-regular-full.svg";
-import CodeIcon from "@public/icons/code-duotone-regular-full.svg";
-import ChartIcon from "@public/icons/chart-column-duotone-regular-full.svg";
-import LockIcon from "@public/icons/unlock-duotone-regular-full.svg";
-import SliderIcon from "@public/icons/sliders-simple-duotone-regular-full.svg";
-import AiIcon from "@public/icons/microchip-ai-duotone-regular-full.svg";
+import WebAppsImage from "@/assets/images/aronhawkins-86.webp";
+import MobileAppsImage from "@/assets/images/aronhawkins-97.webp";
+import UsersIcon from "@/assets/icons/user-group-duotone-regular-full.svg";
+import BookIcon from "@/assets/icons/book-sparkles-duotone-regular-full.svg";
+import ChurchIcon from "@/assets/icons/church-duotone-regular-full.svg";
+import CartIcon from "@/assets/icons/cart-shopping-duotone-regular-full.svg";
+import CodeIcon from "@/assets/icons/code-duotone-regular-full.svg";
+import ChartIcon from "@/assets/icons/chart-column-duotone-regular-full.svg";
+import LockIcon from "@/assets/icons/unlock-duotone-regular-full.svg";
+import SliderIcon from "@/assets/icons/sliders-simple-duotone-regular-full.svg";
+import AiIcon from "@/assets/icons/microchip-ai-duotone-regular-full.svg";
 ---
 
 <div class="section">
@@ -91,14 +91,24 @@ import AiIcon from "@public/icons/microchip-ai-duotone-regular-full.svg";
             </div>
             <div class="image-column">
                 <div class="image-wrapper reveal">
-                    <Image src={WebAppMockup} alt="Web App" />
+                    <Image
+                        src={WebAppsImage}
+                        widths={[480, 960, 1440]}
+                        sizes="(max-width: 800px) 100vw, 800px"
+                        alt="Web App"
+                    />
                 </div>
             </div>
         </div>
         <div class="grid">
             <div class="image-column">
                 <div class="image-wrapper reveal">
-                    <Image src={MobileImage} alt="Mobile App" />
+                    <Image
+                        src={MobileAppsImage}
+                        widths={[480, 960, 1440]}
+                        sizes="(max-width: 800px) 100vw, 800px"
+                        alt="Mobile App"
+                    />
                 </div>
             </div>
             <div class="content-column">
@@ -176,6 +186,10 @@ import AiIcon from "@public/icons/microchip-ai-duotone-regular-full.svg";
         margin-bottom: 7.5rem;
     }
 
+    .grid:first-child .image-wrapper img {
+        object-position: 15% 50%;
+    }
+
     .image-wrapper {
         width: 100%;
         aspect-ratio: 4/5;
@@ -202,7 +216,6 @@ import AiIcon from "@public/icons/microchip-ai-duotone-regular-full.svg";
     .types {
         display: grid;
         gap: 1.75rem;
-        margin-bottom: 2.5rem;
     }
 
     .type {

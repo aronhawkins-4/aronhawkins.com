@@ -3,7 +3,7 @@ import useEmblaCarousel from 'embla-carousel-react'
 import './projects-carousel.css'
 import AutoScroll from 'embla-carousel-auto-scroll'
 import { projects } from '@/data/projects'
-import RightArrow from "@public/icons/arrow-right-regular-full.svg?react";
+import RightArrow from "@/assets/icons/arrow-right-regular-full.svg?react";
 
 export const ProjectsCarousel = () => {
     const [emblaRef] = useEmblaCarousel({ loop: true, startIndex: 2 }, [AutoScroll({ speed: .75, stopOnInteraction: false })])
@@ -20,7 +20,9 @@ export const ProjectsCarousel = () => {
                                     className="proj"
                                 >
                                     <img
-                                        src={p.featuredImage}
+                                        src={p.featuredImage.src}
+                                        width={p.featuredImage.width}
+                                        height={p.featuredImage.height}
                                         alt={`${p.name} screenshot`}
                                         className="proj-image"
                                     />
