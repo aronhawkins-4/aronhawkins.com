@@ -11,5 +11,23 @@
 	},
 	"observability": {
 		"enabled": true
-	}
+	},
+	"routes": [
+		{
+			"pattern": "aronhawkins.com",
+			"zone_name": "aronhawkins.com",
+			"custom_domain": true,
+			"enabled": true,
+			"previews_enabled": false
+		},
+		{
+			"pattern": "www.aronhawkins.com",
+			"zone_name": "aronhawkins.com",
+			"custom_domain": true,
+			"enabled": true,
+			"previews_enabled": false
+		}
+	],
+	"workers_dev": true,
+	"preview_urls": true
 }

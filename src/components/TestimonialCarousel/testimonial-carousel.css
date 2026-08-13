@@ -2,15 +2,10 @@
     position: relative;
 }
 
-.testimonial-carousel_embla .embla__viewport {
-    /* overflow: hidden; */
-}
-
 .testimonial-carousel_embla .embla__container {
     display: flex;
     align-items: center;
     touch-action: pan-y pinch-zoom;
-    /* margin-left: -5rem; */
 }
 
 .testimonial-carousel_embla .embla__slide {
@@ -80,9 +75,11 @@
 
 
 
-/* 
+
 @media screen and (max-width: 767px) {
-    .testimonial-carousel_embla {
-        max-width: calc(100vw - 2.5rem);
+    .testimonial-carousel_embla .embla__slide .testimonial-quote {
+        text-align: center;
+        font-size: 1.25rem;
+
     }
-} */
+}

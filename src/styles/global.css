@@ -45,6 +45,7 @@ a {
 .section {
 	padding-inline: 2.5rem;
 	position: relative;
+	overflow: hidden;
 }
 
 .container {
