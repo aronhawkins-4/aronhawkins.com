@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import './testimonial-carousel.css'
-import { testimonials } from '../../data/testimonials'
+import { testimonials } from '@/data/testimonials'
 
 export const TestimonialCarousel = () => {
     const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true })

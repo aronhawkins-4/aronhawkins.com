@@ -27,9 +27,8 @@ import { ClientCarousel } from "@components/ClientCarousel/ClientCarousel";
 					<Image
 						src={AronImage}
 						alt="Aron Hawkins sitting at a counter with a computer and smiling"
-						widths={[480, 960, 1440]}
-						sizes="(max-width: 800px) 100vw, 800px"
 						class="hero-portrait"
+						loading={"eager"}
 					/>
 				</div>
 			</div>
@@ -81,6 +80,7 @@ import { ClientCarousel } from "@components/ClientCarousel/ClientCarousel";
 		text-align: center;
 		font-size: 2rem;
 		margin-bottom: 2rem;
+		text-wrap: pretty;
 	}
 
 	.hero p {

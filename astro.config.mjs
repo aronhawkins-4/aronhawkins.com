@@ -12,7 +12,14 @@ export default defineConfig({
   // Absolute base URL — required so Open Graph tags can emit absolute image and
   // page URLs (crawlers don't resolve relative ones).
   site: 'https://aronhawkins.com',
-  adapter: cloudflare(),
+  // `imageService: 'passthrough'` disables all image transformation. The adapter
+  // defaults to 'cloudflare-binding', which routes every `<Image>` through a
+  // runtime `/_image` endpoint and re-encodes via the Cloudflare Images binding —
+  // and because Astro omits the `q` param when no `quality` prop is set, that
+  // binding falls back to *lossless* WebP (the 311KB hero source came back as a
+  // 2.7MB VP8L file). The images in `src/assets` are already optimized, so serve
+  // them byte-for-byte instead.
+  adapter: cloudflare({ imageService: 'passthrough' }),
   integrations: [react(), icon()],
   // svgr turns `*.svg?react` imports into React components so SVGs can be
   // rendered inside React components (Astro's default `.svg` import returns an

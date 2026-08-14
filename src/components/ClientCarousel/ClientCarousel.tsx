@@ -1,12 +1,12 @@
 import React from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import './client-carousel.css'
-import centurionLogo from '@/assets/images/client-logos/centurion-logo.png'
+import centurionLogo from '@/assets/images/client-logos/centurion-logohorizontal-white.svg'
 import onwardLogo from '@/assets/images/client-logos/onward-logo.png'
 import rclcLogo from '@/assets/images/client-logos/rclc-logo.png'
 import senderoLogo from '@/assets/images/client-logos/sendero-logo.avif'
-import sidekickLogo from '@/assets/images/client-logos/sidekick-logo.png'
-import omniLogo from '@/assets/images/client-logos/omni-pga-frisco-logo.png'
+import sidekickLogo from '@/assets/images/client-logos/sidekick-logo-horizontal-white.svg'
+import omniLogo from '@/assets/images/client-logos/omnipgafrisco-logo-horizontal-white.svg'
 import AutoScroll from 'embla-carousel-auto-scroll'
 
 export const ClientCarousel = ({ theme = 'dark' }: { theme?: 'dark' | 'light' }) => {

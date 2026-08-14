@@ -18,7 +18,11 @@ import { services } from "@/data/services";
 					<div class="svc stagger-target">
 						<h3>{s.name}</h3>
 						<p>{s.description}</p>
-						<a href={`/${s.slug}`} class="svc-button btn">
+						<a
+							href={`/${s.slug}`}
+							class="svc-button btn"
+							aria-label={`Learn more about ${s.name}`}
+						>
 							Learn More
 						</a>
 					</div>
