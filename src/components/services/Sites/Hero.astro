@@ -12,11 +12,22 @@
 				across all devices. I work directly with business and freelancers,
 				as well as with agencies as an outside contractor.
 			</p>
-			<a
-				href="/contact"
-				class="btn btn-primary hover-alt reveal reveal-on-load"
-				>Get Started</a
-			>
+			<div class="hero-cta reveal reveal-on-load">
+				<a
+					href="#details"
+					class="btn btn-outline-secondary
+				reveal
+				reveal-on-load"
+					>Learn More</a
+				>
+				<a
+					href="/contact"
+					class="btn btn-secondary hover-alt
+				reveal
+				reveal-on-load"
+					>Get Started</a
+				>
+			</div>
 		</div>
 	</div>
 </section>
@@ -53,6 +64,13 @@
 		opacity: 1;
 		background: var(--red);
 		color: var(--cream);
+	}
+
+	.hero-cta {
+		display: flex;
+		gap: 0.875rem;
+		flex-wrap: wrap;
+		align-items: center;
 	}
 
 	@media screen and (max-width: 767px) {

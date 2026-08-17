@@ -23,7 +23,7 @@
 }
 
 html {
-	scroll-behavior: auto;
+	scroll-behavior: smooth;
 	overscroll-behavior: none;
 }
 
@@ -159,11 +159,23 @@ h3 {
 	border-color: var(--cream);
 }
 
-.btn-outline:hover {
+.btn-outline:hover,
+.btn-outline:focus-visible {
 	background: var(--cream);
 	color: var(--brown);
 }
 
+.btn-outline-secondary {
+	background: transparent;
+	color: var(--red);
+	border-color: var(--red);
+}
+
+.btn-outline-secondary:hover,
+.btn-outline-secondary:focus-visible {
+	background: var(--red);
+	color: var(--cream);
+}
 
 
 /* reveal */
