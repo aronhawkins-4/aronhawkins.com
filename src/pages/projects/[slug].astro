@@ -3,6 +3,7 @@ import Layout from "@/layouts/Layout.astro";
 import Header from "@components/Header.astro";
 import { Image } from "astro:assets";
 import { projects } from "@/data/projects";
+import CtaImage from "@/assets/images/aronhawkins-86.webp";
 
 export function getStaticPaths() {
     return projects
@@ -114,6 +115,18 @@ if (!project) {
                 )
             }
         </div>
+        <div class="section cta">
+            <div class="container">
+                <h2>Ready for software built for you?</h2>
+                <p>
+                    Fill out my contact form to let me know more about your
+                    project. I build Apps, Sites, and Automations tailored to
+                    your business and your workflow.
+                </p>
+                <a href="/contact" class="btn btn-primary">Contact Me</a>
+            </div>
+            <Image src={CtaImage} alt="" class="bg-image" />
+        </div>
     </main>
 </Layout>
 
@@ -141,7 +154,7 @@ if (!project) {
         border-right: 1px solid rgb(from var(--brown) r g b / 0.25);
         position: sticky;
         top: 6.125rem;
-        max-height: calc(100vh - 6.125rem);
+        max-height: calc(100vh - 5.6rem);
         overflow: scroll;
     }
 
@@ -161,12 +174,12 @@ if (!project) {
         margin-bottom: 1.5rem;
     }
 
-    h1 {
+    .project h1 {
         color: var(--red);
         font-weight: 500;
         margin-bottom: 1rem;
     }
-    h2 {
+    .project h2 {
         color: var(--brown);
         font-size: 1rem;
         font-style: normal;
@@ -223,7 +236,7 @@ if (!project) {
 
     .project-gallery_wrapper {
         padding: 1.5rem;
-        max-height: calc(100vh - 6.125rem);
+        max-height: calc(100vh - 5.6rem);
         overflow: scroll;
     }
     .project-gallery {
@@ -242,6 +255,43 @@ if (!project) {
     }
     .project-gallery img:last-child {
         margin-bottom: 0;
+    }
+
+    .section.cta {
+        background: var(--red);
+        text-align: center;
+        /* background: linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 0.5),
+            rgba(0, 0, 0, 0.5)
+        ); */
+    }
+
+    .cta .container {
+        max-width: 50rem;
+        margin: auto;
+    }
+    .cta h2 {
+        font-size: 2.5rem;
+        text-wrap: balance;
+        /* max-width: 40rem; */
+        margin: auto;
+        margin-bottom: 1rem;
+    }
+
+    .cta p {
+        margin-bottom: 2.5rem;
+        font-size: 1.125rem;
+    }
+
+    .cta .bg-image {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        object-fit: cover;
+        display: none;
     }
 
     @media screen and (max-width: 1024px) {

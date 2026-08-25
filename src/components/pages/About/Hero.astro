@@ -4,11 +4,13 @@ import HeroImage from "@/assets/images/aronhawkins-29.webp";
 import GridImage1 from "@/assets/images/aronhawkins-62.webp";
 import GridImage2 from "@/assets/images/aronhawkins-49.webp";
 import GridImage3 from "@/assets/images/aronhawkins-92.webp";
+// import GridImage3 from "@/assets/images/about_jane_film.webp";
 import GridImage4 from "@/assets/images/aronhawkins-43.webp";
 import Hourglass from "@/assets/icons/hourglass-half-regular-full.svg";
 import LocationDot from "@/assets/icons/location-dot-duotone-regular-full.svg";
 import UserMusic from "@/assets/icons/user-music-duotone-regular-full.svg";
 import Diploma from "@/assets/icons/diploma-duotone-regular-full.svg";
+import Pegasus from "@/assets/images/brand/Brand_Icon-07.svg";
 ---
 
 <section class="section hero">
@@ -55,10 +57,21 @@ import Diploma from "@/assets/icons/diploma-duotone-regular-full.svg";
 		<div class="why">
 			<h2 class="reveal">Why I do it</h2>
 			<p class="reveal">
-				Everything I do is driven by a love for my family. I decided to
-				leave the typical 9-5 and work for myself so that I can code
-				while holding my daughter on the couch, or build at night so I
-				can go on a coffee date in the afternoon with my wife.
+				After working the typical 9-5 grind for years, I realized that I
+				wanted more freedom. Freedom to choose when, where, and what I
+				work on. This lets me create with purpose and focus my energy on
+				the projects I want to help bring into the world. Above all,
+				this freedom lets me be present with my family, creating
+				something alongside them intead of apart from them.
+			</p>
+			<div class="pegasus-heading reveal">
+				<h3>Why the Pegasus?</h3>
+				<Pegasus width="32" height="32" />
+			</div>
+			<p class="reveal">
+				The Pegasus symbolizes freedom. It is a reminder that we can
+				create our own path and live out our purpose. It also just looks
+				cool.
 			</p>
 		</div>
 		<div class="image-grid reveal-stagger">
@@ -91,7 +104,7 @@ import Diploma from "@/assets/icons/diploma-duotone-regular-full.svg";
 	}
 
 	.hero h1 {
-		font-size: 2.5rem;
+		/* font-size: 2.5rem; */
 		color: var(--red);
 		margin-bottom: 1rem;
 		display: flex;
@@ -183,10 +196,7 @@ import Diploma from "@/assets/icons/diploma-duotone-regular-full.svg";
 	}
 
 	.why {
-		/* display: grid; */
-		/* grid-template-columns: auto auto; */
-		/* gap: 2.5rem; */
-		max-width: 50rem;
+		/* max-width: 50rem; */
 	}
 
 	.hero .why h2 {
@@ -194,12 +204,26 @@ import Diploma from "@/assets/icons/diploma-duotone-regular-full.svg";
 		margin-bottom: 1rem;
 	}
 
+	.hero .why h3 {
+		color: var(--red);
+		font-size: 1.25rem;
+		font-weight: 500;
+	}
+
+	.pegasus-heading {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.pegasus-heading svg {
+		height: auto;
+	}
+
 	.image-grid {
 		display: grid;
 		grid-template-columns: repeat(4, 1fr);
-		/* grid-template-rows: repeat(4, minmax(0, 1fr)); */
-		/* Fixed overall height — rows share it rather than growing to
-		   the images' intrinsic size. Caps out at 36rem (576px). */
 		height: clamp(20rem, 60vw, 40rem);
 		gap: 1rem;
 		margin-top: 2.5rem;

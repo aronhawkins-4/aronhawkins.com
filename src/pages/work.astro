@@ -1,0 +1,206 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@components/Header.astro";
+import Hero from "@components/services/Apps/Hero.astro";
+import ServiceColumns from "@components/services/Apps/ServiceColumns.astro";
+import Clients from "@components/services/Apps/Clients.astro";
+import Testimonials from "@components/services/Apps/Testimonials.astro";
+import OgImage from "@/assets/images/aronhawkins-97.webp";
+import { projects } from "@/data/projects";
+import RightArrow from "@/assets/icons/arrow-right-regular-full.svg";
+---
+
+<Layout
+    title="My Work | Aron Hawkins Software Development"
+    description="Recent freelance software projects by Aron Hawkins. Project industries include Real Estate, Hospitality, Retail, Fitness, Productivity, and AI."
+    imageSrc={OgImage.src}
+>
+    <Header theme="light" />
+    <main>
+        <section id="work" class="section">
+            <div class="container">
+                <div class="sec-head">
+                    <h2 class="reveal">My Work</h2>
+                    <p class="reveal">
+                        A selection of some of my recent projects, spanning
+                        industries such as Real Estate, Hospitality, Retail,
+                        Fitness, Productivity, and AI.
+                    </p>
+                </div>
+                <div class="work-grid">
+                    {
+                        projects.map((p) => (
+                            <div>
+                                <a
+                                    href={p.slug ? `/projects/${p.slug}` : "#"}
+                                    class="proj"
+                                    data-project-slug={p.slug}
+                                >
+                                    <img
+                                        src={p.featuredImage.src}
+                                        width={p.featuredImage.width}
+                                        height={p.featuredImage.height}
+                                        alt={`${p.name} screenshot`}
+                                        class="proj-image"
+                                    />
+                                    <div class="proj-content">
+                                        <div class="proj-text">
+                                            <div class="proj-tags">
+                                                {p.tags?.map((tag) => (
+                                                    <span>{tag}</span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                        <div class="proj-content_bottom">
+                                            <h3>{p.name}</h3>
+                                            <div class="proj-arrow">
+                                                <RightArrow width="18" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        ))
+                    }
+                </div>
+            </div>
+        </section>
+
+        <!-- <Hero />
+        <Clients />
+        <ServiceColumns />
+        <Testimonials /> -->
+    </main>
+</Layout>
+
+<script>
+    document
+        .querySelectorAll<HTMLAnchorElement>(".proj[data-project-slug]")
+        .forEach((link) => {
+            link.addEventListener("click", () => {
+                window.posthog?.capture("project_case_study_opened", {
+                    project_slug: link.dataset.projectSlug,
+                });
+            });
+        });
+</script>
+
+<style>
+    section {
+        background-color: var(--cream);
+        /* padding-inline: 0; */
+        /* padding-bottom: 7.5rem; */
+    }
+
+    .container {
+        /* padding-bottom: 0; */
+        /* padding-inline: 2.5rem; */
+        padding-top: 8rem;
+        /* max-width: calc(var(--maxw) + 5rem); */
+    }
+
+    .sec-head {
+        max-width: 44rem;
+        margin-bottom: 4rem;
+    }
+
+    .sec-head h2 {
+        margin-bottom: 1rem;
+        color: var(--red);
+    }
+
+    .sec-head p {
+        color: rgb(from var(--brown) r g b / 0.75);
+    }
+    .work-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: auto;
+        gap: 2.5rem;
+    }
+    .proj {
+        width: 100%;
+        display: block;
+    }
+
+    .proj-image {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 5/4;
+        border-radius: 0.5rem;
+        overflow: hidden;
+        object-fit: cover;
+        margin-bottom: 0.5rem;
+    }
+
+    .proj-tags {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        margin-bottom: 1rem;
+    }
+
+    .proj-tags span {
+        display: flex;
+        padding: 0.375rem 0.75rem;
+        justify-content: center;
+        align-items: center;
+        border-radius: 2.5rem;
+        border: 0.0625rem solid rgb(from var(--brown) r g b / 0.25);
+        line-height: 100%;
+        text-transform: uppercase;
+        width: fit-content;
+        font-size: 0.625rem;
+        color: var(--brown);
+        letter-spacing: 0.075rem;
+        font-weight: 500;
+        transition: border-color 0.25s var(--ease);
+        font-family: var(--general-sans);
+    }
+
+    .proj-content_bottom h3 {
+        font-size: 1.5rem;
+        color: var(--brown);
+    }
+
+    .proj-content_bottom {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .proj-arrow {
+        display: flex;
+        color: var(--brown);
+        opacity: 0;
+        transform: translateX(1rem);
+        transition:
+            opacity 0.25s var(--ease),
+            transform 0.25s var(--ease);
+    }
+
+    .proj:hover .proj-arrow,
+    .proj:focus-visible .proj-arrow {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    @media screen and (max-width: 1024px) {
+        .work-grid {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+        section {
+            padding-inline: 1.25rem;
+        }
+        .container {
+            padding-inline: 0;
+        }
+        .work-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

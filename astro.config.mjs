@@ -5,6 +5,8 @@ import react from '@astrojs/react';
 
 import icon from 'astro-icon';
 
+import sitemap from '@astrojs/sitemap';
+
 import svgr from 'vite-plugin-svgr';
 
 // https://astro.build/config
@@ -20,7 +22,14 @@ export default defineConfig({
   // 2.7MB VP8L file). The images in `src/assets` are already optimized, so serve
   // them byte-for-byte instead.
   adapter: cloudflare({ imageService: 'passthrough' }),
-  integrations: [react(), icon()],
+  // Emits sitemap-index.xml + sitemap-0.xml at build time from every prerendered
+  // route (all of `src/pages` except `/api/*`, which is `prerender = false` and so
+  // never appears — the filter below is belt-and-braces for future API routes).
+  integrations: [
+    react(),
+    icon(),
+    sitemap({ filter: (page) => !page.includes('/api/') }),
+  ],
   // svgr turns `*.svg?react` imports into React components so SVGs can be
   // rendered inside React components (Astro's default `.svg` import returns an
   // Astro component that React can't render). Plain `.svg` imports in `.astro`

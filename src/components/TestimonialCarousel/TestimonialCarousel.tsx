@@ -1,10 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
+import AutoHeight from 'embla-carousel-auto-height'
 import './testimonial-carousel.css'
 import { testimonials } from '@/data/testimonials'
 
 export const TestimonialCarousel = () => {
-    const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true })
+    const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [AutoHeight()])
     const [selectedIndex, setSelectedIndex] = useState(0)
     const [scrollSnaps, setScrollSnaps] = useState<number[]>([])
 

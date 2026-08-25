@@ -70,7 +70,7 @@ export interface Project {
 export const projects: Project[] = [
 	{
 		name: 'Image Optimize',
-		description: '<p>Image Optimize is a web application that provides a simple and effective solution for optimizing images. It allows users to upload images, choose optimization settings, and download optimized images quickly and easily. The app also provides an API for developers to integrate image optimization into their own applications.</p>',
+		description: '<p>Image Optimize is a web application that provides a simple and effective solution for optimizing images. It allows users to upload images, choose optimization settings, and download optimized images quickly and easily.</p>',
 		slug: 'image-optimize',
 		projectType: "app",
 		projectTypeDisplay: "Web App",
@@ -78,7 +78,7 @@ export const projects: Project[] = [
 		tags: ['Web App', 'Productivity'],
 		metaDescription: 'A web app that compresses and resizes images without losing quality, plus an API for developers. Built by Aron Hawkins with accounts and payments.',
 		problem: '<p>Image optimization is a critical aspect of web development, as it directly impacts website performance, user experience, and search engine rankings. However, many developers struggle to find an efficient and effective solution for optimizing images without sacrificing quality or speed.</p>',
-		solution: '<p>Image Optimize is a web application that provides a simple and effective solution for optimizing images. It allows users to upload images, choose optimization settings, and download optimized images quickly and easily. The app also provides an API for developers to integrate image optimization into their own applications.</p>',
+		solution: '<p>Image Optimize makes optimizing images for the web easy and fast while also providing the control to tailor the optimization to your exact needs. Features like saved optimization settings and locally saved optimization history set Image Optimize apart from other existing tools.</p>',
 		featuredImage: imageOptimize1,
 		imageGallery: [
 			{ src: imageOptimize1 },

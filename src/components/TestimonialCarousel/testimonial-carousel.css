@@ -4,8 +4,9 @@
 
 .testimonial-carousel_embla .embla__container {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     touch-action: pan-y pinch-zoom;
+    transition: height 0.2s var(--ease);
 }
 
 .testimonial-carousel_embla .embla__slide {
@@ -45,7 +46,7 @@
     justify-content: center;
     align-items: center;
     gap: 0.625rem;
-    margin-top: 1.5rem;
+    margin-top: 2rem;
 }
 
 .testimonial-carousel_embla .embla__dot {

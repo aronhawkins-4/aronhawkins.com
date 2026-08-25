@@ -1,10 +1,10 @@
 ---
 import DarkLogo from "@/assets/images/brand/Lockup_3-02.svg";
 import LightLogo from "@/assets/images/brand/Lockup_3-01.svg";
+import { services } from "@/data/services";
 
 const links = [
-	{ label: "Services", href: "/#services" },
-	{ label: "Work", href: "/#work" },
+	{ label: "Work", href: "/work" },
 	{ label: "About", href: "/about" },
 ];
 
@@ -29,6 +29,47 @@ const { theme = "dark" } = Astro.props;
 		>
 
 		<nav class="nav-links" id="navlinks" aria-label="Main">
+			<div class="nav-item has-dropdown" id="servicesdropdown">
+				<button
+					type="button"
+					class="link dropdown-toggle"
+					id="servicestoggle"
+					aria-expanded="false"
+					aria-controls="servicesmenu"
+				>
+					Services
+					<svg
+						class="chevron"
+						viewBox="0 0 10 6"
+						width="10"
+						height="6"
+						aria-hidden="true"
+						focusable="false"
+					>
+						<path
+							d="M1 1l4 4 4-4"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="1.5"
+							stroke-linecap="round"
+							stroke-linejoin="round"></path>
+					</svg>
+				</button>
+				<ul class="dropdown" id="servicesmenu">
+					{
+						services.map((s) => (
+							<li>
+								<a
+									class="link dropdown-link"
+									href={`/${s.slug}`}
+								>
+									{s.name}
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</div>
 			{
 				links.map((l) => (
 					<a class="link" href={l.href}>
@@ -199,6 +240,125 @@ const { theme = "dark" } = Astro.props;
 		transform: translateY(-0.475rem) rotate(-45deg);
 	}
 
+	/* --- Services dropdown --- */
+	.nav-item.has-dropdown {
+		position: relative;
+	}
+
+	.dropdown-toggle {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		background: none;
+		border: none;
+		padding: 0;
+		cursor: pointer;
+		font-size: 1rem;
+		font-weight: 500;
+		font-family: var(--jetbrains-mono);
+		transition: color 0.25s;
+	}
+
+	header.dark .dropdown-toggle {
+		color: var(--cream);
+	}
+
+	header.light .dropdown-toggle {
+		color: var(--brown);
+	}
+
+	.dropdown-toggle:hover {
+		text-decoration: underline;
+	}
+
+	.dropdown-toggle .chevron {
+		transition: transform 0.2s var(--ease);
+	}
+
+	.dropdown-toggle[aria-expanded="true"] .chevron {
+		transform: rotate(180deg);
+	}
+
+	.dropdown {
+		position: absolute;
+		top: 100%;
+		left: 50%;
+		margin-top: 0.75rem;
+		list-style: none;
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+		gap: 0.25rem;
+		width: fit-content;
+		min-width: 11rem;
+		padding: 0.5rem;
+		border-width: 0.0625rem;
+		border-style: solid;
+		border-radius: 0.75rem;
+		box-shadow: 0 1rem 2.5rem rgb(0 0 0 / 0.35);
+		transform-origin: top;
+		transform: translateX(-50%) scaleY(0.96) translateY(-0.5rem);
+		opacity: 0;
+		visibility: hidden;
+		transition:
+			opacity 0.2s var(--ease),
+			transform 0.2s var(--ease),
+			visibility 0.2s var(--ease);
+	}
+
+	header.dark .dropdown {
+		background: var(--brown);
+		border-color: rgb(from var(--cream) r g b / 0.25);
+	}
+
+	header.light .dropdown {
+		background: var(--cream);
+		border-color: rgb(from var(--brown) r g b / 0.25);
+	}
+
+	.dropdown-toggle[aria-expanded="true"] + .dropdown {
+		transform: translateX(-50%) scaleY(1) translateY(0);
+		opacity: 1;
+		visibility: visible;
+		transition:
+			opacity 0.2s var(--ease),
+			transform 0.2s var(--ease),
+			visibility 0s var(--ease);
+	}
+
+	.nav-links a.link.dropdown-link {
+		display: block;
+		white-space: nowrap;
+		padding: 0.75rem 1rem;
+		border-radius: 0.5rem;
+	}
+
+	.nav-links a.link.dropdown-link:hover {
+		text-decoration: none;
+	}
+
+	header.dark .nav-links a.link.dropdown-link:hover {
+		background: rgb(from var(--cream) r g b / 0.08);
+	}
+
+	header.light .nav-links a.link.dropdown-link:hover {
+		background: rgb(from var(--brown) r g b / 0.08);
+	}
+
+	.dropdown-toggle:focus-visible {
+		outline: 0.125rem solid var(--gold);
+		outline-offset: 0.25rem;
+		border-radius: 0.25rem;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.dropdown,
+		.dropdown-toggle .chevron,
+		.dropdown-toggle[aria-expanded="true"] + .dropdown {
+			transition: none;
+		}
+	}
+
 	@media screen and (max-width: 1024px) {
 		.nav {
 			grid-template-columns: auto 1fr auto;
@@ -286,5 +446,195 @@ const { theme = "dark" } = Astro.props;
 				transform 0.2s var(--ease),
 				visibility 0s var(--ease);
 		}
+
+		/* Services submenu sits inline within the mobile menu */
+		.nav-item.has-dropdown {
+			position: static;
+			display: flex;
+			flex-direction: column;
+			gap: 0.25rem;
+		}
+
+		.dropdown-toggle {
+			justify-content: space-between;
+			padding: 0.75rem 1rem;
+			border-radius: 0.5rem;
+			text-align: left;
+		}
+
+		.dropdown-toggle:hover {
+			text-decoration: none;
+		}
+
+		header.dark .dropdown-toggle:hover {
+			background: rgb(from var(--cream) r g b / 0.08);
+		}
+
+		header.light .dropdown-toggle:hover {
+			background: rgb(from var(--brown) r g b / 0.08);
+		}
+
+		.dropdown {
+			position: static;
+			margin: 0;
+			min-width: 0;
+			padding: 0;
+			border: none;
+			border-radius: 0;
+			box-shadow: none;
+			background: none;
+			display: none;
+			transform: none;
+			opacity: 1;
+			visibility: visible;
+			transition: none;
+		}
+
+		.dropdown-toggle[aria-expanded="true"] + .dropdown {
+			display: flex;
+			transform: none;
+			padding-inline: 1rem;
+			width: 100%;
+		}
+
+		.nav-links a.link.dropdown-link {
+			/* padding-left: 2rem; */
+		}
 	}
 </style>
+
+<script>
+	(function () {
+		const wrapper = document.getElementById("servicesdropdown");
+		const toggle = document.getElementById("servicestoggle");
+		const menu = document.getElementById("servicesmenu");
+		if (!wrapper || !toggle || !menu) return;
+
+		const items = Array.from(
+			menu.querySelectorAll<HTMLAnchorElement>("a.dropdown-link"),
+		);
+		const isDesktop = () => window.matchMedia("(min-width: 768px)").matches;
+		const isOpen = () => toggle.getAttribute("aria-expanded") === "true";
+
+		// Grace period so the cursor can cross the gap from the trigger to the panel
+		const CLOSE_DELAY = 200;
+		let closeTimer: number | undefined;
+		const cancelPendingClose = () => {
+			window.clearTimeout(closeTimer);
+			closeTimer = undefined;
+		};
+
+		const open = (focusIndex?: number) => {
+			cancelPendingClose();
+			toggle.setAttribute("aria-expanded", "true");
+			if (typeof focusIndex === "number") items[focusIndex]?.focus();
+		};
+
+		const close = (returnFocus = false) => {
+			cancelPendingClose();
+			if (!isOpen()) return;
+			toggle.setAttribute("aria-expanded", "false");
+			if (returnFocus) toggle.focus();
+		};
+
+		const closeSoon = () => {
+			if (!isOpen()) return;
+			cancelPendingClose();
+			closeTimer = window.setTimeout(() => close(), CLOSE_DELAY);
+		};
+
+		const focusItem = (index: number) => {
+			const next = (index + items.length) % items.length;
+			items[next]?.focus();
+		};
+
+		toggle.addEventListener("click", () => {
+			isOpen() ? close() : open();
+		});
+
+		// Keyboard focus on the parent item reveals the submenu. Pointer focus is
+		// left alone so a click/tap still toggles rather than re-opening.
+		toggle.addEventListener("focus", () => {
+			let keyboardFocus = true;
+			try {
+				keyboardFocus = toggle.matches(":focus-visible");
+			} catch {
+				/* :focus-visible unsupported — treat focus as keyboard-driven */
+			}
+			if (keyboardFocus) open();
+		});
+
+		toggle.addEventListener("keydown", (e) => {
+			if (e.key === "ArrowDown") {
+				e.preventDefault();
+				open(0);
+			} else if (e.key === "ArrowUp") {
+				e.preventDefault();
+				open(items.length - 1);
+			} else if (e.key === "Escape") {
+				close();
+			}
+		});
+
+		menu.addEventListener("keydown", (e) => {
+			const index = items.indexOf(
+				document.activeElement as HTMLAnchorElement,
+			);
+			if (index === -1) return;
+			switch (e.key) {
+				case "ArrowDown":
+					e.preventDefault();
+					focusItem(index + 1);
+					break;
+				case "ArrowUp":
+					e.preventDefault();
+					focusItem(index - 1);
+					break;
+				case "Home":
+					e.preventDefault();
+					focusItem(0);
+					break;
+				case "End":
+					e.preventDefault();
+					focusItem(items.length - 1);
+					break;
+				case "Escape":
+					e.preventDefault();
+					close(true);
+					break;
+			}
+		});
+
+		// Tabbing or clicking away closes the submenu
+		wrapper.addEventListener("focusout", (e) => {
+			const next = e.relatedTarget as Node | null;
+			if (!next || !wrapper.contains(next)) close();
+		});
+
+		document.addEventListener("click", (e) => {
+			if (!wrapper.contains(e.target as Node)) close();
+		});
+
+		// Hover affordance on pointer-driven viewports only
+		wrapper.addEventListener("mouseenter", () => {
+			if (isDesktop()) open();
+			else cancelPendingClose();
+		});
+		wrapper.addEventListener("mouseleave", () => {
+			if (isDesktop()) closeSoon();
+		});
+
+		// Keep state sane when the mobile menu closes or the layout changes
+		const navLinks = document.getElementById("navlinks");
+		if (navLinks) {
+			new MutationObserver(() => {
+				if (!isDesktop() && !navLinks.classList.contains("open"))
+					close();
+			}).observe(navLinks, {
+				attributes: true,
+				attributeFilter: ["class"],
+			});
+		}
+		window.addEventListener("resize", () => close());
+	})();
+</script>

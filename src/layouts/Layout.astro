@@ -82,7 +82,7 @@ const ogUrl = new URL(Astro.url.pathname, Astro.site).href;
 							"aria-expanded",
 							open ? "true" : "false",
 						);
-						if (open) links?.querySelector("a")?.focus();
+						if (open) links?.querySelector<HTMLElement>("a, button")?.focus();
 					});
 					const closeMenu = () => {
 						links?.classList.remove("open");
@@ -113,7 +113,7 @@ const ogUrl = new URL(Astro.url.pathname, Astro.site).href;
 							document.activeElement === toggle
 						) {
 							e.preventDefault();
-							links.querySelector("a")?.focus();
+							links.querySelector<HTMLElement>("a, button")?.focus();
 						}
 					});
 				})();
