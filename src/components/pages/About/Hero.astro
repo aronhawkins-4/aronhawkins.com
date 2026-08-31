@@ -1,16 +1,20 @@
 ---
 import { Image } from "astro:assets";
 import HeroImage from "@/assets/images/aronhawkins-29.webp";
-import GridImage1 from "@/assets/images/aronhawkins-62.webp";
-import GridImage2 from "@/assets/images/aronhawkins-49.webp";
-import GridImage3 from "@/assets/images/aronhawkins-92.webp";
-// import GridImage3 from "@/assets/images/about_jane_film.webp";
-import GridImage4 from "@/assets/images/aronhawkins-43.webp";
+import GridImage1 from "@/assets/images/aronhawkins-49.webp";
+import GridImage2 from "@/assets/images/aronhawkins-62.webp";
+import GridImage3 from "@/assets/images/family_beach.webp";
+import GridImage4 from "@/assets/images/HAWKINS-248.avif";
+import GridImage5 from "@/assets/images/aronhawkins-92.webp";
+import GridImage6 from "@/assets/images/aronhawkins-43.webp";
+import GridImage7 from "@/assets/images/IMG_5173.webp";
 import Hourglass from "@/assets/icons/hourglass-half-regular-full.svg";
 import LocationDot from "@/assets/icons/location-dot-duotone-regular-full.svg";
 import UserMusic from "@/assets/icons/user-music-duotone-regular-full.svg";
 import Diploma from "@/assets/icons/diploma-duotone-regular-full.svg";
+import Family from "@/assets/icons/family-duotone-regular-full.svg";
 import Pegasus from "@/assets/images/brand/Brand_Icon-07.svg";
+import { ArcGallery } from "@components/ArcGallery/ArcGallery";
 ---
 
 <section class="section hero">
@@ -40,11 +44,11 @@ import Pegasus from "@/assets/images/brand/Brand_Icon-07.svg";
 					<li>
 						<Hourglass width="20" /> 5+ years of web & software development
 					</li>
-					<li><LocationDot width="20" /> Living in Waco, Texas</li>
 					<li>
 						<Diploma width="20" /> Bachelor's degree in Computer Science
 					</li>
-					<li><UserMusic width="20" /> Former touring musician</li>
+					<li><LocationDot width="20" /> Living in Waco, Texas</li>
+					<li><Family width="20" /> Husband & father</li>
 				</ul>
 
 				<a
@@ -74,13 +78,16 @@ import Pegasus from "@/assets/images/brand/Brand_Icon-07.svg";
 				cool.
 			</p>
 		</div>
-		<div class="image-grid reveal-stagger">
-			<Image src={GridImage1} alt="" class="stagger-target" />
-			<Image src={GridImage2} alt="" class="stagger-target" />
-			<Image src={GridImage3} alt="" class="stagger-target" />
-			<Image src={GridImage4} alt="" class="stagger-target" />
-		</div>
 	</div>
+	<ArcGallery client:load>
+		<Image src={GridImage1} alt="" />
+		<Image src={GridImage2} alt="" />
+		<Image src={GridImage3} alt="" />
+		<Image src={GridImage4} alt="" />
+		<Image src={GridImage5} alt="" style="object-position: left;" />
+		<Image src={GridImage6} alt="" />
+		<Image src={GridImage7} alt="" />
+	</ArcGallery>
 </section>
 
 <style>
@@ -88,10 +95,11 @@ import Pegasus from "@/assets/images/brand/Brand_Icon-07.svg";
 	.hero {
 		position: relative;
 		background-color: var(--cream);
+		padding-bottom: 5rem;
 	}
 
 	.hero .container {
-		padding-block: 8rem 5rem;
+		padding-block: 8rem 1rem;
 	}
 
 	.hero-grid {

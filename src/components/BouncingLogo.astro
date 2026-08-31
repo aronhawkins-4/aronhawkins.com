@@ -1,0 +1,135 @@
+---
+import Lockup from "@/assets/images/brand/Brand_Icon-01.svg";
+
+interface Props {
+	size?: number; // rendered logo width/height in px
+	speed?: number; // px per second
+}
+
+const { size = 120, speed = 100 } = Astro.props;
+---
+
+<div
+	class="bouncer"
+	id="bouncer"
+	aria-hidden="true"
+	data-size={size}
+	data-speed={speed}
+>
+	<div class="bouncer-item" id="bounceritem">
+		<Lockup width={size} height={size} />
+	</div>
+</div>
+
+<style define:vars={{ size: `${size}px` }}>
+	.bouncer {
+		position: fixed;
+		inset: 0;
+		overflow: hidden;
+		pointer-events: none;
+		z-index: 10;
+	}
+
+	.bouncer-item {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: var(--size);
+		height: var(--size);
+		/* opacity: 0.18; */
+		will-change: transform;
+	}
+
+	.bouncer-item :global(svg) {
+		display: block;
+		width: 100%;
+		height: auto;
+		background-blend-mode: difference;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.bouncer-item {
+			display: none;
+		}
+	}
+</style>
+
+<script>
+	const stage = document.getElementById("bouncer");
+	const item = document.getElementById("bounceritem");
+
+	if (
+		stage &&
+		item &&
+		!window.matchMedia("(prefers-reduced-motion: reduce)").matches
+	) {
+		const size = Number(stage.dataset.size) || 180;
+		const speed = Number(stage.dataset.speed) || 110;
+
+		let bounds = stage.getBoundingClientRect();
+		let x = Math.random() * Math.max(0, bounds.width - size);
+		let y = Math.random() * Math.max(0, bounds.height - size);
+
+		// random diagonal direction, constant speed
+		const angle = (Math.random() * 0.5 + 0.25) * (Math.PI / 2);
+		let vx = Math.cos(angle) * speed * (Math.random() < 0.5 ? -1 : 1);
+		let vy = Math.sin(angle) * speed * (Math.random() < 0.5 ? -1 : 1);
+
+		let last = 0;
+		let frame = 0;
+
+		const draw = () => {
+			item.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+		};
+
+		const step = (now: number) => {
+			if (!last) last = now;
+			const dt = Math.min((now - last) / 1000, 0.05);
+			last = now;
+
+			const maxX = Math.max(0, bounds.width - size);
+			const maxY = Math.max(0, bounds.height - size);
+
+			x += vx * dt;
+			y += vy * dt;
+
+			if (x <= 0) {
+				x = 0;
+				vx = Math.abs(vx);
+			} else if (x >= maxX) {
+				x = maxX;
+				vx = -Math.abs(vx);
+			}
+
+			if (y <= 0) {
+				y = 0;
+				vy = Math.abs(vy);
+			} else if (y >= maxY) {
+				y = maxY;
+				vy = -Math.abs(vy);
+			}
+
+			draw();
+			frame = requestAnimationFrame(step);
+		};
+
+		draw();
+		frame = requestAnimationFrame(step);
+
+		window.addEventListener("resize", () => {
+			bounds = stage.getBoundingClientRect();
+			x = Math.min(x, Math.max(0, bounds.width - size));
+			y = Math.min(y, Math.max(0, bounds.height - size));
+			draw();
+		});
+
+		document.addEventListener("visibilitychange", () => {
+			if (document.hidden) {
+				cancelAnimationFrame(frame);
+			} else {
+				last = 0;
+				frame = requestAnimationFrame(step);
+			}
+		});
+	}
+</script>
