@@ -1,0 +1,120 @@
+.faq-accordion {
+    border-top: 1px solid rgb(from var(--cream) r g b / 0.2);
+}
+
+.faq-accordion .faq-item {
+    border-bottom: 1px solid rgb(from var(--cream) r g b / 0.2);
+    /*
+     * Hidden until the entrance stagger in FAQ.tsx animates opacity back to 1
+     * (inline styles from Motion win over this rule). Stands in for the global
+     * `.stagger-target` rule, which can't be used here — see the comment on the
+     * effect for why the animation has to live inside the island.
+     */
+    opacity: 0;
+}
+
+.faq-accordion .faq-question {
+    font-size: inherit;
+    text-transform: none;
+}
+
+.faq-accordion .faq-trigger {
+    -webkit-appearance: none;
+    appearance: none;
+    border: 0;
+    background: transparent;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 1.75rem 0;
+    cursor: pointer;
+    text-align: left;
+    color: var(--cream);
+    font-family: var(--general-sans);
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 140%;
+    text-transform: uppercase;
+    transition: color 0.35s var(--ease);
+}
+
+.faq-accordion .faq-trigger:hover,
+.faq-accordion .faq-trigger:focus-visible {
+    /* color: var(--gold); */
+}
+
+.faq-accordion .faq-trigger .chevron {
+    flex: none;
+    /* Nudged down to sit on the cap height of the first line, not its box. */
+    margin-top: 0.1em;
+    transition: transform 0.35s var(--ease);
+}
+
+.faq-accordion .faq-item--open .faq-trigger .chevron {
+    transform: rotate(180deg);
+}
+
+/*
+ * `grid-template-rows: 0fr -> 1fr` animates the panel to the height its own
+ * copy needs, without a max-height guess that clips long answers.
+ */
+.faq-accordion .faq-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.35s var(--ease);
+}
+
+.faq-accordion .faq-item--open .faq-panel {
+    grid-template-rows: 1fr;
+}
+
+.faq-accordion .faq-panel-inner {
+    overflow: hidden;
+}
+
+.faq-accordion .faq-answer {
+    /* Bottom padding lives on the copy so it collapses away with the panel. */
+    padding-bottom: 1.75rem;
+    /* max-width: 60ch; */
+    font-size: 1rem;
+    /* color: rgb(from var(--cream) r g b / 0.75); */
+    opacity: 0;
+    transition: opacity 0.35s var(--ease);
+}
+
+.faq-accordion .faq-item--open .faq-answer {
+    opacity: 1;
+}
+
+.faq-accordion .faq-answer ul {
+    list-style: disc;
+    padding-left: 1rem;
+    margin-bottom: 1rem;
+}
+
+.faq-accordion .faq-answer ul li:not(:last-child) {
+    margin-bottom: 1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .faq-accordion .faq-panel,
+    .faq-accordion .faq-answer,
+    .faq-accordion .faq-trigger .chevron {
+        transition: none;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .faq-accordion .faq-trigger {
+        gap: 1.25rem;
+        padding: 1.25rem 0;
+        font-size: 1.125rem;
+    }
+
+    .faq-accordion .faq-answer {
+        padding-bottom: 1.25rem;
+    }
+}

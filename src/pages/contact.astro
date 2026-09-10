@@ -4,12 +4,23 @@ import Header from "@components/Header.astro";
 import { Image } from "astro:assets";
 import ContactForm from "@components/ContactForm.astro";
 import AronImage from "@/assets/images/aronhawkins-3.webp";
+import { ID, abs, breadcrumb } from "@/data/schema";
+
+const url = abs("/contact");
 ---
 
 <Layout
     title="Contact Me | Aron Hawkins Software Development"
     description="Fill out the contact form to see how we can turn your idea into a reality."
     imageSrc={AronImage.src}
+    pageType="ContactPage"
+    mainEntity={ID.business}
+    schema={[
+        breadcrumb(url, [
+            { name: "Home", path: "/" },
+            { name: "Contact", path: "/contact" },
+        ]),
+    ]}
 >
     <Header theme="light" />
     <main>

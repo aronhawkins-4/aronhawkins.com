@@ -4,6 +4,7 @@ import Header from "@components/Header.astro";
 import { Image } from "astro:assets";
 import { projects } from "@/data/projects";
 import CtaImage from "@/assets/images/aronhawkins-86.webp";
+import { abs, breadcrumb, projectNode } from "@/data/schema";
 
 export function getStaticPaths() {
     return projects
@@ -19,12 +20,23 @@ const project = projects.find((p) => p.slug === Astro.params.slug);
 if (!project) {
     throw new Error(`Project not found for slug: ${Astro.params.slug}`);
 }
+
+const url = abs(`/projects/${project.slug}`);
 ---
 
 <Layout
     title={`${project.name} | Projects | Aron Hawkins Software Development`}
     description={project.metaDescription}
     imageSrc={project.featuredImage.src}
+    mainEntity={`${url}#project`}
+    schema={[
+        breadcrumb(url, [
+            { name: "Home", path: "/" },
+            { name: "Work", path: "/work" },
+            { name: project.name, path: `/projects/${project.slug}` },
+        ]),
+        projectNode(project, url),
+    ]}
 >
     <Header theme="light" />
     <main>

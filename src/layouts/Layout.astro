@@ -6,22 +6,62 @@ import PostHog from "@components/posthog.astro";
 // terracotta on light browser chrome, cream on dark. See the <style> block in
 // the file itself; the light color is the default so it degrades gracefully.
 import favicon from "@/assets/images/brand/Brand_Icon-adaptive.svg";
+import Schema from "@components/Schema.astro";
+import { abs, coreGraph, webPage } from "@/data/schema";
 
 interface Props {
 	title?: string;
 	description?: string;
 	imageSrc?: string;
+	/** Suppresses indexing. Set on error pages. */
+	noindex?: boolean;
+	/** Narrows the page-level node, e.g. "AboutPage", "ContactPage". */
+	pageType?: string;
+	/** `@id` of the node this page is primarily about, if not the practice. */
+	mainEntity?: string;
+	/** Route-specific JSON-LD nodes, layered onto the site-wide graph. */
+	schema?: object[];
 }
 const {
 	title = "Aron Hawkins | Apps • Sites • Automation",
 	description = "Full-stack developer in Texas, building apps that make life easier, websites that convert, and automations that save time.",
 	imageSrc,
+	noindex = false,
+	pageType,
+	mainEntity,
+	schema = [],
 } = Astro.props;
 
 // Open Graph requires absolute URLs — `imageSrc` comes in as a root-relative
 // asset path, so resolve it against the configured `site`.
 const ogImage = imageSrc ? new URL(imageSrc, Astro.site).href : undefined;
-const ogUrl = new URL(Astro.url.pathname, Astro.site).href;
+// `abs()` normalizes the trailing slash. The build emits directory-style routes
+// (`/apps/`) but `astro dev` serves `/apps`, and the schema `@id`s built in
+// `schema.ts` are derived from this same helper — without the normalization the
+// graph's references would resolve in production but dangle in dev.
+const ogUrl = abs(Astro.url.pathname);
+
+// Every indexed page emits the same three identity nodes (Person, the practice,
+// the site) plus its own WebPage node; routes add page-specific nodes on top.
+// `@id` references between them are what let crawlers resolve one entity rather
+// than a pile of unrelated snippets. Error pages emit nothing.
+const graph = noindex
+	? []
+	: [
+			...coreGraph(),
+			webPage({
+				url: ogUrl,
+				name: title,
+				description,
+				image: ogImage,
+				type: pageType,
+				mainEntity,
+				hasBreadcrumb: schema.some(
+					(node) => (node as { "@type"?: string })["@type"] === "BreadcrumbList",
+				),
+			}),
+			...schema,
+		];
 ---
 
 <!doctype html>
@@ -30,6 +70,7 @@ const ogUrl = new URL(Astro.url.pathname, Astro.site).href;
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="description" content={description} />
+		{noindex && <meta name="robots" content="noindex, follow" />}
 
 		<meta property="og:type" content="website" />
 		<meta property="og:site_name" content="Aron Hawkins" />
@@ -49,6 +90,7 @@ const ogUrl = new URL(Astro.url.pathname, Astro.site).href;
 
 		<link rel="icon" type="image/svg+xml" href={favicon.src} />
 		<title>{title}</title>
+		{graph.length > 0 && <Schema nodes={graph} />}
 		<PostHog />
 	</head>
 	<body>

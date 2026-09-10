@@ -75,6 +75,25 @@ const { theme = "dark", class: classFromProps } = Astro.props;
     </div>
     <div class="row">
         <div class="field">
+            <label for="referral">Project Timeline</label>
+            <div class="select-wrapper">
+                <select id="referral" name="referral" required>
+                    <option value="" disabled selected
+                        >How did you hear about me?</option
+                    >
+
+                    <option value="social-media">Social Media</option>
+                    <option value="client-referral">Client Referral</option>
+                    <option value="search-engine">Search Engine</option>
+                    <option value="ai">AI (ChatGPT, Claude, etc.)</option>
+                    <option value="other">Other</option>
+                </select>
+                <ChevronDown width="20" height="20" class="select-icon" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="field">
             <label for="message">More Information</label>
             <textarea
                 id="message"
@@ -290,6 +309,7 @@ const { theme = "dark", class: classFromProps } = Astro.props;
                     email: data.get("email"),
                     budget: data.get("budget"),
                     timeline: data.get("timeline"),
+                    referral: data.get("referral"),
                     message: data.get("message"),
                 }),
             });

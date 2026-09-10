@@ -1,0 +1,15 @@
+---
+interface Props {
+	nodes: object[];
+}
+const { nodes } = Astro.props;
+
+const graph = { "@context": "https://schema.org", "@graph": nodes };
+
+// `<` is escaped because several fields carry authored HTML (project
+// descriptions, FAQ answers) — an unescaped `</script>` in any of them would
+// close this tag early and dump markup into the document.
+const json = JSON.stringify(graph).replace(/</g, "\\u003c");
+---
+
+<script type="application/ld+json" set:html={json} is:inline />

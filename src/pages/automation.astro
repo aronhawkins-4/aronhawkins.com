@@ -6,12 +6,25 @@ import ServiceColumns from "@components/services/Automation/ServiceColumns.astro
 import Clients from "@components/services/Automation/Clients.astro";
 import Testimonials from "@components/services/Automation/Testimonials.astro";
 import OgImage from "@/assets/images/automation__mockup.webp";
+import { services } from "@/data/services";
+import { abs, breadcrumb, serviceNode } from "@/data/schema";
+
+const url = abs("/automation");
+const service = services.find((s) => s.slug === "automation")!;
 ---
 
 <Layout
     title="Automation | Services | Aron Hawkins Software Development"
     description="Aron Hawkins builds automation workflows that handle repeatable, business critical tasks, saving you time for what you actually want to do."
     imageSrc={OgImage.src}
+    mainEntity={`${url}#service`}
+    schema={[
+        breadcrumb(url, [
+            { name: "Home", path: "/" },
+            { name: "Automation", path: "/automation" },
+        ]),
+        serviceNode(service, url),
+    ]}
 >
     <Header theme="light" />
     <a id="top"></a>

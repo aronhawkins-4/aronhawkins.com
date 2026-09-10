@@ -7,9 +7,21 @@ import Work from "@components/pages/Home/Work.astro";
 import Contact from "@components/pages/Home/Contact.astro";
 import Testimonials from "@components/pages/Home/Testimonials.astro";
 import OgImage from "@/assets/images/aronhawkins-79.webp";
+import FAQ from "@components/FAQ/FAQ.astro";
+import { faqs } from "@/data/faqs";
+import { services } from "@/data/services";
+import { abs, faqPage, serviceList } from "@/data/schema";
+
+// FAQ markup belongs only here — this is the one route that renders the
+// questions, and `FAQPage` on a page that doesn't show them is a policy
+// violation.
+const url = abs("/");
 ---
 
-<Layout imageSrc={OgImage.src}>
+<Layout
+  imageSrc={OgImage.src}
+  schema={[faqPage(url, faqs), serviceList(url, services)]}
+>
   <Header />
   <a id="top"></a>
   <main>
@@ -18,6 +30,7 @@ import OgImage from "@/assets/images/aronhawkins-79.webp";
     <Work />
     <Testimonials />
     <Contact />
+    <FAQ />
   </main>
 </Layout>
 

@@ -6,12 +6,25 @@ import ServiceColumns from "@components/services/Apps/ServiceColumns.astro";
 import Clients from "@components/services/Apps/Clients.astro";
 import Testimonials from "@components/services/Apps/Testimonials.astro";
 import OgImage from "@/assets/images/aronhawkins-97.webp";
+import { services } from "@/data/services";
+import { abs, breadcrumb, serviceNode } from "@/data/schema";
+
+const url = abs("/apps");
+const service = services.find((s) => s.slug === "apps")!;
 ---
 
 <Layout
     title="Web & Mobile Apps | Services | Aron Hawkins Software Development"
     description="Aron Hawkins develops web and mobile applications that make your life easier and that you actually enjoy using."
     imageSrc={OgImage.src}
+    mainEntity={`${url}#service`}
+    schema={[
+        breadcrumb(url, [
+            { name: "Home", path: "/" },
+            { name: "Apps", path: "/apps" },
+        ]),
+        serviceNode(service, url),
+    ]}
 >
     <Header theme="light" />
     <a id="top"></a>

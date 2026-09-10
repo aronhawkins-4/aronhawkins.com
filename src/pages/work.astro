@@ -1,19 +1,27 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import Header from "@components/Header.astro";
-import Hero from "@components/services/Apps/Hero.astro";
-import ServiceColumns from "@components/services/Apps/ServiceColumns.astro";
-import Clients from "@components/services/Apps/Clients.astro";
-import Testimonials from "@components/services/Apps/Testimonials.astro";
 import OgImage from "@/assets/images/aronhawkins-97.webp";
 import { projects } from "@/data/projects";
 import RightArrow from "@/assets/icons/arrow-right-regular-full.svg";
+import { abs, breadcrumb, projectList } from "@/data/schema";
+
+const url = abs("/work");
 ---
 
 <Layout
     title="My Work | Aron Hawkins Software Development"
     description="Recent freelance software projects by Aron Hawkins. Project industries include Real Estate, Hospitality, Retail, Fitness, Productivity, and AI."
     imageSrc={OgImage.src}
+    pageType="CollectionPage"
+    mainEntity={`${url}#portfolio`}
+    schema={[
+        breadcrumb(url, [
+            { name: "Home", path: "/" },
+            { name: "Work", path: "/work" },
+        ]),
+        projectList(url, projects),
+    ]}
 >
     <Header theme="light" />
     <main>
@@ -65,11 +73,6 @@ import RightArrow from "@/assets/icons/arrow-right-regular-full.svg";
                 </div>
             </div>
         </section>
-
-        <!-- <Hero />
-        <Clients />
-        <ServiceColumns />
-        <Testimonials /> -->
     </main>
 </Layout>
 
@@ -88,15 +91,10 @@ import RightArrow from "@/assets/icons/arrow-right-regular-full.svg";
 <style>
     section {
         background-color: var(--cream);
-        /* padding-inline: 0; */
-        /* padding-bottom: 7.5rem; */
     }
 
     .container {
-        /* padding-bottom: 0; */
-        /* padding-inline: 2.5rem; */
         padding-top: 8rem;
-        /* max-width: calc(var(--maxw) + 5rem); */
     }
 
     .sec-head {
