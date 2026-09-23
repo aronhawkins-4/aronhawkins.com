@@ -52,11 +52,12 @@ ${projects
 - [Work](${abs('/work')}): Full portfolio of recent projects.
 - [Contact](${abs('/contact')}): Project enquiry form.
 
+## Frequently asked questions
+
+	${ faqs.map((faq) => `### ${faq.question}\n\n${text(faq.answer)}`).join('\n\n') }
 `;
 
-	// ## Frequently asked questions
-
-	// ${ faqs.map((faq) => `### ${faq.question}\n\n${text(faq.answer)}`).join('\n\n') }
+	
 	return new Response(body, {
 		headers: {
 			'Content-Type': 'text/plain; charset=utf-8',

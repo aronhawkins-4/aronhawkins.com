@@ -10,7 +10,7 @@ import OgImage from "@/assets/images/aronhawkins-79.webp";
 import FAQ from "@components/FAQ/FAQ.astro";
 import { faqs } from "@/data/faqs";
 import { services } from "@/data/services";
-import { abs, serviceList } from "@/data/schema";
+import { abs, faqPage, serviceList } from "@/data/schema";
 
 // FAQ markup belongs only here — this is the one route that renders the
 // questions, and `FAQPage` on a page that doesn't show them is a policy
@@ -18,7 +18,10 @@ import { abs, serviceList } from "@/data/schema";
 const url = abs("/");
 ---
 
-<Layout imageSrc={OgImage.src} schema={[serviceList(url, services)]}>
+<Layout
+  imageSrc={OgImage.src}
+  schema={[serviceList(url, services), faqPage(url, faqs)]}
+>
   <Header />
   <a id="top"></a>
   <main>
@@ -27,7 +30,7 @@ const url = abs("/");
     <Work />
     <Testimonials />
     <Contact />
-    <!-- <FAQ /> -->
+    <FAQ />
   </main>
 </Layout>
 

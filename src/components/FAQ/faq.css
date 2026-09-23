@@ -98,6 +98,10 @@
     margin-bottom: 1rem;
 }
 
+.faq-accordion .faq-answer p {
+    margin-bottom: 1rem;
+}
+
 @media (prefers-reduced-motion: reduce) {
 
     .faq-accordion .faq-panel,
