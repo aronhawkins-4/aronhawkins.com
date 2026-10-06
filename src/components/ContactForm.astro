@@ -322,7 +322,7 @@ const { theme = "dark", class: classFromProps } = Astro.props;
     } catch {
       if (btn) {
         btn.disabled = false;
-        btn.innerHTML = 'Send message <span class="btn-arrow">→</span>';
+        btn.innerHTML = 'Send message';
       }
       if (err) err.style.display = "block";
     }

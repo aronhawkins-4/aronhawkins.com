@@ -1,0 +1,343 @@
+---
+import Player from "@/assets/images/brand/Brand_Icon-08.svg";
+import Castle from "@/assets/icons/castle.svg";
+import Cloudy from "@/assets/icons/cloudy.svg";
+import Rainbow from "@/assets/icons/rainbow.svg";
+---
+
+<div class="runner" id="runner" aria-label="Runner game">
+	<div class="runner-hud">
+		<span class="runner-score" id="runner-score">00000</span>
+		<button class="runner-close" id="runner-close" aria-label="Close game">✕</button>
+	</div>
+	<p class="runner-message" id="runner-message" aria-live="polite">
+		Press space or tap to start
+	</p>
+	<div class="runner-player" id="runner-player">
+		<Player aria-hidden="true" />
+	</div>
+	<!-- each icon's viewBox is cropped to its drawn area so it sits on the ground line -->
+	<template id="runner-obstacles">
+		<div class="runner-obstacle" data-width="30" data-height="27">
+			<Castle viewBox="1 2 22 20" aria-hidden="true" />
+		</div>
+		<div class="runner-obstacle" data-width="30" data-height="27">
+			<Cloudy viewBox="1 2 22 20" aria-hidden="true" />
+		</div>
+		<div class="runner-obstacle" data-width="36" data-height="20">
+			<Rainbow viewBox="1 6 22 12" aria-hidden="true" />
+		</div>
+	</template>
+</div>
+
+<style>
+	.runner {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		height: 9rem;
+		overflow: hidden;
+		touch-action: manipulation;
+		user-select: none;
+		opacity: 0;
+		visibility: hidden;
+		transition:
+			opacity 0.25s ease,
+			visibility 0.25s;
+	}
+
+	:global(.footer-top.game-active) .runner {
+		opacity: 1;
+		visibility: visible;
+	}
+
+	.runner-hud {
+		position: absolute;
+		top: 0;
+		right: 0;
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		font-family: var(--jetbrains-mono);
+		font-size: 0.875rem;
+		color: rgb(from var(--cream) r g b / 0.75);
+	}
+
+	.runner-close {
+		background: transparent;
+		border: none;
+		color: inherit;
+		font: inherit;
+		cursor: pointer;
+	}
+
+	.runner-message {
+		position: absolute;
+		top: 2.5rem;
+		left: 50%;
+		transform: translateX(-50%);
+		margin: 0;
+		font-family: var(--jetbrains-mono);
+		font-size: 0.875rem;
+		color: var(--gold);
+		white-space: nowrap;
+		pointer-events: none;
+	}
+
+	.runner-player,
+	.runner-obstacle {
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		will-change: transform;
+	}
+
+	.runner-obstacle {
+		color: var(--cream);
+	}
+
+	.runner-player :global(svg),
+	.runner-obstacle :global(svg) {
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+</style>
+
+<script>
+	const stage = document.getElementById("runner");
+	const player = document.getElementById("runner-player");
+	const scoreEl = document.getElementById("runner-score");
+	const messageEl = document.getElementById("runner-message");
+	const closeBtn = document.getElementById("runner-close");
+	const obstacleTpl = document.getElementById(
+		"runner-obstacles",
+	) as HTMLTemplateElement | null;
+
+	if (stage && player && scoreEl && messageEl && closeBtn && obstacleTpl) {
+		const PLAYER_X = 24;
+		const PLAYER_W = 48;
+		const PLAYER_H = 37; // Brand_Icon-08 is 1080 × 834
+		const HITBOX_INSET = 6; // forgive the transparent corners of the icons
+
+		// obstacle variants (castle, cloud, rainbow), sized via data attributes
+		const variants = Array.from(
+			obstacleTpl.content.children as HTMLCollectionOf<HTMLElement>,
+		).map((el) => ({
+			el,
+			w: Number(el.dataset.width),
+			h: Number(el.dataset.height),
+		}));
+
+		const GRAVITY = 1800; // px/s²
+		const JUMP_VELOCITY = 600; // px/s → ~100px peak, ~0.67s airtime
+
+		const START_SPEED = 320; // px/s
+		const MAX_SPEED = 800;
+		const SPEED_RAMP = 10; // px/s gained per second survived
+
+		// Spawn gaps (seconds) shrink as the run goes on. The floor stays above
+		// airtime + clearance at max speed so every castle remains jumpable.
+		const MIN_GAP_FLOOR = 2.0;
+
+		type Obstacle = { x: number; w: number; h: number; el: HTMLElement };
+		type State = "ready" | "running" | "over";
+
+		let state: State = "ready";
+		let obstacles: Obstacle[] = [];
+		let y = 0; // player height above the ground
+		let vy = 0;
+		let elapsed = 0;
+		let nextSpawn = 0;
+		let overAt = 0;
+		let last = 0;
+		let frame = 0;
+
+		player.style.width = `${PLAYER_W}px`;
+		player.style.height = `${PLAYER_H}px`;
+
+		const isActive = () =>
+			stage.closest(".footer-top")?.classList.contains("game-active") ?? false;
+
+		const spawnGap = () => {
+			const max = Math.max(MIN_GAP_FLOOR + 0.2, 2.6 - elapsed * 0.04);
+			const min = Math.max(MIN_GAP_FLOOR, max * 0.55);
+			return min + Math.random() * (max - min);
+		};
+
+		const spawnObstacle = () => {
+			const { el: tpl, w, h } =
+				variants[Math.floor(Math.random() * variants.length)];
+			const el = tpl.cloneNode(true) as HTMLElement;
+			el.style.width = `${w}px`;
+			el.style.height = `${h}px`;
+			stage.appendChild(el);
+			obstacles.push({ x: stage.clientWidth, w, h, el });
+		};
+
+		const hits = (o: Obstacle) =>
+			PLAYER_X + HITBOX_INSET < o.x + o.w - HITBOX_INSET &&
+			PLAYER_X + PLAYER_W - HITBOX_INSET > o.x + HITBOX_INSET &&
+			y + HITBOX_INSET < o.h - HITBOX_INSET;
+
+		const draw = () => {
+			player.style.transform = `translate3d(${PLAYER_X}px, ${-y}px, 0)`;
+			for (const o of obstacles) {
+				o.el.style.transform = `translate3d(${o.x}px, 0, 0)`;
+			}
+			scoreEl.textContent = String(Math.floor(elapsed * 10)).padStart(5, "0");
+		};
+
+		const reset = () => {
+			for (const o of obstacles) o.el.remove();
+			obstacles = [];
+			y = 0;
+			vy = 0;
+			elapsed = 0;
+			nextSpawn = 1;
+			draw();
+		};
+
+		const gameOver = () => {
+			state = "over";
+			overAt = performance.now();
+			messageEl.textContent = "Game over · space or tap to restart";
+			messageEl.hidden = false;
+		};
+
+		const step = (now: number) => {
+			if (!last) last = now;
+			const dt = Math.min((now - last) / 1000, 0.05);
+			last = now;
+
+			elapsed += dt;
+			const speed = Math.min(MAX_SPEED, START_SPEED + elapsed * SPEED_RAMP);
+
+			// jump physics: constant gravity gives a true parabolic arc
+			if (y > 0 || vy > 0) {
+				vy -= GRAVITY * dt;
+				y += vy * dt;
+				if (y <= 0) {
+					y = 0;
+					vy = 0;
+				}
+			}
+
+			nextSpawn -= dt;
+			if (nextSpawn <= 0) {
+				spawnObstacle();
+				nextSpawn = spawnGap();
+			}
+
+			for (const o of obstacles) o.x -= speed * dt;
+			obstacles = obstacles.filter((o) => {
+				if (o.x > -o.w) return true;
+				o.el.remove();
+				return false;
+			});
+
+			draw();
+
+			if (obstacles.some(hits)) {
+				gameOver();
+				return;
+			}
+			frame = requestAnimationFrame(step);
+		};
+
+		const run = () => {
+			cancelAnimationFrame(frame);
+			last = 0;
+			frame = requestAnimationFrame(step);
+		};
+
+		const jump = () => {
+			if (y === 0) vy = JUMP_VELOCITY;
+		};
+
+		const action = () => {
+			if (state === "running") {
+				jump();
+				return;
+			}
+			// brief cooldown so a jump mashed at the moment of impact doesn't restart instantly
+			if (state === "over" && performance.now() - overAt < 400) return;
+			window.posthog?.capture("footer_game_started", {
+				restart: state === "over",
+			});
+			reset();
+			state = "running";
+			messageEl.hidden = true;
+			jump();
+			run();
+		};
+
+		const close = () => {
+			cancelAnimationFrame(frame);
+			state = "ready";
+			reset();
+			messageEl.textContent = "Press space or tap to start";
+			messageEl.hidden = false;
+			stage.closest(".footer-top")?.classList.remove("game-active");
+		};
+
+		const scrollToBottom = () =>
+			window.scrollTo({
+				top: document.documentElement.scrollHeight,
+				behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
+					.matches
+					? "auto"
+					: "smooth",
+			});
+
+		window.addEventListener("runner:open", () => {
+			close();
+			const footerTop = stage.closest<HTMLElement>(".footer-top");
+			if (!footerTop) return;
+
+			// wait for the footer's padding to finish growing so we land on the real bottom
+			let done = false;
+			const finish = () => {
+				if (done) return;
+				done = true;
+				footerTop.removeEventListener("transitionend", onEnd);
+				scrollToBottom();
+			};
+			const onEnd = (e: TransitionEvent) => {
+				if (e.target === footerTop && e.propertyName === "padding-bottom")
+					finish();
+			};
+			footerTop.addEventListener("transitionend", onEnd);
+			setTimeout(finish, 400); // fallback if no transition runs
+
+			footerTop.classList.add("game-active");
+		});
+
+		document.addEventListener("keydown", (e) => {
+			if (!isActive()) return;
+			if (e.code === "Space" || e.code === "ArrowUp") {
+				e.preventDefault(); // keep the page from scrolling
+				if (!e.repeat) action();
+			} else if (e.code === "Escape") {
+				close();
+			}
+		});
+
+		stage.addEventListener("pointerdown", (e) => {
+			if (e.target instanceof Element && e.target.closest("#runner-close"))
+				return;
+			action();
+		});
+
+		closeBtn.addEventListener("click", close);
+
+		document.addEventListener("visibilitychange", () => {
+			if (state !== "running") return;
+			if (document.hidden) cancelAnimationFrame(frame);
+			else run();
+		});
+
+		draw();
+	}
+</script>

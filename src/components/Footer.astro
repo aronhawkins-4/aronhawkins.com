@@ -1,5 +1,6 @@
 ---
 import FooterLogo from "@/assets/images/brand/Brand_Icon-02.svg";
+import RunnerGame from "@/components/RunnerGame.astro";
 const year = new Date().getFullYear();
 ---
 
@@ -26,6 +27,7 @@ const year = new Date().getFullYear();
 						<li><a href="/#work">Work</a></li>
 						<li><a href="/about">About</a></li>
 						<li><a href="/contact">Contact</a></li>
+						<li><button id="play-game">Play Game</button></li>
 					</ul>
 				</div>
 				<div class="footer-col">
@@ -55,12 +57,25 @@ const year = new Date().getFullYear();
 					</ul>
 				</div>
 			</nav>
+			<RunnerGame />
 		</div>
 		<div class="footer-bottom">
 			<span>© {year} Aron Hawkins. All rights reserved.</span>
 		</div>
 	</div>
 </footer>
+
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		const playButton = document.querySelector<HTMLButtonElement>('#play-game')
+		playButton?.addEventListener('click', (e) => {
+			e.preventDefault();
+			// blur so the spacebar jumps instead of re-clicking the button
+			playButton.blur();
+			window.dispatchEvent(new CustomEvent('runner:open'));
+		})
+	})
+</script>
 
 <style>
 	/* FOOTER */
@@ -75,6 +90,7 @@ const year = new Date().getFullYear();
 	}
 
 	.footer-top {
+		position: relative;
 		display: flex;
 		justify-content: space-between;
 		align-items: flex-start;
@@ -83,6 +99,12 @@ const year = new Date().getFullYear();
 		padding-bottom: 1.5rem;
 		margin-bottom: 1.5rem;
 		border-bottom: 0.0625rem solid rgb(from var(--cream) r g b / 0.25);
+		transition: padding-bottom 0.25s ease;
+	}
+
+	:global(.footer-top.game-active) {
+		/* room for the runner game, which sits on this element's bottom border */
+		padding-bottom: 10.5rem;
 	}
 
 	.footer-top_left {
@@ -132,13 +154,18 @@ const year = new Date().getFullYear();
 		margin-bottom: 0.5rem;
 	}
 
-	.footer-col a {
+	.footer-col a, .footer-col button {
 		display: block;
 		font-size: 1rem;
 		transition: color 0.15s var(--ease);
+		background: transparent;
+		border: none;
+		color: var(--cream);
+		font-family: var(--jetbrains-mono);
+		cursor: pointer;
 	}
 
-	.footer-col a:hover {
+	.footer-col a:hover, .footer-col button:hover {
 		text-decoration: underline;
 	}
 
