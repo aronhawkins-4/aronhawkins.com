@@ -11,6 +11,7 @@ import FAQ from "@components/FAQ/FAQ.astro";
 import { faqs } from "@/data/faqs";
 import { services } from "@/data/services";
 import { abs, faqPage, serviceList } from "@/data/schema";
+import Maintenance from "@components/pages/Home/Maintenance.astro";
 
 // FAQ markup belongs only here — this is the one route that renders the
 // questions, and `FAQPage` on a page that doesn't show them is a policy
@@ -27,6 +28,7 @@ const url = abs("/");
   <main>
     <Hero />
     <Services />
+    <Maintenance />
     <Work />
     <Testimonials />
     <Contact />

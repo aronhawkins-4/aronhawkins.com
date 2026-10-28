@@ -1,0 +1,408 @@
+---
+import {
+  billingNotes,
+  maintenancePlans,
+  maintenancePricing,
+  retainerDiscount,
+  type BillingOption,
+} from "@/data/maintenance";
+
+const billingOptions: BillingOption[] = ["hourly", "retainer"];
+import CheckIcon from "@/assets/icons/check-duotone-regular-full.svg";
+---
+
+<section class="section maintenance" id="maintenance">
+  <div class="container">
+    <div class="maintenance-head">
+      <h2 class="reveal">Maintenance Packages</h2>
+      <p class="reveal">
+        Does your app or site need security updates, performance improvements,
+        or ongoing maintenance? My Maintenance Packages provide support for
+        existing apps and sites, giving you peace-of-mind that your product is
+        secure, fast, and up-to-date.
+      </p>
+    </div>
+    <div class="maintenance-list reveal-stagger">
+      {
+        maintenancePlans.map((plan) => (
+          <div class="plan stagger-target">
+            <h3>{plan.name}</h3>
+            <p>{plan.description}</p>
+            <ul class="plan-includes">
+              {plan.includes.map((item) => (
+                <li>
+                  <CheckIcon width={20} />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+    <div class="pricing reveal" data-billing="retainer">
+      <div class="pricing-head">
+        <div>
+          <h3>Pricing</h3>
+          <div class="billing-toggle">
+            <!-- Labels are mouse shortcuts; the switch is the accessible control -->
+            <button
+              type="button"
+              class="billing-label"
+              data-billing-option="hourly"
+              tabindex="-1"
+              aria-hidden="true"
+            >
+              Hourly
+            </button>
+            <button
+              type="button"
+              class="billing-switch"
+              role="switch"
+              aria-checked="true"
+              aria-label="Retainer billing"
+            >
+              <span class="billing-knob"></span>
+            </button>
+            <button
+              type="button"
+              class="billing-label"
+              data-billing-option="retainer"
+              tabindex="-1"
+              aria-hidden="true"
+            >
+              Retainer
+              <span class="billing-save">Save up to {retainerDiscount}</span>
+            </button>
+          </div>
+        </div>
+        {
+          billingOptions.map((option) => (
+            <p data-billing-show={option}>{billingNotes[option]}</p>
+          ))
+        }
+        <!-- </div> -->
+      </div>
+      <div class="pricing-tiers" aria-live="polite">
+        {
+          maintenancePricing.map((tier) => (
+            <div class="tier">
+              <h4>{tier.name}</h4>
+              {billingOptions.map((option) => (
+                <div data-billing-show={option}>
+                  <p class="tier-price">
+                    <span class="tier-amount">{tier[option].price}</span>
+                    <span class="tier-period">{tier[option].period}</span>
+                  </p>
+                  {tier[option]?.note ? (
+                    <p class="tier-note">{tier[option].note}</p>
+                  ) : null}
+                </div>
+              ))}
+            </div>
+          ))
+        }
+      </div>
+      <a href="/contact" class="btn btn-tertiary pricing-button">
+        Get Started
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* MAINTENANCE PACKAGES */
+  .maintenance {
+    background: var(--red);
+    color: var(--cream);
+  }
+
+  .maintenance-head {
+    max-width: 50rem;
+    margin-bottom: 4rem;
+  }
+
+  .maintenance-head h2 {
+    margin-bottom: 1rem;
+  }
+
+  .maintenance-head p {
+    font-size: 1rem;
+  }
+
+  .maintenance-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .plan {
+    padding: 2.5rem;
+    background: var(--cream);
+    color: var(--brown);
+    border-radius: 0.5rem;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .plan h3 {
+    font-size: 2.5rem;
+    color: var(--red);
+    margin-bottom: 1rem;
+  }
+
+  .plan p {
+    font-size: 1rem;
+    color: rgb(from var(--brown) r g b / 0.75);
+    margin-bottom: 1.5rem;
+  }
+
+  .plan-includes {
+    list-style: none;
+    display: grid;
+    gap: 0.75rem;
+    padding-top: 1.5rem;
+    border-top: 0.0625rem solid rgb(from var(--brown) r g b / 0.15);
+  }
+
+  .plan-includes li {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    font-size: 0.9375rem;
+  }
+
+  .plan-includes svg {
+    color: var(--red);
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+  }
+
+  .pricing {
+    padding: 2.5rem;
+    background: var(--brown);
+    color: var(--cream);
+    border-radius: 0.5rem;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pricing-head {
+    /* display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 1rem;
+		*/
+    margin-bottom: 2.5rem;
+  }
+
+  .pricing-head > div:first-child {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .pricing-head h3 {
+    font-size: 2.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .pricing-head p {
+    color: rgb(from var(--cream) r g b / 0.75);
+  }
+
+  /* Only the selected billing option's copy is shown */
+  .pricing[data-billing="hourly"] [data-billing-show="retainer"],
+  .pricing[data-billing="retainer"] [data-billing-show="hourly"] {
+    display: none;
+  }
+
+  .billing-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  .billing-label {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-family: var(--jetbrains-mono);
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: rgb(from var(--cream) r g b / 0.5);
+    cursor: pointer;
+    transition: color 0.35s var(--ease);
+  }
+
+  .pricing[data-billing="hourly"] [data-billing-option="hourly"],
+  .pricing[data-billing="retainer"] [data-billing-option="retainer"] {
+    color: var(--cream);
+  }
+
+  .billing-switch {
+    position: relative;
+    width: 3.25rem;
+    min-width: 3.25rem;
+    height: 1.75rem;
+    padding: 0;
+    border: 0.0625rem solid rgb(from var(--cream) r g b / 0.2);
+    border-radius: 4rem;
+    background: rgb(from var(--cream) r g b / 0.1);
+    cursor: pointer;
+    transition: background 0.35s var(--ease);
+  }
+
+  .billing-switch[aria-checked="true"] {
+    background: var(--gold);
+  }
+
+  .billing-knob {
+    position: absolute;
+    top: 0.1875rem;
+    left: 0.1875rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    background: var(--cream);
+    transition: transform 0.35s var(--ease);
+  }
+
+  .billing-switch[aria-checked="true"] .billing-knob {
+    transform: translateX(1.5rem);
+  }
+
+  .billing-switch:focus-visible {
+    outline: 0.125rem solid var(--gold);
+    outline-offset: 0.125rem;
+  }
+
+  .billing-save {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4rem;
+    background: var(--red);
+    color: var(--cream);
+  }
+
+  .pricing-tiers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .tier {
+    padding: 1.75rem;
+    border: 0.0625rem solid rgb(from var(--cream) r g b / 0.2);
+    border-radius: 0.5rem;
+  }
+
+  .tier h4 {
+    font-family: var(--jetbrains-mono);
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  .tier-price {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .tier-amount {
+    font-family: var(--jetbrains-mono);
+    font-size: 2.5rem;
+    font-weight: 400;
+    line-height: 100%;
+  }
+
+  .tier-period {
+    color: rgb(from var(--cream) r g b / 0.75);
+  }
+
+  .tier-note {
+    font-size: 0.9375rem;
+    color: rgb(from var(--cream) r g b / 0.75);
+  }
+
+  .pricing-button {
+    width: fit-content;
+  }
+
+  @media screen and (max-width: 1024px) {
+    .pricing-tiers {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .maintenance-list {
+      grid-template-columns: 1fr;
+    }
+
+    .plan,
+    .pricing {
+      padding: 2rem;
+    }
+
+    .plan h3,
+    .pricing-head h3 {
+      font-size: 2rem;
+    }
+
+    .pricing-head {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.5rem;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .pricing-head > div:first-child {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .plan,
+    .pricing {
+      padding: 2rem 1.5rem;
+    }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>(".pricing").forEach((pricing) => {
+    const toggle = pricing.querySelector<HTMLButtonElement>(".billing-switch");
+    const setBilling = (option: string) => {
+      pricing.dataset.billing = option;
+      toggle?.setAttribute("aria-checked", String(option === "retainer"));
+    };
+
+    toggle?.addEventListener("click", () =>
+      setBilling(
+        pricing.dataset.billing === "retainer" ? "hourly" : "retainer",
+      ),
+    );
+    pricing
+      .querySelectorAll<HTMLButtonElement>("[data-billing-option]")
+      .forEach((label) =>
+        label.addEventListener("click", () =>
+          setBilling(label.dataset.billingOption!),
+        ),
+      );
+  });
+</script>
