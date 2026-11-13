@@ -90,7 +90,7 @@ export const POST: APIRoute = async ({ request }) => {
           from: FROM,
           to: [details.email],
           replyTo: OWNER,
-          subject: "Next step: your site audit intake form",
+          subject: "Next step: your site audit kickoff form",
           react: AuditKickoffEmail({
             firstName: (details.individualName ?? details.name)?.split(" ")[0],
             intakeUrl: `${new URL(request.url).origin}/success?session_id=${encodeURIComponent(session.id)}`,
