@@ -56,6 +56,14 @@ const { theme = "dark" } = Astro.props;
 					</svg>
 				</button>
 				<ul class="dropdown" id="servicesmenu">
+					<li>
+								<a
+									class="link dropdown-link"
+									href={'/site-audit'}
+								>
+									Site Audits
+								</a>
+							</li>
 					{
 						services.map((s) => (
 							<li>
