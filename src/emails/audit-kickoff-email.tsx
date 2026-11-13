@@ -144,7 +144,7 @@ export function AuditKickoffEmail({
                       textDecoration: "none",
                     }}
                   >
-                    Fill out the kickoff form
+                    Fill out kickoff form
                   </Button>
                 </Column>
               </Row>
