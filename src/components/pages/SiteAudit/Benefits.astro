@@ -1,0 +1,113 @@
+---
+import SeoIcon from "@/assets/icons/display-chart-up-duotone-regular-full.svg";
+import PerformanceIcon from "@/assets/icons/hourglass-half-duotone-regular-full.svg";
+import AccessibilityIcon from "@/assets/icons/user-group-duotone-regular-full.svg";
+import FunctionalityIcon from "@/assets/icons/code-duotone-regular-full.svg";
+
+const benefits = [
+	{
+		Icon: SeoIcon,
+		title: "SEO",
+		description:
+			"Get seen by your audience. Search engine optimization improves your site's rankings in both search engine results and AI responses.",
+	},
+	{
+		Icon: PerformanceIcon,
+		title: "Performance",
+		description:
+			"Speed up your site. Fast load times improve user experience and lead to higher conversion rates. Page performance is both a direct and an indirect SEO ranking factor.",
+	},
+	{
+		Icon: AccessibilityIcon,
+		title: "Accessibility",
+		description:
+			"Enable individuals with disabilities to use and interact with your site. Websites that adhere to accessibility requirements are more protecterd from ADA lawsuits.",
+	},
+	{
+		Icon: FunctionalityIcon,
+		title: "Functionality",
+		description:
+			"Make sure your site works. A contact form that doesn't submit is a lead lost. Websites that work flawlessly help improve overall brand trust.",
+	},
+];
+---
+
+<section class="section benefits">
+	<div class="container">
+		<h2 class="reveal">Benefits</h2>
+		<div class="cards reveal-stagger">
+			{
+				benefits.map(({ Icon, title, description }) => (
+					<div class="card stagger-target">
+						{/* <Icon width="32" height="32" aria-hidden="true" /> */}
+						<h3>{title}</h3>
+						<p>{description}</p>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.benefits {
+		background-color: var(--cream);
+		color: var(--brown);
+		
+	}
+
+	.benefits .container {
+		padding-top: 5rem;
+		border-top: 1px solid rgb(from var(--brown) r g b / 0.25);
+	}
+
+	.benefits h2 {
+		color: var(--red);
+		margin-bottom: 2.5rem;
+	}
+
+	.cards {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 1rem;
+	}
+
+	.card {
+		padding: 2rem;
+		border: 0.0625rem solid rgb(from var(--brown) r g b / 0.15);
+		border-radius: 0.5rem;
+		/* background: rgb(from var(--white) r g b / 0.4); */
+		background: var(--red);
+	}
+
+	.card svg {
+		color: var(--cream);
+		margin-bottom: 1.25rem;
+	}
+
+	.card h3 {
+		color: var(--cream);
+		font-size: 1.5rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.card p {
+		color: rgb(from var(--cream) r g b / 1);
+	}
+
+	@media screen and (max-width: 1024px) {
+		.cards {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media screen and (max-width: 767px) {
+		.cards {
+			grid-template-columns: 1fr;
+		}
+
+		.card {
+			padding: 1.5rem;
+		}
+	}
+</style>

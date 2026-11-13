@@ -1,0 +1,265 @@
+---
+import { Image } from "astro:assets";
+import XMark from "@/assets/icons/xmark-duotone-regular-full.svg";
+import auditImage from "@/assets/images/popup/website-audit-popup.webp";
+
+interface Props {
+  /** Bump this when the offer changes so people who dismissed the old one see the new one. */
+  storageKey?: string;
+  /** Milliseconds after page load before the popup opens. */
+  delay?: number;
+}
+
+const { storageKey = "popup-website-audit-dismissed", delay = 3000 } =
+  Astro.props;
+---
+
+<dialog
+  class="popup"
+  id="announcement-popup"
+  aria-labelledby="popup-title"
+  data-storage-key={storageKey}
+  data-delay={delay}
+>
+  <div class="popup-copy">
+    <div class="popup-intro">
+      <p class="popup-eyebrow">Limited time offering</p>
+      <h2 class="popup-title" id="popup-title">site audits</h2>
+      <p>
+        Get a professional site audit and receive a comprehensive PDF writeup
+        of how you can improve your site’s SEO, performance, accessibility, and
+        functionality!
+      </p>
+    </div>
+    <div class="popup-details">
+      <p>Remaining Spots: 5</p>
+      <p class="popup-price">Price: $300</p>
+    </div>
+    <a href="/site-audit" class="btn btn-tertiary hover-alt popup-cta"
+      >Get your site audit</a
+    >
+  </div>
+  <div class="popup-media">
+    <Image
+      src={auditImage}
+      alt="Aron working on a laptop at a wooden table"
+      class="popup-image"
+      loading="lazy"
+    />
+    <button
+      type="button"
+      class="popup-close"
+      aria-label="Close"
+      data-popup-close
+    >
+      <XMark width={20} height={20} aria-hidden="true" />
+    </button>
+  </div>
+</dialog>
+
+<script>
+  const popup = document.getElementById(
+    "announcement-popup",
+  ) as HTMLDialogElement | null;
+
+  if (popup) {
+    const key = popup.dataset.storageKey ?? "";
+    const delay = Number(popup.dataset.delay ?? 4000);
+
+    let dismissed = false;
+    try {
+      dismissed = sessionStorage.getItem(key) === "1";
+    } catch {}
+
+    const remember = () => {
+      try {
+        sessionStorage.setItem(key, "1");
+      } catch {}
+    };
+
+    // Covers the close button, Escape, and the CTA navigating away.
+    popup.addEventListener("close", remember);
+    popup
+      .querySelector("[data-popup-close]")
+      ?.addEventListener("click", () => popup.close());
+    popup.querySelector(".popup-cta")?.addEventListener("click", remember);
+
+    // Clicking the backdrop (the dialog element itself, outside its content) closes it.
+    popup.addEventListener("click", (e) => {
+      if (e.target === popup) popup.close();
+    });
+
+    if (!dismissed) {
+      window.setTimeout(() => {
+        if (!popup.open) popup.showModal();
+      }, delay);
+    }
+  }
+</script>
+
+<style>
+  .popup {
+    display: none;
+    margin: auto;
+    padding: 0;
+    border: none;
+    width: min(50rem, calc(100% - 2.5rem));
+    max-height: calc(100% - 2.5rem);
+    background: var(--cream);
+    color: var(--brown);
+    border-radius: 1.25rem;
+    overflow: hidden;
+  }
+
+  .popup[open] {
+    display: flex;
+    animation: popup-in 0.5s var(--ease);
+  }
+
+  .popup:modal {
+    overscroll-behavior: contain;
+  }
+
+  .popup::backdrop {
+    background: rgb(0 0 0 / 0.6);
+    animation: backdrop-in 0.5s var(--ease);
+    overflow: hidden; /* Crucial: turns backdrop into a scroll container */
+    overscroll-behavior: contain;
+  }
+
+  .popup-copy {
+    flex: 0 0 27.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 3rem 2.75rem;
+    min-height: 31.25rem;
+  }
+
+  .popup-intro,
+  .popup-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .popup-copy p {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  .popup-copy .popup-eyebrow {
+    font-family: var(--general-sans);
+    font-weight: 500;
+    line-height: 1rem;
+    letter-spacing: 0.05rem;
+    text-transform: uppercase;
+    color: var(--red);
+  }
+
+  .popup-title {
+    font-size: 2rem;
+    line-height: 2.6875rem;
+  }
+
+  .popup-copy .popup-price {
+    font-family: var(--general-sans);
+    font-weight: 500;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+  }
+
+  .popup-cta {
+    font-weight: 500;
+  }
+
+  .popup-media {
+    position: relative;
+    flex: 1 1 22.5rem;
+    min-width: 0;
+  }
+
+  .popup-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .popup-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--cream);
+    cursor: pointer;
+    transition: background 0.35s var(--ease);
+  }
+
+  .popup-close:hover,
+  .popup-close:focus-visible {
+    background: rgb(0 0 0 / 0.3);
+  }
+
+  .popup-close:focus-visible {
+    outline: 2px solid var(--cream);
+    outline-offset: 2px;
+  }
+
+  @keyframes popup-in {
+    from {
+      opacity: 0;
+      transform: translateY(1.25rem) scale(0.98);
+    }
+  }
+
+  @keyframes backdrop-in {
+    from {
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .popup[open],
+    .popup::backdrop {
+      animation: none;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .popup[open] {
+      flex-direction: column-reverse;
+      overflow-y: auto;
+    }
+
+    .popup-copy {
+      flex: none;
+      min-height: 0;
+      padding: 2rem 1.5rem;
+    }
+
+    .popup-media {
+      flex: none;
+      height: 20rem;
+    }
+
+    .popup-image {
+      object-position: 50% 55%;
+    }
+
+    .popup-title {
+      font-size: 1.75rem;
+      line-height: 1.3;
+    }
+  }
+</style>

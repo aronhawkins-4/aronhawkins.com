@@ -1,0 +1,277 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@components/Header.astro";
+
+const EMAIL = "howdy@aronhawkins.com";
+---
+
+<Layout
+  title="Thank You | Aron Hawkins Software Development"
+  description="Thank you for purchasing a site audit."
+  noindex
+>
+  <Header />
+  <a id="top"></a>
+  <main>
+    <section class="section">
+      <div class="container">
+        <h1>Thank you for your purchase of a site audit!</h1>
+        <p class="intro">
+          I just need a few more pieces of information before I can start. Fill out the form below to give me your website's URL and anything I should know about your site, and then I'll get started!
+        </p>
+
+        <div class="intake">
+          <h2>Site Audit Kickoff Form</h2>
+
+          <form id="auditIntakeForm">
+            <div class="row">
+              <div class="field">
+                <label for="firstName">First name</label>
+                <input id="firstName" name="firstName" type="text" autocomplete="given-name" required />
+              </div>
+              <div class="field">
+                <label for="lastName">Last name</label>
+                <input id="lastName" name="lastName" type="text" autocomplete="family-name" required />
+              </div>
+            </div>
+            <div class="row">
+              <div class="field">
+                <label for="businessName">Business name</label>
+                <input id="businessName" name="businessName" type="text" autocomplete="organization" />
+              </div>
+              <div class="field">
+                <label for="email">Email address</label>
+                <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required />
+              </div>
+            </div>
+            <div class="row">
+              <div class="field">
+                <label for="website">Website URL</label>
+                <input id="website" name="website" type="text" inputmode="url" autocomplete="url" placeholder="example.com" required />
+              </div>
+            </div>
+            <div class="row">
+              <div class="field">
+                <label for="message">Message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="5"
+                  placeholder="Anything I should know? Pages you care most about, known problems, goals for the site, etc."></textarea>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="form-ok" id="intakeOk">
+              <p>
+              Thanks, I can now get started on your site audit!</p>
+                 <a href="/" class="btn btn-tertiary back">Back to Home</a>
+            </div>
+            <div class="form-err" id="intakeErr">
+              Something went wrong sending the form. Please try again, or email
+              me directly at <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
+            </div>
+          </form>
+        </div>
+
+     
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .section {
+    min-height: calc(100vh - 22rem);
+  }
+
+  .container {
+    padding-block: 10rem 5rem;
+    max-width: 58rem;
+    text-align: center;
+  }
+
+  h1 {
+    color: var(--cream);
+    margin-bottom: 1.5rem;
+  }
+
+  p {
+    color: rgb(from var(--cream) r g b / 0.75);
+  }
+
+  .intro {
+    margin-bottom: 4rem;
+  }
+
+  .intake {
+    text-align: left;
+    margin-bottom: 3rem;
+  }
+
+  .intake h2 {
+    color: var(--cream);
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .intake-lede {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .row {
+    width: 100%;
+    display: flex;
+    gap: 1rem;
+  }
+
+  .field {
+    flex: 1;
+  }
+
+  .field label {
+    display: block;
+    font-weight: 300;
+    color: var(--cream);
+    margin-bottom: 0.5rem;
+  }
+
+  .field input,
+  .field textarea {
+    width: 100%;
+    font-family: var(--jetbrains-mono);
+    font-size: 1rem;
+    color: var(--cream);
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    border: 0.0625rem solid rgb(from var(--gold) r g b / 0.15);
+    background: rgb(from var(--cream) r g b / 0.1);
+    transition:
+      border-color 0.25s,
+      box-shadow 0.25s;
+    resize: vertical;
+  }
+
+  .field input::placeholder,
+  .field textarea::placeholder {
+    color: rgb(from var(--cream) r g b / 0.5);
+  }
+
+  .field input:focus,
+  .field textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 0.1875rem rgb(from var(--gold) r g b / 0.18);
+  }
+
+  .form-ok,
+  .form-err {
+    display: none;
+    width: 100%;
+    
+  }
+
+  .form-ok {
+    /* background: var(--gold); */
+    color: var(--cream);
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+    text-align: center;
+  }
+
+  .form-ok p {
+    font-size: 1.25rem;
+  }
+
+  .form-err {
+    background: var(--red);
+    color: var(--cream);
+    padding: 0.875rem;
+    border-radius: 0.625rem;
+  }
+
+  .form-err a {
+    color: inherit;
+    text-decoration: underline;
+  }
+
+  @media screen and (max-width: 767px) {
+    .container {
+      padding-block: 8rem 4rem;
+    }
+
+    h1 {
+      font-size: 2.25rem;
+    }
+
+    .intake {
+      /* padding: 1.5rem; */
+    }
+
+    .row {
+      flex-direction: column;
+    }
+  }
+</style>
+
+<script>
+  const form = document.getElementById("auditIntakeForm") as HTMLFormElement | null;
+  const sessionId = new URLSearchParams(location.search).get("session_id") ?? "";
+
+  // Pre-fill what the customer already entered at Stripe checkout.
+  // Fields the user has started typing in are never overwritten.
+  if (form && sessionId) {
+    fetch(`/api/checkout-details?session_id=${encodeURIComponent(sessionId)}`)
+      .then((res) => (res.ok ? res.json() : null))
+      .then((details: Record<string, string> | null) => {
+        if (!details) return;
+        for (const [name, value] of Object.entries(details)) {
+          const input = form.elements.namedItem(name) as HTMLInputElement | null;
+          if (input && value && !input.value) input.value = value;
+        }
+      })
+      .catch(() => {});
+  }
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const btn = form.querySelector("button") as HTMLButtonElement | null;
+    const ok = document.getElementById("intakeOk");
+    const err = document.getElementById("intakeErr");
+    if (err) err.style.display = "none";
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = "Sending…";
+    }
+    try {
+      const data = Object.fromEntries(new FormData(form));
+      const res = await fetch("/api/audit-intake", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...data, sessionId }),
+      });
+      if (!res.ok) throw new Error(`Request failed (${res.status})`);
+      window.posthog?.capture("audit_intake_submitted");
+      for (const el of form.querySelectorAll("input, textarea")) {
+        (el as HTMLInputElement).disabled = true;
+      }
+      if (btn) btn.style.display = "none";
+      if (ok) ok.style.display = "flex";
+    } catch {
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = "Submit";
+      }
+      if (err) err.style.display = "block";
+    }
+  });
+</script>

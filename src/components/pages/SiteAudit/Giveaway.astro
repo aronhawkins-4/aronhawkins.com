@@ -1,0 +1,224 @@
+---
+const steps = [
+	{
+		title: "Follow",
+		description: "Follow @aronhawkins on Instagram.",
+	},
+	{
+		title: "Like",
+		description: "Like the giveaway post.",
+	},
+	{
+		title: "Tag",
+		description:
+			"Tag 3 business owners who'd benefit. 3 tags equals 1 entry.",
+	},
+];
+
+const rules = [
+	{
+		title: "No purchase necessary",
+		body: "You do not have to buy anything to enter or win. Buying an audit does not improve your chances of winning.",
+	},
+	{
+		title: "Sponsor",
+		body: "This giveaway is run by Aron Hawkins (\"Sponsor\"), @aronhawkins on Instagram.",
+	},
+	{
+		title: "Eligibility",
+		body: "Open to legal residents of the 50 United States and the District of Columbia who are 18 or older when they enter. Void where prohibited. Sponsor's immediate family and household members are not eligible.",
+	},
+	{
+		title: "Entry period",
+		body: "Entries are accepted from the time the giveaway post is published until Sunday, November 15, 2026 at 11:59 PM Central Time.",
+	},
+	{
+		title: "How to enter",
+		body: "Follow @aronhawkins on Instagram, like the giveaway post, and comment on the post tagging 3 different real Instagram accounts. Each comment that tags 3 different accounts counts as 1 entry. Entries from fake, spam, or bot accounts, or comments that reuse tags, will be disqualified.",
+	},
+	{
+		title: "Prize",
+		body: "One (1) site audit with a written PDF report. Approximate retail value: $300. The prize cannot be transferred or exchanged for cash. If the winner has already bought an audit, they may choose either a full refund of that purchase or a $300 credit toward future work with Sponsor.",
+	},
+	{
+		title: "Winner selection",
+		body: "One winner will be chosen at random from all eligible entries on Monday, November 16, 2026. The odds of winning depend on the number of eligible entries received.",
+	},
+	{
+		title: "Notification",
+		body: "The winner will be announced on Instagram and contacted by direct message from @aronhawkins. The winner must reply within 72 hours, or an alternate winner may be chosen. Sponsor will never ask for a password or payment details in order to claim the prize. Messages from any other account claiming you won are scams.",
+	},
+	{
+		title: "Taxes",
+		body: "The winner is responsible for any taxes on the prize.",
+	},
+	{
+		title: "Instagram release",
+		body: "This giveaway is in no way sponsored, endorsed, or administered by, or associated with, Instagram or Meta Platforms, Inc. By entering, you release Instagram and Meta from all liability related to this giveaway, and you agree to follow Instagram's Terms of Use.",
+	},
+	{
+		title: "General",
+		body: "Sponsor may disqualify anyone who tampers with the entry process or breaks these rules, and may change or cancel the giveaway if fraud, technical problems, or other factors outside Sponsor's control affect its fairness. Information you share is used only to run the giveaway.",
+	},
+];
+---
+
+<section class="section giveaway" id="giveaway">
+	<div class="container">
+		<div class="giveaway-intro reveal">
+			<h2>Instagram Giveaway</h2>
+			<p>
+				Enter the giveaway on <a
+					href="https://instagram.com/aronhawkins"
+					target="_blank"
+					rel="noopener noreferrer">@aronhawkins</a
+				> to win 1 free site audit.
+			</p>
+		</div>
+
+		<ol class="steps reveal-stagger">
+			{
+				steps.map(({ title, description }, i) => (
+					<li class="step stagger-target">
+						<span class="step-number" aria-hidden="true">
+							{String(i + 1).padStart(2, "0")}
+						</span>
+						<h3>{title}</h3>
+						<p>{description}</p>
+					</li>
+				))
+			}
+		</ol>
+
+		<div class="giveaway-notes reveal">
+			<div class="note">
+				<p>
+					If you purchase a spot, you are automatically entered, and if you win, you choose either a full refund or a $300 credit toward working with me. Entries close Sunday, Nov 15 at 11:59 PM CT. Winner announced Monday, Nov 16.
+				</p>
+			</div>
+		
+		</div>
+
+		
+		<div class="rules reveal">
+			<h3>Full rules:</h3>
+<ol>
+				{
+					rules.map(({ title, body }) => (
+						<li>
+							<strong>{title}.</strong> {body}
+						</li>
+					))
+				}
+			</ol>
+			</div>
+		
+	</div>
+</section>
+
+<style>
+	.giveaway {
+		background-color: var(--red);
+		color: var(--cream);
+	}
+
+	.giveaway .container {
+		padding-block: 5rem;
+	}
+
+	.giveaway-intro {
+		max-width: 40rem;
+		margin-bottom: 2.5rem;
+	}
+
+	/* .eyebrow {
+		font-size: 0.875rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: var(--cream);
+		margin-bottom: 0.5rem;
+	} */
+
+	.giveaway h2 {
+		color: var(--cream);
+		margin-bottom: 1rem;
+	}
+
+	.giveaway-intro a {
+		color: var(--cream);
+		text-decoration: underline;
+		text-underline-offset: 0.2em;
+	}
+
+	.steps {
+		list-style: none;
+		padding: 0;
+		margin: 0 0 2.5rem;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1rem;
+	}
+
+	.step {
+		padding: 2rem;
+		border-radius: 0.5rem;
+		background: var(--cream);
+		color: var(--brown);
+	}
+
+	.step-number {
+		display: block;
+		font-family: var(--general-sans);
+		font-size: 0.875rem;
+		font-weight: 600;
+		color: var(--red);
+		margin-bottom: 0.5rem;
+	}
+
+	.step h3 {
+		color: var(--brown);
+		font-size: 1.5rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.giveaway-notes {
+		margin-bottom: 2.5rem;
+	}
+
+	.disclaimer {
+		font-size: 0.875rem;
+		color: rgb(from var(--cream) r g b / 0.85);
+	}
+
+	.rules {
+		font-size: 0.875rem;
+	}
+
+	.rules h3 {
+		font-size: 1.5rem;
+	}
+
+	.rules ol {
+		margin: 1rem 0 0;
+		padding-left: 1.5rem;
+		display: grid;
+		gap: 0.75rem;
+	}
+
+	@media screen and (max-width: 1024px) {
+		.steps {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media screen and (max-width: 767px) {
+		.giveaway-notes {
+			grid-template-columns: 1fr;
+		}
+
+		.step {
+			padding: 1.5rem;
+		}
+	}
+</style>

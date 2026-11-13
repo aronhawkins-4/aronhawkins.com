@@ -1,0 +1,36 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@components/Header.astro";
+import Testimonials from "@components/pages/About/Testimonials.astro";
+import Hero from "@components/pages/SiteAudit/Hero.astro";
+import Benefits from "@components/pages/SiteAudit/Benefits.astro";
+import Giveaway from "@components/pages/SiteAudit/Giveaway.astro";
+import Clients from "@components/pages/About/Clients.astro";
+import OgImage from "@/assets/images/aronhawkins-23.webp";
+import { ID, abs, breadcrumb } from "@/data/schema";
+
+const url = abs("/site-audit");
+---
+
+<Layout
+  title="Site Audit | Aron Hawkins Software Development"
+  description="Get an audit of your existing website! You will receive a comprehensive PDF document detailing how you can improve your site's SEO, performance, accessibility, and functionality."
+  imageSrc={OgImage.src}
+  pageType="Service"
+  mainEntity={ID.person}
+  schema={[
+    breadcrumb(url, [
+      { name: "Home", path: "/" },
+      { name: "Site Audit", path: "/site-audit" },
+    ]),
+  ]}
+>
+  <Header theme="light" />
+  <a id="top"></a>
+  <main>
+    <Hero />
+    <Benefits />
+    <Giveaway />
+    <Testimonials />
+  </main>
+</Layout>

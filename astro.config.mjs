@@ -28,7 +28,7 @@ export default defineConfig({
   integrations: [
     react(),
     icon(),
-    sitemap({ filter: (page) => !page.includes('/api/') }),
+    sitemap({ filter: (page) => !page.includes('/api/') && !page.includes('/success') }),
   ],
   // svgr turns `*.svg?react` imports into React components so SVGs can be
   // rendered inside React components (Astro's default `.svg` import returns an
