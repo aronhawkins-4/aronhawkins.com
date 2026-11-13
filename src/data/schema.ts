@@ -232,6 +232,27 @@ export function serviceNode(service: Service, url: string) {
 	};
 }
 
+/** The fixed-price site audit sold on /site-audit via Stripe Checkout. */
+export function auditServiceNode(url: string, description: string) {
+	return {
+		'@type': 'Service',
+		'@id': `${url}#service`,
+		name: 'Site Audit',
+		serviceType: 'Website Audit',
+		description,
+		url,
+		provider: ref(ID.business),
+		areaServed: AREA_SERVED,
+		offers: {
+			'@type': 'Offer',
+			price: 300,
+			priceCurrency: 'USD',
+			availability: 'https://schema.org/InStock',
+			url,
+		},
+	};
+}
+
 /** The three services as a list — used on the homepage. */
 export function serviceList(url: string, services: Service[]) {
 	return {
