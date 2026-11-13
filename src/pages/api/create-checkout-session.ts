@@ -36,7 +36,7 @@ export const POST: APIRoute = async ({ request, url, redirect }) => {
     billing_address_collection: "auto",
     phone_number_collection: { enabled: false },
     automatic_tax: { enabled: false },
-    allow_promotion_codes: false,
+    allow_promotion_codes: true,
     submit_type: "auto",
     name_collection: {
       individual: { enabled: true },
